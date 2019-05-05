@@ -11,6 +11,10 @@
 		<link href="css/plugins/toastr/toastr.min.css" rel="stylesheet">
 		<style>
 			html,
+			body{
+				height: 100%;
+			}
+			html,
 			body,
 			div,h3 {
 				margin: 0;
@@ -22,9 +26,9 @@
 				overflow-y: hidden;
 			}
 			.logincontainer{
-				min-height: 1080px;
+				height: 100%;
 				background: url(img/background.png) no-repeat 0 0;
-				background-size: 100% 100%;
+				background-size: cover;
 			}
 			.loginBox {
 				height: 412px;
@@ -33,9 +37,18 @@
 				border-radius: 6px 6px;
 				position: absolute;
 				top: 200px;
-				right: 200px;
+				right: 140px;
 			}
-
+			@media (min-width: 768px) and (max-width: 1199px) {
+				.loginBox {
+					right: 60px;
+				}
+			}
+			@media (min-width: 1200px) and (max-width: 1560px) {
+				.loginBox {
+					right: 80px;
+				}
+			}
 			.logoImg {
 				margin-top: 160px;
 				margin-left: 220px;
@@ -78,9 +91,6 @@
 				border-radius: 4px;
 				font-size: 14px;
 				outline: none;
-			}
-			input:-internal-autofill-selected{
-				background-image:none;
 			}
 			#userName{
 				background-image: url(img/unm.png);
@@ -137,6 +147,21 @@
 			.toast-top-center{
 				top:50px;
 			}
+			.footCon{
+				width: 100%;
+				padding:15px 0;
+				height: 120px;
+				background: #fff;
+				position: absolute;
+				bottom:0;
+			}
+			.footCon p{
+				font-size: 14px;
+				line-height: 30px;
+				color:#333;
+				text-align: center;
+				margin-bottom: 0;
+			}
 		</style>
 	</head>
 	<body>
@@ -147,13 +172,13 @@
 				<form action="" method="post">
 					<h3 class="title">用户登录</h3>
 					<div class="formItem">
-						<input class="inputItem" id="userName" type="text" placeholder="请输入用户名">
+						<input class="inputItem" autocomplete="off" id="userName" type="text" placeholder="请输入用户名">
 					</div>
 					<div class="formItem">
-						<input class="inputItem" id="pwd" type="password" placeholder="请输入密码">
+						<input class="inputItem" autocomplete="off" id="pwd" type="password" placeholder="请输入密码">
 					</div>
 					<div class="formItem yzm">
-						<input class="inputItem yzmInput" type="text" placeholder="请输入验证码">
+						<input class="inputItem yzmInput" autocomplete="off" type="text" placeholder="请输入验证码">
 					</div>
 					<div class="yzmBox">
 						<canvas id="canvas" width="130" height="44"></canvas>
@@ -166,6 +191,11 @@
 					</div>
 					<button type="button" class="loginBtn">登录</button>
 				</form>
+			</div>
+			<div class="footCon">
+				<p>Copyright©2018-2020 Beijing Yunmeng Wisdom Technology Co., Ltd. All Rights Reserved.</p>
+				<p>北京云梦智慧科技有限公司版权所有 | 备案号：京ICP备19010936号-2</p>
+				<p>当前版本：<span>V2.0-20190114</span></p>
 			</div>
 		</div>
 		<script src="public/jquery-1.11.3.js"></script>
