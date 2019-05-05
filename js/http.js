@@ -23,7 +23,15 @@ var ajaxFun = {
 				data : data,
 				contentType: "application/x-www-form-urlencoded",
 				success: function(response){
-					success(response);
+					if(response.result){
+						success(response);
+					}else{
+						if(response.error_code == 401){
+							toastr.warning(response.message);
+							window.location.href = baseUrl + "login.html";
+						}
+					}
+					
 				},
 				error: function(err){
 					console.log("错误信息：" + JSON.stringify(err))
