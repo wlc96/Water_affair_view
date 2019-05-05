@@ -1,6 +1,7 @@
 //页面跳转基础地址
 // var baseUrl = "http://127.0.0.1:8848/智慧水务/";
 var baseUrl = "http://water.ym-zh.cn/"
+
 //接口地址
 // var ApiUrl = "http://water.ym-zh.cn/api/"; //接口地址
 var ApiUrl = "http://w.ym-zh.cn/api/"; //接口地址
