@@ -758,9 +758,8 @@
 				var success = function(response) {
 					console.log("获取到的获取站点信息数据：" + JSON.stringify(response));
 					if (response.result) {
-
 						setTimeout(function() {
-							toastr.success("编辑成功！");
+							toastr.success("操作成功！");
 							window.clearInterval(times);
 							$(".loadingBox").hide();
 							$(".close").click();

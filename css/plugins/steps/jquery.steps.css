@@ -8,7 +8,6 @@
     display: block;
     width: 100%;
     overflow: hidden;
-    padding-bottom: 15px;
 }
 
 .wizard a,
@@ -112,7 +111,7 @@
 .wizard > .steps .current a:hover,
 .wizard > .steps .current a:active
 {
-    background: #09C;
+    background: #1AB394;
     color: #fff;
     cursor: default;
 }
@@ -121,7 +120,7 @@
 .wizard > .steps .done a:hover,
 .wizard > .steps .done a:active
 {
-    background: #09CCEE;
+    background: #6fd1bd;
     color: #fff;
 }
 
