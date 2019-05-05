@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<!-- Bootstrap core CSS -->
+		<link href="public/bootstrap.min.css" title="" rel="stylesheet" />
+		<link rel="stylesheet" href="css/plugins/toastr/toastr.min.css" />
+		<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+		<link href="public/animate.css" rel="stylesheet">
+		<link rel="stylesheet" href="public/inspinia.css" />
+		<!-- <link rel="stylesheet" href="css/my_TiBaoJiLu.css" /> -->
+		<link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="public/public.css">
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		    <script src="public/html5shiv.min.js"></script>
+		    <script src="public/respond.min.js"></script>
+		<![endif]-->
+		<title>发票管理</title>
+		<style>
+			.form-group label{
+				margin-bottom: 0;
+				line-height: 34px;
+				padding:0;
+				padding-right: 20px;
+				width: 100px;
+				float: left;
+				text-align: right;
+				color:#6C6C6C;
+				font-weight: normal;
+			}
+			.form-group input,.form-group select,.form-group textarea{
+				width: 418px;
+				float: right;
+				color:#999;
+				border-radius: 3px;
+				resize: none;
+			}
+			 .wrapper-content{
+			     padding:20px 10px 0;
+			 }
+		</style>
+	</head>
+
+	<body>
+		<div id="wrapper">
+			<!--标编辑-->
+			<div id="biaobj" class=" wrapper wrapper-content animated fadeInRight">
+				<!-- <div class="orderType">
+					<ul class="orderList">
+						<li>
+							<div class="left">
+								<img src="img/jyicon01.png" alt="">
+								<p>工单管理</p>
+							</div>
+							<div class="right">
+								待处理<span style="color:#8796A3;">2</span>笔
+							</div>
+						</li>
+						<li>
+							<div class="left">
+								<img src="img/jyicon02.png" alt="">
+								<p>成本管理</p>
+							</div>
+							<div class="right">
+								已录入<span style="color:#77D5F4;">2</span>次
+							</div>
+						</li>
+						<li>
+							<div class="left">
+								<img src="img/jyicon03.png" alt="">
+								<p>价格管理</p>
+							</div>
+							<div class="right">
+								已调价<span style="color:#F55F6E;">3</span>次
+							</div>
+						</li>
+						<li style="margin-right: 0;">
+							<div class="left">
+								<img src="img/jyicon04.png" alt="">
+								<p>发票管理</p>
+							</div>
+							<div class="right">
+								待开票<span style="color:#2ACDB8;">5</span>份
+							</div>
+						</li>
+					</ul>
+				</div> -->
+				<div class="btnBox">
+					<button class="plus" type="button" data-toggle="modal" data-target="#myModal"><img src="img/add.png" alt="">添加</button>
+					<button class="export" type="button"><img src="img/export.png" alt="">导出</button>
+				</div>
+				<!--表格部分-->
+				<div class="ibox-content">
+					<div class="row">
+						<div class="col-sm-12">
+							<table id="dataTable" class="table table-bordered table-hover">
+								<thead>
+									<tr>
+										<th>流水号</th>
+										<th>用户名称</th>
+										<th>联系电话</th>
+										<th>发票类型</th>
+										<th>订单日期</th>
+										<th>操作员</th>
+										<th>状态</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+						</div>
+						<div class="footIns">
+							<div class="selectNum">
+								当前显示
+								<select name="" id="" class="selNum">
+									<option value="5">5</option>
+									<option value="10">10</option>
+									<option value="25">25</option>
+								</select>
+								项结果
+							</div>
+							<ul id="page"></ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal inmodal fade" id="myModal" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<!-- <i class="fa fa-laptop modal-icon"></i> -->
+						<h4 class="modal-title">添加发票</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label>用户名称</label>
+							<input type="text" placeholder="请输入用户名称" class="form-control userName">
+							<div style="clear:both;"></div>
+							<span class="star">*</span>
+						</div>
+						<div class="form-group">
+							<label>联系电话</label>
+							<input type="text" placeholder="请输入联系电话" class="form-control userTel">
+							<div style="clear:both;"></div>
+							<span class="star">*</span>
+						</div>
+						<div class="form-group">
+							<label>抬头名称</label>
+							<input type="text" placeholder="请输入抬头名称" class="form-control taiTou">
+							<div style="clear:both;"></div>
+							<span class="star">*</span>
+						</div>
+						<div class="form-group">
+							<label>开票金额</label>
+							<input type="text" placeholder="请输入开票金额" class="form-control kaiPiao">
+							<div style="clear:both;"></div>
+							<span class="star">*</span>
+						</div>
+						<div class="form-group">
+							<label>发票类型</label>
+							<select name="account" class="form-control fpType">
+								<option value="00">请选择发票类型</option>
+								<option value="1">食宿 </option>
+								<option value="2">路费发票</option>
+								<option value="3">其他发票</option>
+							</select>
+							<div style="clear:both;"></div>
+							<span class="star">*</span>
+						</div>
+						<div class="form-group" style="margin-bottom: 0;">
+							<label>邮寄地址</label>
+							<!-- <input type="email" > -->
+							<div class="tcp_box">
+								<textarea class="form-control quanXianIns tcp_content" maxlength="200" onchange="this.value=this.value.substring(0,200)"
+								 onkeydown="this.value=this.value.substring(0,200)" onkeyup="this.value=this.value.substring(0,200)"></textarea>
+								<p class="pl_tcp">请输入邮寄地址</p>
+								<span class="t_h"><i>0</i>/200</span>
+							</div>
+							<div style="clear:both;"></div>
+							<span class="star">*</span>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<!-- <button type="button" class="btn btn-white" data-dismiss="modal">Close</button> -->
+						<button type="button" class="btn btn-primary finishBtn">完成</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="public/jquery-1.11.3.js"></script>
+		<script src="public/bootstrap.min.js" type="text/javascript"></script>
+		<!-- <script src="js/plugins/lhgdialog/lhgdialog.js"></script> -->
+		<!-- 弹出警示框 -->
+		<script src="js/plugins/toastr/toastr.min.js"></script>
+
+		<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+		<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+		<script src="js/plugins/dataTables/datatables.min.js"></script>
+		<!-- 页码 -->
+		<script src="js/bootstrap-paginator.js" type="text/javascript"></script>
+		<!-- 全局js -->
+		<script src="js/global.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 引入请求数据方法 -->
+		<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/http.js"></script>
+		
+		<script>
+			var defaultNum = 5;
+			var table;
+			$(function() {
+				//初始化页码
+				initPage(defaultNum);
+			})
+			$("#dataTable").on("click",".lookMore",function(){
+				
+			})
+			
+			
+			//提交表单验证
+			$(".finishBtn").click(function(){
+				if($(".userName").val() == ""){
+					$(".userName").parents(".form-group").addClass("errorIns");
+					return false;
+				}
+				if($(".userTel").val() == ""){
+					$(".userTel").parents(".form-group").addClass("errorIns");
+					return false;
+				}
+				if(!IsMobilePhone($(".userTel").val())){
+					alert("请输入合法的手机号！");
+					return false;
+				}
+				if($(".taiTou").val() == ""){
+					$(".taiTou").parents(".form-group").addClass("errorIns");
+					return false;
+				}
+				if($(".kaiPiao").val() == ""){
+					$(".kaiPiao").parents(".form-group").addClass("errorIns");
+					return false;
+				}
+				if($(".fpType").find("option:checked").val() == "00"){
+					$(".fpType").parents(".form-group").addClass("errorIns");
+					return false;
+				}
+				if($(".tcp_content").val() == ""){
+					$(".tcp_content").parents(".form-group").addClass("errorIns");
+					return false;
+				}
+				console.log($(".userName").val()+"==="+$(".userTel").val()+"==="+$(".taiTou").val()+"==="+$(".kaiPiao").val()+"==="+$(".fpType").find("option:checked").val()+"==="+$(".tcp_content").val());
+				//执行添加请求
+				var token = localStorage.getItem("access-token");
+				//声明参数对象
+				var data = {
+					user_name : $(".userName").val(),
+					phone  : $(".userTel").val(),
+					head_name : $(".taiTou").val(),
+					cost : $(".kaiPiao").val(),
+					type : $(".fpType").find("option:checked").val(),
+					address : $(".tcp_content").val()
+				};
+				//请求回调函数
+				var success = function(response) {
+					console.log("获取到的添加发票返回数据：" + JSON.stringify(response));
+					if (response.result) {
+						toastr.success("添加成功！");
+						setTimeout(function() {
+							$(".close").click(); //关闭弹框
+							initPage(defaultNum);
+						}, 1000)
+					}
+				}
+				//请求方法
+				ajaxFun.post(ApiUrl + global_url.invoiceAdd, data, token, success);
+			})
+			
+			$("input").focus(function(){
+				$(this).parents(".form-group").removeClass("errorIns");
+			})
+			$("select").focus(function(){
+				$(this).parents(".form-group").removeClass("errorIns");
+			})
+			$("textarea").focus(function(){
+				$(this).parents(".form-group").removeClass("errorIns");
+			})
+			$(".close").click(function(){
+				$(".form-group").removeClass("errorIns");
+				$("input").val("");
+				$("select").find("option:eq(0)").prop("selected",true);
+				$("textarea").val("");
+			})
+			
+			
+			//初始化页码
+			function initPage(defaultNum) {
+				$(".selNum").find('option[value="'+ defaultNum +'"]').prop("selected",true);
+				$.ajax({
+					type: "POST",
+					url: ApiUrl + global_url.invoiceList,
+					cache: false, //禁用缓存
+					data: {
+						pre_page : defaultNum
+					}, //传入组装的参数
+					contentType: "application/x-www-form-urlencoded;",
+					dataType: "json",
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader('access-token', localStorage.getItem("access-token"));
+					},
+					success: function(result) {
+						if (result.result) {
+							//初始化表格数据
+							initTableData(defaultNum);
+							//渲染页码
+							var currentPage = 1;
+							var totalPages = result.data.last_page;
+							$("#page").bootstrapPaginator({
+								bootstrapMajorVersion: 3, //对应的bootstrap版本
+								currentPage: currentPage, //当前页数
+								numberOfPages: 10, //每次显示页数
+								totalPages: totalPages, //总页数
+								shouldShowPage: true, //是否显示该按钮
+								useBootstrapTooltip: true,
+								//分页点击事件
+								onPageClicked: function(event, originalEvent, type, page) {
+									console.log(ApiUrl + global_url.invoiceList + "?page=" + page);
+									//点击分页重载表格
+									table.ajax.url(ApiUrl + global_url.invoiceList + "?page=" + page).load();
+								}
+							});
+							
+						}
+					}
+				});
+			}
+			//初始化表格
+			function initTableData(defaultNum) {
+				table = $('#dataTable').DataTable({
+					paging: false,
+					pageLength: 10,
+					responsive: true,
+					bAutoWidth: false,
+					lengthMenu: [5, 10, 25, 50, ],
+					bFilter: false,
+					sPaginationType: "full_numbers",
+					bLengthChange: true,
+					destroy : true,
+					info : false,
+					sDom: '<"top"<"clear">>rt<"bottom"lfip<"clear">>',
+					language: {
+						"sProcessing": "处理中...",
+						"sLengthMenu": "显示 _MENU_ 项结果",
+						"sZeroRecords": "没有匹配结果",
+						// "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+						"sInfo": "共 _TOTAL_ 项",
+						"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+						"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+						"sInfoPostFix": "",
+						"sSearch": "搜索:",
+						"sUrl": "",
+						"sEmptyTable": "表中数据为空",
+						"sLoadingRecords": "载入中...",
+						"sInfoThousands": ",",
+						"oPaginate": {
+							"sFirst": "首页",
+							"sPrevious": "上页",
+							"sNext": "下页",
+							"sLast": "末页"
+						},
+						"oAria": {
+							"sSortAscending": ": 以升序排列此列",
+							"sSortDescending": ": 以降序排列此列"
+						}
+					},
+					ajax: {
+						url: ApiUrl + global_url.invoiceList,
+						type: "POST",
+						contentType: "application/x-www-form-urlencoded",
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader('access-token', localStorage.getItem("access-token"));
+						},
+						data: function(obj) {
+							obj.pre_page = defaultNum;
+						},
+						dataSrc: function(json) {
+							console.log("获取到的成本列表的数据：" + JSON.stringify(json));
+							return json.data.data;
+						}
+					},
+					fnServerParams: function(aoData) { //这个里面的 aoData就是会发送到后端的数据
+						//在这里 你可以对 发送到后端之前做任何事情. 
+						// aoData._rand = Math.random();
+						console.log(aoData);
+					},
+					columns: [{
+						data: 'number'
+					}, {
+						data: 'user_name'
+					}, {
+						data: 'link_phone'
+					}, {
+						data: 'type'
+					}, {
+						data: 'cost'
+					}, {
+						render: function(data, type, row) {
+							return row.created_at.date;
+						}
+					}, {
+						data: 'operator'
+					}],
+					buttons: [{
+							extend: 'copy',
+							className: 'copyButton',
+							text: "复制"
+						},
+						{
+							extend: 'excel',
+							className: 'excelButton',
+							text: "导出excel",
+							title: 'ExampleFile'
+						},
+						{
+							extend: 'pdf',
+							className: 'pdfButton',
+							text: "导出pdf",
+							title: 'ExampleFile'
+						},
+					
+						{
+							extend: 'print',
+							className: 'printButton',
+							text: "打印",
+							customize: function(win) {
+								$(win.document.body).addClass('white-bg');
+								$(win.document.body).css('font-size', '10px');
+					
+								$(win.document.body).find('table')
+									.addClass('compact')
+									.css('font-size', 'inherit');
+							}
+						}
+					],
+					fnCreatedRow: function(nRow, aData, iDataIndex) { //将id绑定在tr
+						// 					if( typeof(aData.id) != "undefined" ) {
+						// 						$( nRow ).attr( "tr_id", aData.id );
+						// 					}
+					}
+				});
+			}
+			
+			//选择每页显示条数
+			$(".selNum").change(function(){
+				var num = $(this).find("option:checked").val();
+				defaultNum = num;
+				//初始化页码
+				initPage(defaultNum);
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<!-- Bootstrap core CSS -->
+		<link href="public/bootstrap.min.css" title="" rel="stylesheet" />
+		<link rel="stylesheet" href="css/plugins/toastr/toastr.min.css" />
+		<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+		<link href="public/animate.css" rel="stylesheet">
+		<link rel="stylesheet" href="public/inspinia.css" />
+		<!-- <link rel="stylesheet" href="css/my_TiBaoJiLu.css" /> -->
+		<link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="public/public.css">
+		<link href="css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		    <script src="public/html5shiv.min.js"></script>
+		    <script src="public/respond.min.js"></script>
+		<![endif]-->
+		<title>设备指数</title>
+		<style>
+			.wrapper-content{
+			    padding:20px 10px 0;
+			}
+			.legendList li{
+				margin-bottom: 10px;
+			}
+			.legendList li span{
+				display: inline-block;
+				width: 30px;
+				height: 15px;
+				border-radius: 3px;
+				position: relative;
+				top:3px;
+				margin-right: 3px;
+			}
+			.barBox{
+				position: relative;
+			}
+			.legendList{
+				position: absolute;
+				top:10px;
+				right:20px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="wrapper">
+			<!-- 图表容器 -->
+			<div id="biaobj" class=" wrapper wrapper-content animated fadeInRight" style="padding-top:0;">
+				<!-- 设备种类 -->
+				<div class="echartBox" id="main01"></div>
+				<!-- 阀门设备状态 -->
+				<div class="barBox">
+					<div class="echartBox" id="main02"></div>
+					<ul class="legendList">
+						<li>
+							<span style="background:#2ACDB8;"></span>
+							打开
+						</li>
+						<li>
+							<span style="background:#8796A3;"></span>
+							关闭
+						</li>
+						<li>
+							<span style="background:#F55F6E;"></span>
+							故障
+						</li>
+						<li>
+							<span style="background:#AFCFEA;"></span>
+							离线
+						</li>
+					</ul>
+				</div>
+				<!-- 设备增长 -->
+				<div class="echartBox" id="main03"></div>
+			</div>
+		</div>
+		<script src="public/jquery-1.11.3.js"></script>
+		<script src="public/bootstrap.min.js" type="text/javascript"></script>
+		<!-- <script src="js/plugins/lhgdialog/lhgdialog.js"></script> -->
+		<!-- 弹出警示框 -->
+		<script src="js/plugins/toastr/toastr.min.js"></script>
+
+		<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+		<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+		<!-- 引入echarts -->
+		<script src="public/echarts.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 引入请求数据方法 -->
+		<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/http.js"></script>
+		<script>
+			$(function() {
+				//设备种类
+				ShowSheBeiZhongLei();
+				//阀门设备状态
+				ShowFaMenZhuangTai();
+				//设备增长
+				ShowSheBeiZengZhang();
+			})
+			//设备种类
+			function ShowSheBeiZhongLei() {
+				var myChart = echarts.init(document.getElementById('main01'));
+				var option = {
+					title: {
+						text: '设备种类',
+						x: 'center',
+						y: '20px',
+						textStyle: {
+							color: '#666'
+						}
+					},
+					tooltip: {
+						trigger: 'item',
+						formatter: "{a} <br/>{b} : {c} ({d}%)"
+					},
+					legend: {
+						orient: 'vertical',
+						left: 'right',
+						data: ['小口径水表', '大口径水表', '阀门', '检测器', '传感器']
+					},
+					color: ["#8796A3", "#2EE1CA", "#77D5F4", "#D4B7F4", "#FDE886"],
+					series: [{
+						name: '访问来源',
+						type: 'pie',
+						radius: '55%',
+						center: ['50%', '60%'],
+						data: [{
+								value: 335,
+								name: '小口径水表'
+							},
+							{
+								value: 310,
+								name: '大口径水表'
+							},
+							{
+								value: 234,
+								name: '阀门'
+							},
+							{
+								value: 135,
+								name: '检测器'
+							},
+							{
+								value: 1548,
+								name: '传感器'
+							}
+						],
+						itemStyle: {
+							emphasis: {
+								shadowBlur: 10,
+								shadowOffsetX: 0,
+								shadowColor: 'rgba(0, 0, 0, 0.5)'
+							}
+						}
+					}]
+				};
+				myChart.setOption(option);
+			}
+			//阀门设备状态
+			function ShowFaMenZhuangTai() {
+				var myChart = echarts.init(document.getElementById('main02'));
+				var option = {
+					title: {
+						text: '阀门设备状态',
+						x: 'center',
+						y: '20px',
+						textStyle: {
+							color: '#666'
+						}
+					},
+					tooltip: {
+						trigger: 'axis',
+						axisPointer: { // 坐标轴指示器，坐标轴触发有效
+							type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+						}
+					},
+					grid: {
+						left: '3%',
+						right: '120px',
+						bottom: '3%',
+						containLabel: true
+					},
+					xAxis: [{
+						type: 'category',
+						data: ['打开', '关闭', '故障', '离线'],
+						axisTick: {
+							alignWithLabel: true
+						}
+					}],
+					yAxis: [{
+						type: 'value'
+					}],
+					series: [{
+						name: '阀门设备状态',
+						type: 'bar',
+						barWidth: '60%',
+						data: [323, 56, 28, 9],
+						itemStyle: {
+							normal: {
+								//定义一个list，然后根据所以取得不同的值
+								color: function(params) {
+									// 根据需要制作一张彩色地图.
+									var colorList = [
+										'#2ACDB8', '#8796A3', '#F55F6E', '#AFCFEA'
+									];
+									return colorList[params.dataIndex]
+								},
+								//以下为是否显示，显示位置和显示格式的设置了
+								label: {
+									show: true,
+									position: 'top',
+									formatter: '{b}\n{c}'
+								}
+							}
+						},
+					}]
+				};
+				myChart.setOption(option);
+			}
+			//设备增长
+			function ShowSheBeiZengZhang() {
+				var myChart = echarts.init(document.getElementById('main03'));
+				var option = {
+					title: {
+						text: '设备增长',
+						x: 'center',
+						y: '20px',
+						textStyle: {
+							color: '#666'
+						}
+					},
+					tooltip: {
+						trigger: 'axis',
+						axisPointer: {
+							type: 'cross',
+							label: {
+								backgroundColor: '#6a7985'
+							}
+						}
+					},
+					legend: {
+						data: ['传感器', '检测器', '阀门', '大口径水表', '小口径水表'],
+						right: 'auto',
+						top: 50,
+					},
+					toolbox: {
+						show: false,
+						feature: {
+							saveAsImage: {}
+						}
+					},
+					grid: {
+						left: '3%',
+						right: '4%',
+						bottom: '3%',
+						top: '20%',
+						containLabel: true
+					},
+					xAxis: [{
+						type: 'category',
+						boundaryGap: false,
+						data: ['2018年1月', '2018年4月', '2018年7月', '2018年10月', '2019年1月', '2019年4月']
+					}],
+					yAxis: [{
+						type: 'value'
+					}],
+					series: [{
+							name: '传感器',
+							type: 'line',
+							stack: '总量',
+							areaStyle: {
+								normal: {
+									color: '#8796A3' //改变区域颜色}
+								}
+							},
+							data: [800, 850, 880, 1100, 1112, 1120]
+						},
+						{
+							name: '检测器',
+							type: 'line',
+							stack: '总量',
+							areaStyle: {
+								normal: {
+									color: '#77D5F4' //改变区域颜色}
+								}
+							},
+							data: [220, 182, 191, 234, 290, 330]
+						},
+						{
+							name: '阀门',
+							type: 'line',
+							stack: '总量',
+							areaStyle: {
+								normal: {
+									color: '#77D5F4' //改变区域颜色}
+								}
+							},
+							data: [150, 232, 201, 154, 190, 330]
+						},
+						{
+							name: '大口径水表',
+							type: 'line',
+							stack: '总量',
+							areaStyle: {
+								normal: {
+									color: '#D4B7F4' //改变区域颜色}
+								}
+							},
+							data: [320, 332, 301, 334, 390, 330]
+						},
+						{
+							name: '小口径水表',
+							type: 'line',
+							stack: '总量',
+							label: {
+								normal: {
+									show: true,
+									position: 'top'
+								}
+							},
+							areaStyle: {
+								normal: {
+									color: '#FEEFAA' //改变区域颜色}
+								}
+							},
+							data: [200, 500, 400, 700, 600, 500]
+						}
+					]
+				}
+				myChart.setOption(option);
+			}
+		</script>
+	</body>
+</html>

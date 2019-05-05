@@ -1,0 +1,1038 @@
+/*子页面公共样式*/
+ul,
+li {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+body {
+	background: #F5F6F9;
+}
+
+.ibox-content {
+	margin-top: 15px;
+	border-top: none;
+	padding: 0px 0px 20px 0px;
+}
+
+.table-bordered>thead>tr>th,
+.table-bordered>thead>tr>td {
+	background: #F2F9FF;
+}
+
+.table thead {
+	background: #F2F9FF;
+}
+
+.table-hover>tbody>tr:hover {
+	background: #F2F9FF
+}
+
+.table th,
+.table td {
+	text-align: center;
+}
+
+.table>thead>tr>th,
+.table>tbody>tr>th,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>tbody>tr>td,
+.table>tfoot>tr>td {
+	vertical-align: middle;
+}
+
+.table>thead>tr>th,
+.table>tbody>tr>th,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>tbody>tr>td,
+.table>tfoot>tr>td {
+	border: 1px solid #e5e5e5;
+}
+
+.pagination {
+	margin: 0;
+}
+
+.dataTables_info {
+	line-height: 30px;
+	padding-left: 10px;
+}
+
+.dataTables_length>label {
+	margin-bottom: 0px;
+	line-height: 30px;
+}
+
+.dataTables_length>label select {
+	position: relative;
+	top: -1px;
+}
+
+.bottom>div {
+	float: left;
+	margin: 0 10px;
+}
+
+.pagination>li>a,
+.pagination>li>span {
+	padding: 5px 10px;
+}
+
+/*水表档案管理*/
+.shuiBiao {
+	margin-top: 0;
+}
+
+.tabList {
+	overflow: hidden;
+}
+
+.tabList li {
+	width: 112px;
+	height: 42px;
+	line-height: 42px;
+	text-align: center;
+	font-size: 16px;
+	color: #A9A9A9;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	background: #fff;
+	margin-right: 10px;
+	border: 1px solid #EAEAEB;
+	cursor: pointer;
+	border-bottom: none;
+	float: left;
+}
+
+.tabList li.active {
+	color: #54D6C6;
+}
+
+.shuiBiao>div {
+	display: none;
+}
+
+.shuiBiao>div.show {
+	display: block;
+}
+
+/*智能抄表*/
+.chaoBiao tbody tr td .fa {
+	font-size: 16px;
+	margin-left: 10px;
+}
+
+.chaoBiao tbody tr td.up .fa {
+	color: #F55F6E;
+	position: relative;
+	top: 5px;
+}
+
+.chaoBiao tbody tr td.down .fa {
+	color: #2ACDB8;
+	position: relative;
+	top: -2px;
+}
+
+.form-horizontal .control-label {
+	float: right;
+	line-height: 30px;
+	padding-top: 0;
+}
+
+.monthBox {
+	width: 200px;
+	float: right;
+}
+
+.form-horizontal .form-group {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.checkData .fa {
+	color: #fff;
+}
+
+.checkData {
+	float: right;
+}
+
+/*财务信息*/
+.dztype {
+	overflow: hidden;
+	position: relative;
+	top: 1px;
+}
+
+.dztype li {
+	float: left;
+	width: 112px;
+	line-height: 42px;
+	text-align: center;
+	font-size: 16px;
+	color: #B7B7B7;
+	margin-right: 10px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border: 1px solid #ECECEC;
+	cursor: pointer;
+	background: #fff;
+}
+
+.dztype li.active {
+	color: #47D4C1;
+	border-bottom: 1px solid transparent;
+}
+
+.dzCon {
+	background: #fff;
+	border: 1px solid #ECECEC;
+}
+
+.dzCon ul {
+	overflow: hidden;
+}
+
+.dzCon ul li {
+	width: 33.333%;
+	float: left;
+	padding: 20px 0;
+	text-align: center;
+}
+
+.dzCon ul li .txt {
+	font-size: 20px;
+	color: #333;
+}
+
+.dzCon ul li .yuE {
+	font-size: 32px;
+	color: #0d467b;
+}
+
+.dzCon ul li .totalsr {
+	font-size: 18px;
+	color: #999;
+}
+
+.dzCon ul li sub {
+	font-size: 16px;
+}
+
+.recharge,
+.reflect {
+	font-size: 18px;
+	margin: 0 5px;
+	color: #999;
+}
+
+.dzCon ul li a:hover {
+	color: #2acdb8;
+}
+
+.dzCon ul li a.recharge:focus {
+	color: #2acdb8;
+}
+
+.dzCon ul li a.reflect:focus {
+	color: #999;
+}
+
+.recharge {
+	color: #2acdb8;
+}
+
+/*工单管理*/
+.orderList {
+	overflow: hidden;
+}
+
+.orderList li {
+	width: 24.1%;
+	float: left;
+	margin-right: 1.2%;
+	float: left;
+	border: 1px solid #E6E7E8;
+	border-radius: 6px;
+	background: #fff;
+	display: flex;
+	align-items: center;
+	padding: 20px 0;
+}
+
+.orderList li>div {
+	width: 50%;
+	float: left;
+	text-align: center;
+	font-size: 14px;
+}
+
+.orderList li>div p {
+	margin-bottom: 0;
+	margin-top: 5px;
+	font-size: 16px;
+}
+
+.orderList li .left img {
+	width: 32px;
+}
+
+.orderList li .left {
+	font-size: 18px;
+}
+
+.orderList li .right span {
+	font-size: 32px;
+	font-weight: bold;
+	margin: 0 5px;
+}
+
+.btnBox {
+	text-align: right;
+	margin-top: 15px;
+}
+
+.btnBox button {
+	width: 100px;
+	height: 42px;
+	background: #2ACDB8;
+	color: #fff;
+	font-size: 18px;
+	border: none;
+	border-radius: 5px;
+	outline: none;
+	border: 1px solid #2ACDB8;
+}
+
+.btnBox button.export {
+	background: #fff;
+	color: #9B9B9B;
+	border: 1px solid #E5E5E5;
+}
+
+/*当前运维状态*/
+.ywType {
+	overflow: hidden;
+}
+
+.ywType li {
+	width: 49%;
+	float: left;
+	background: #fff;
+	margin-right: 2%;
+	overflow: hidden;
+	padding: 30px 0;
+	border-radius: 5px;
+	cursor: pointer;
+	border: 1px solid #E5E5E5;
+}
+
+.ywType li.active {
+	background: #f2f9ff;
+}
+
+.ywType li>div {
+	width: 50%;
+	float: left;
+	text-align: center;
+}
+
+.ywType li .labeltit {
+	font-size: 20px;
+	color: #333;
+}
+
+.ywType li .titnum {
+	font-size: 18px;
+	color: #666666;
+}
+
+.ywType li .titnum span {
+	font-size: 32px;
+	color: #f55f6e;
+	font-weight: bold;
+	margin-right: 5px;
+}
+
+.ywType li .titnum span.green {
+	color: #2acdb8;
+}
+
+.ywType li .total {
+	font-size: 18px;
+	color: #999999;
+}
+
+.searchBox .form-group {
+	margin-bottom: 0;
+	background: #F5F6F9;
+}
+
+.searchBox {
+	background: #F5F6F9;
+	padding: 10px 0;
+}
+
+.searchBox .form-group label {
+	padding: 0 15px;
+	line-height: 34px;
+	float: left;
+	text-align: center;
+	margin-bottom: 0;
+}
+
+.searchInput {
+	width: 200px;
+	float: left;
+	position: relative;
+}
+
+.searchInput a {
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 0 5px;
+	height: 100%;
+}
+
+.searchInput a img {
+	margin-top: 7px;
+}
+
+.exportbtn {
+	float: right;
+	margin-left: 10px;
+}
+
+.exportbtn img {
+	width: 15px;
+	margin-right: 5px;
+	margin-top: -5px;
+}
+
+.form_date {
+	display: inline-block;
+	float: left;
+	width: 180px;
+}
+
+.line {
+	display: inline-block;
+	float: left;
+	width: 24px;
+	margin: 0 5px;
+	height: 17px;
+	border-bottom: 1px solid #333;
+}
+
+.form-control[readonly] {
+	background: #fff;
+}
+
+.handle {
+	margin: 0 5px;
+}
+
+.handle img {
+	width: 14px;
+	height: 14px;
+}
+
+span.redtit {
+	color: #f55f6e;
+}
+
+span.greentit {
+	color: #2acdb8;
+}
+
+/*表格的功能按钮*/
+.html5buttons {
+	padding: 10px 0;
+	text-align: right;
+	background: #F5F6F9;
+	display: none;
+}
+
+.copyButton,
+.excelButton,
+.pdfButton,
+.printButton {
+	background: #2BCDB8;
+	border: 1px solid #2BCDB8;
+	margin: 0 5px;
+	border-radius: 3px !important;
+}
+
+.copyButton:hover,
+.excelButton:hover,
+.pdfButton:hover,
+.printButton:hover {
+	background: #2BCDB8;
+	border: 1px solid #2BCDB8;
+}
+
+/********************弹层（模态框）样式******************/
+
+.modal-body .form-group label {
+	margin-bottom: 0;
+	line-height: 42px;
+	padding: 0;
+	padding-right: 20px;
+	width: 100px;
+	float: left;
+	text-align: right;
+	color: #6C6C6C;
+	font-weight: normal;
+}
+
+.modal-body .form-group {
+	margin-bottom: 20px;
+}
+
+.modal-body .form-group input,
+.modal-body .form-group select,
+.modal-body .form-group textarea {
+	width: 418px;
+	float: right;
+	color: #999;
+	border-radius: 3px;
+	resize: none;
+}
+
+.modal-body .form-group input,
+.modal-body .form-group select {
+	height: 42px;
+	line-height: 42px;
+}
+
+.modal-body {
+	padding: 0px 30px 20px 30px;
+}
+
+.inmodal .modal-body {
+	background: #fff;
+	overflow-y: auto;
+}
+
+.inmodal .modal-header {
+	padding: 38px 15px;
+	text-align: center;
+	border: none;
+}
+
+.inmodal button.close {
+	font-size: 40px;
+	margin-top: -10px;
+	line-height: 0;
+	outline: none;
+}
+
+.inmodal .modal-title {
+	font-size: 16px;
+}
+
+.modal-footer {
+	padding: 10px 0;
+	text-align: center;
+	border: none;
+}
+
+.finishBtn,
+.finishBtn2,
+.finishBtn3 {
+	width: 400px;
+	font-size: 20px;
+	margin-bottom: 20px;
+	line-height: 44px;
+}
+
+.modal-body .form-group .star {
+	display: none;
+}
+
+.form-control:focus,
+.single-line:focus {
+	border-color: #e5e6e7 !important;
+}
+
+.modal-body .errorIns .star {
+	position: absolute;
+	top: 0;
+	right: -15px;
+	line-height: 34px;
+	display: inline;
+	color: #F797A1;
+}
+
+.modal-body .errorIns {
+	position: relative;
+}
+
+.modal-body .errorIns label {
+	color: #F797A1;
+}
+
+.modal-body .form-group.errorIns input,
+.modal-body .form-group.errorIns select,
+.modal-body .form-group.errorIns textarea {
+	border: 1px solid #F797A1;
+	color: #F797A1;
+}
+
+.modal-body .form-group textarea {
+	height: 114px;
+}
+
+.errorIns input::-webkit-input-placeholder {
+	/* placeholder颜色  */
+	color: #F797A1;
+}
+
+.errorIns textarea::-webkit-input-placeholder {
+	/* placeholder颜色  */
+	color: #F797A1;
+}
+
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
+	background: #fff;
+}
+
+.errorIns .input-group-addon {
+	border-color: #F797A1;
+}
+
+.errorIns .input-group-addon .fa-calendar {
+	color: #F797A1 !important;
+}
+
+/**************************************/
+
+/*设备指数页面*/
+.barBox {
+	display: inline-block;
+	width: 48%;
+	height: 400px;
+	float: left;
+	margin: 10px 1%;
+}
+
+.barBox .echartBox {
+	width: 100%;
+	margin: 0;
+}
+
+.echartBox {
+	display: inline-block;
+	width: 48%;
+	height: 400px;
+	background: #fff !important;
+	float: left;
+	margin: 10px 1%;
+}
+
+/*角色管理*/
+.roleList {
+	overflow: hidden;
+}
+
+.roleList li {
+	float: left;
+	width: 19%;
+	margin: 12px 0.5%;
+	height: 125px;
+	text-align: center;
+	background: #fff;
+	border-radius: 6px;
+	border: 1xp solid #e5e5e5;
+	box-shadow: 0px 2px 9.6px 0.4px #e5e5e5;
+	padding: 15px 15px 0 15px;
+}
+
+.roleList li span {
+	font-size: 16px;
+	color: #333;
+}
+
+.roleList li p {
+	font-size: 14px;
+	color: #999;
+	margin-top: 14px;
+	text-align: left;
+}
+
+.checkQuanXian,
+.tcp_box {
+	width: 418px;
+	float: right;
+}
+
+.tcp_box {
+	position: relative;
+}
+
+.pl_tcp {
+	position: absolute;
+	top: 10px;
+	left: 5px;
+	color: #999;
+}
+
+.errorIns .pl_tcp {
+	color: #F797A1;
+}
+
+.t_h {
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+	color: #999;
+}
+
+.modal-body .form-group .icheckbox_square-green input {
+	width: auto;
+}
+
+.modal-body .form-group .icheckbox_square-green {
+	margin-right: 5px;
+}
+
+.checkIns {
+	position: relative;
+	top: 2px;
+}
+
+/*设备详情*/
+.topIns {
+	padding: 20px;
+	background: #fff;
+	margin-top: 20px;
+	border-radius: 6px;
+}
+
+.topIns .insList {
+	overflow: hidden;
+}
+
+.topIns .insList>li {
+	width: 30%;
+	float: left;
+}
+
+.topIns .insList>li.left {
+	width: 40%;
+}
+
+.topIns .insList>li.left .lBox {
+	width: 38%;
+	height: 163px;
+	float: left;
+}
+
+.topIns .insList>li.left .lBox img {
+	width: 100%;
+	height: 100%;
+}
+
+.topIns .insList>li.left .rBox {
+	width: 60%;
+	height: 163px;
+	position: relative;
+	float: right;
+}
+
+.rBox h3 {
+	font-size: 18px;
+	color: #333;
+	margin-top: 10px;
+	margin-bottom: 0;
+}
+
+.rBox p {
+	font-size: 16px;
+	color: #666;
+	line-height: 30px;
+	margin-top: 5px;
+}
+
+.rBox ul {
+	position: absolute;
+	bottom: 0;
+}
+
+.rBox ul li {
+	font-size: 14px;
+	line-height: 24px;
+	color: #999;
+}
+
+.rBox ul li img {
+	position: relative;
+	top: -2px;
+}
+
+.topIns .insList>li.middle p {
+	font-size: 16px;
+	color: #666;
+}
+
+.topIns .insList>li.middle .total {
+	font-size: 18px;
+	color: #333;
+}
+
+p.sbType>span {
+	margin: 0 10px;
+}
+
+p.sbType>span>img {
+	margin-right: 5px;
+	margin-top: -4px;
+}
+
+.topIns .insList>li.middle {
+	text-align: center;
+	position: relative;
+}
+
+.topIns .insList>li.middle ul {
+	width: 60%;
+	display: inline-block;
+}
+
+.topIns .insList>li.middle span.line {
+	height: 100px;
+	width: 1px;
+	border: 1px solid #999;
+}
+
+span.line.lr {
+	position: absolute;
+	left: 0;
+	top: 35px;
+}
+
+span.line.rt {
+	position: absolute;
+	right: 0;
+	top: 35px;
+}
+
+.topIns .insList>li.middle ul li {
+	width: 50%;
+	float: left;
+	margin: 10px 0;
+}
+
+.topIns .insList>li.middle ul li span {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	position: relative;
+	top: 3px;
+}
+
+li.middle ul li span.green {
+	background: #2acdb8;
+}
+
+li.middle ul li span.red {
+	background: #f55f6e;
+}
+
+li.middle ul li span.gray {
+	background: #8796a3;
+}
+
+.topIns .insList>li.right {
+	position: relative;
+}
+
+.topIns .insList>li .editBtn {
+	position: absolute;
+	top: 0px;
+	right: 20px;
+}
+
+.topIns .insList>li.right p {
+	font-size: 18px;
+	color: #333;
+	text-align: center;
+}
+
+.topIns .insList>li.right p span {
+	color: #2acdb8;
+}
+
+.topIns .insList>li.right ul {
+	display: inline-block;
+	margin-left: 30px;
+}
+
+.topIns .insList>li.right ul li {
+	font-size: 16px;
+	color: #666;
+	line-height: 32px;
+}
+
+.topIns .insList>li.right ul li span {
+	font-size: 22px;
+	color: #2acdb8;
+	margin: 0 3px;
+}
+
+.meterList {
+	overflow: hidden;
+	margin-left: -0.5%;
+	margin-right: -0.5%;
+	margin-top: 6px;
+}
+
+.meterList>li {
+	width: 24%;
+	float: left;
+	margin: 6px 0.5%;
+	background: #fff;
+	padding: 10px 0;
+	border-radius: 6px;
+	position: relative;
+}
+
+.meterList li .ltBox {
+	width: 30%;
+	float: left;
+	text-align: center;
+}
+
+.ltBox .kouJing {
+	font-size: 12px;
+	color#999;
+	margin-top: 10px;
+}
+
+.ltBox .state {
+	font-size: 16px;
+	margin-bottom: 0;
+}
+
+.meterList li .ltBox img {
+	width: 80%;
+}
+
+.meterList li .rtBox {
+	width: 68%;
+	float: right;
+}
+
+.meterList li .rtBox ul li {
+	font-size: 14px;
+	color: #666;
+}
+
+.meterList li .rtBox ul li span {
+	color: #333;
+}
+
+.meterList li .rtBox ul li.noImg {
+	padding-left: 18px;
+}
+
+.rtBox .handle {
+	width: 30%;
+	padding: 5px 0;
+	background: #2acdb8;
+	color: #fff;
+	font-size: 16px;
+	border-radius: 20px;
+	border: none;
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	outline: none;
+}
+
+span.normal {
+	color: #2acdb8;
+}
+
+span.abnormal {
+	color: #f55f6e;
+}
+
+span.offline {
+	color: #8796a3;
+}
+
+.caoZuoList {
+	overflow: hidden;
+	width: 480px;
+	margin: 0 auto;
+}
+
+.caoZuoList li {
+	width: 230px;
+	margin: 10px 5px;
+	float: left;
+	font-size: 16px;
+	line-height: 42px;
+	text-align: center;
+	border: 1px solid #e5e5e5;
+	cursor: pointer;
+}
+
+.caoZuoList li.active {
+	border: 1px solid #2acdb8;
+	color: #2acdb8;
+}
+
+.pagination {
+	float: left;
+}
+
+.gotojump {
+	display: inline-block;
+	float: left;
+	line-height: 28px;
+	margin-left: 15px;
+}
+
+.gotojump a {
+	padding: 0 12px;
+	line-height: 28px;
+	margin-bottom: 0 !important;
+	border: none;
+	position: relative;
+	top: -1px;
+}
+
+#page li {
+	cursor: pointer;
+}
+
+.selectNum{
+	line-height: 30px;
+	display: inline-block;
+	float: left;
+	margin-left: 20px;
+	margin-right: 15px;
+}
+.selectNum select.selNum{
+	margin:0 5px;
+	line-height: 30px;
+	display: inline-block;
+	width: 50px;
+	height: 30px;
+	outline: none;
+	border-radius: 5px;
+}
+.dataTables_wrapper {
+    padding-bottom: 0;
+}

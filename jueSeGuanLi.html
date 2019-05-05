@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<!-- Bootstrap core CSS -->
+		<link href="public/bootstrap.min.css" title="" rel="stylesheet" />
+		<link rel="stylesheet" href="css/plugins/toastr/toastr.min.css" />
+		<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+		<link href="public/animate.css" rel="stylesheet">
+		<link rel="stylesheet" href="public/inspinia.css" />
+		<!-- <link rel="stylesheet" href="css/my_TiBaoJiLu.css" /> -->
+		<link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="public/public.css">
+		<link href="css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+		<link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		    <script src="public/html5shiv.min.js"></script>
+		    <script src="public/respond.min.js"></script>
+		<![endif]-->
+		<title>角色管理</title>
+		<style>
+			.wrapper-content{
+			    padding:20px 10px 0;
+			 }
+			 .input-group{
+				 width: 190px;
+				 float: right;
+			 }
+			 .modal-body .form-group .input-append .form-control{
+				 width: 155px;
+			 }
+			 span.line{
+				 width: 19px;
+				 float: right;
+			 }
+		</style>
+	</head>
+
+	<body>
+		<div id="wrapper">
+			<!--标编辑-->
+			<div id="biaobj" class=" wrapper wrapper-content animated fadeInRight" style="padding-top:0;">
+				<div class="roleIns">
+					<ul class="roleList">
+						<li>
+							<span>超级管理员</span>
+							<p>拥有至高无上的权利，可分配企业管理员及权限</p>
+						</li>
+						<li>
+							<span>企业管理员</span>
+							<p>所有列表管理、编辑添加新角色并分配权限</p>
+						</li>
+						<li>
+							<span>经营管理员</span>
+							<p>经营管理相关功能；财务、工单、成本、价格、发票等相关信息的管理</p>
+						</li>
+						<li>
+							<span>运维管理员</span>
+							<p>运维管理相关功能；事件、工单、故障、巡检计划及运维人员的管理</p>
+						</li>
+						<li>
+							<span>设备管理员</span>
+							<p>设备管理相关功能；水表信息管理以及抄表数据的统计分析</p>
+						</li>
+						<li>
+							<span>数据分析员</span>
+							<p>数据统计、分析报告相关功能；查看运营过程中相关数据报告</p>
+						</li>
+					</ul>
+				</div>
+				<!--表格部分-->
+				<div class="ibox-content" style="margin-top:0;">
+					<div class="searchBox">
+						<form action="" class="form-horizontal">
+							<div class="form-group">
+								<label for="">查询：</label>
+								<div class="searchInput" style="margin-right: 20px;width:280px;">
+									<input type="text" placeholder="输入角色名称、权限名称" class="form-control">
+									<a href="javascript:void(0)"><img src="img/look.png" alt=""></a>
+								</div>
+								<!-- <button type="button" class="btn btn-white exportbtn exportExcel"><img src="img/export.png" alt="">导出</button> -->
+								<button type="button" data-state="0" class="btn btn-primary hdleBtn exportbtn addUser" data-toggle="modal" data-target="#myModal"><img
+									 src="img/add.png" alt="">添加</button>
+							</div>
+							</form>
+					</div>
+					<div class="tableBox">
+						<table id="dataTable" class="table table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>角色名称</th>
+									<th>权限范围</th>
+									<th>具体描述</th>
+									<th>创建日期</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- <tr>
+									<td>78653465468675</td>
+									<td>王先生</td>
+									<td>wxs786534</td>
+									<td>13975490733</td>
+									<td>794037295@qq.com</td>
+									<td>管理员</td>
+									<td>所有列表管理</td>
+									<td>2018.08.24 09:45:35</td>
+									<td>
+										<a class="handle editdetail" data-toggle="modal" data-target="#myModal" href="javascript:void(0)"><img src="img/edit_gray.png"
+											 alt=""></a>
+										<a class="handle deleteitemd" href="javascript:void(0)"><img src="img/del_red.png" alt=""></a>
+									</td>
+								</tr>
+								<tr>
+									<td>78653465468675</td>
+									<td>王先生</td>
+									<td>wxs786534</td>
+									<td>13975490733</td>
+									<td>794037295@qq.com</td>
+									<td>管理员</td>
+									<td>所有列表管理</td>
+									<td>2018.08.24 09:45:35</td>
+									<td>
+										<a class="handle editdetail" data-toggle="modal" data-target="#myModal" href="javascript:void(0)"><img src="img/edit_gray.png"
+											 alt=""></a>
+										<a class="handle deleteitemd" href="javascript:void(0)"><img src="img/del_red.png" alt=""></a>
+									</td>
+								</tr>
+								<tr>
+									<td>78653465468675</td>
+									<td>王先生</td>
+									<td>wxs786534</td>
+									<td>13975490733</td>
+									<td>794037295@qq.com</td>
+									<td>管理员</td>
+									<td>所有列表管理</td>
+									<td>2018.08.24 09:45:35</td>
+									<td>
+										<a class="handle editdetail" data-toggle="modal" data-target="#myModal" href="javascript:void(0)"><img src="img/edit_gray.png"
+											 alt=""></a>
+										<a class="handle deleteitemd" href="javascript:void(0)"><img src="img/del_red.png" alt=""></a>
+									</td>
+								</tr> -->
+							</tbody>
+						</table>
+					</div>
+					<div class="footIns">
+						<div class="selectNum">
+							当前显示
+							<select name="" id="" class="selNum">
+								<option value="5">5</option>
+								<option value="10">10</option>
+								<option value="25">25</option>
+							</select>
+							项结果
+						</div>
+						<ul id="page"></ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal inmodal fade" id="myModal" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<!-- <i class="fa fa-laptop modal-icon"></i> -->
+						<h4 class="modal-title"><span class="handleInner">-</span>角色</h4>
+					</div>
+					<div class="modal-body">
+
+						<div class="form-group">
+							<label>角色名称</label>
+							<input type="text" placeholder="请输入角色名称" class="form-control roleName">
+							<div style="clear:both;"></div>
+							<span class="star">*</span>
+						</div>
+						<div class="form-group">
+							<label>权限范围</label>
+							<div class="checkQuanXian">
+								<!-- <div class="i-checks"><label> <input type="checkbox" value=""><span class="checkIns">终端分布</span></label></div>
+								<div class="i-checks"><label> <input type="checkbox" value=""><span class="checkIns">设备管理</span></label></div>
+								<div class="i-checks"><label> <input type="checkbox" value=""><span class="checkIns">经营管理</span></label></div>
+								<div class="i-checks"><label> <input type="checkbox" value=""><span class="checkIns">运维管理</span></label></div>
+								<div class="i-checks"><label> <input type="checkbox" value=""><span class="checkIns">用水报告</span></label></div>
+								<div class="i-checks"><label> <input type="checkbox" value=""><span class="checkIns">数据统计</span></label></div> -->
+							</div>
+							<div style="clear:both;"></div>
+						</div>
+						<div class="form-group">
+							<label>具体描述</label>
+							<!-- <textarea rows="" placeholder="请输入权限具体描述" maxlength="200" class="form-control quanXianIns" cols=""></textarea> -->
+							<div class="tcp_box">
+								<textarea class="form-control quanXianIns tcp_content" maxlength="200" onchange="this.value=this.value.substring(0,200)"
+								 onkeydown="this.value=this.value.substring(0,200)" onkeyup="this.value=this.value.substring(0,200)"></textarea>
+								<p class="pl_tcp">请输入权限具体描述</p>
+								<span class="t_h"><i>0</i>/200</span>
+							</div>
+
+							<div style="clear:both;"></div>
+							<span class="star">*</span>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<!-- <button type="button" class="btn btn-white" data-dismiss="modal">Close</button> -->
+						<button type="button" class="btn btn-primary finishBtn">完成</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="public/jquery-1.11.3.js"></script>
+		<script src="public/bootstrap.min.js" type="text/javascript"></script>
+		<!-- <script src="js/plugins/lhgdialog/lhgdialog.js"></script> -->
+		<!-- 弹出警示框 -->
+		<script src="js/plugins/toastr/toastr.min.js"></script>
+
+		<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+		<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+		<!-- 时间控件样式 -->
+		<script src="js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+		<script src="js/plugins/datetimepicker/bootstrap-datetimepicker-update.min.js"></script>
+		<script src="js/plugins/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
+		<script src="js/plugins/dataTables/datatables.min.js"></script>
+		<!-- iCheck -->
+		<script src="js/plugins/iCheck/icheck.min.js"></script>
+		<!-- 页码 -->
+		<script src="js/bootstrap-paginator.js" type="text/javascript"></script>
+		<!-- 全局js -->
+		<script src="js/global.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 引入请求数据方法 -->
+		<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/http.js"></script>
+		<script>
+			var defaultNum = 5;
+			var table;
+			$(function() {
+				
+				var bgTime;
+				/*只选择年月（开始时间）*/
+				$('.Ym_date').datetimepicker({
+					format: 'yyyy-mm',
+					autoclose: true,
+					todayBtn: true,
+					startView: 'year',
+					minView: 'year',
+					maxView: 'decade',
+					forceParse: false, // 当选择器关闭的时候，是否强制解析输入框中的值。
+					language: 'zh-CN',
+					pickerPosition: "bottom-left",
+				}).on('changeDate', function(ev) {
+					bgTime = ev.date.valueOf();
+				});
+				/*只选择年月（截止时间）*/
+				$('.Ym_date2').datetimepicker({
+					format: 'yyyy-mm',
+					autoclose: true,
+					todayBtn: true,
+					startView: 'year',
+					minView: 'year',
+					maxView: 'decade',
+					language: 'zh-CN',
+					forceParse: false, // 当选择器关闭的时候，是否强制解析输入框中的值。
+					pickerPosition: "bottom-left"
+				}).on('changeDate', function(ev) {
+					if (ev.date.valueOf() <= bgTime) {
+						alert("截止时间不能小于起始时间~");
+						$(".endtime").val("");
+						return false;
+					}
+				});
+				//初始化页码
+				initPage(defaultNum);
+				//获取权限范围目录
+				GetQuanXianMuLu();
+			})
+			//表单元素获取焦点时取消警示效果
+			$("input").focus(function() {
+				$(this).parents(".form-group").removeClass("errorIns");
+			})
+			$("select").focus(function() {
+				$(this).parents(".form-group").removeClass("errorIns");
+			})
+			$("textarea").focus(function() {
+				$(this).parents(".form-group").removeClass("errorIns");
+			})
+			//关闭模态框的按钮点击事件(清空表单数据)
+			$(".close").click(function() {
+				$(".form-group").removeClass("errorIns");
+				$("input").val("");
+				$("select").find("option:eq(0)").prop("selected", true);
+				$("textarea").val("");
+			})
+			//导出excel数据
+			$(".exportExcel").click(function() {
+				$(".excelButton").click();
+			})
+			//列表中的查看详情按钮
+			$("body").on("click",".hdleBtn",function() {
+				$(".i-checks").find(".icheckbox_square-green").removeClass("checked");
+				if($(this).attr("data-state") === "0"){	//添加
+					$(".handleInner").html("添加");
+					$(".pl_tcp").show();
+					$(".finishBtn").attr("data-state","0");
+				}else if($(this).attr("data-state") === "2"){	//编辑
+					var id = $(this).parent().attr("data-id");
+					GetRoleInfo(id);
+					$(".finishBtn").attr("data-id",id);
+					$(".pl_tcp").hide();
+					$(".handleInner").html("编辑");
+					$(".finishBtn").attr("data-state","2");
+				}
+			})
+			//删除角色
+			$("body").on("click",".deleteitem",function() {
+				var token = localStorage.getItem("access-token");
+				//声明参数对象
+				var data = {
+					role_id  : $(this).attr("data-id")
+				};
+				//请求回调函数
+				var success = function(response) {
+					console.log("获取到的删除角色返回数据：" + JSON.stringify(response));
+					if (response.result) {
+						toastr.success("删除成功！");
+						initPage(defaultNum);
+					}
+				}
+				//请求方法
+				ajaxFun.post(ApiUrl + global_url.roleDelete, data, token, success);
+			})
+			//提交表单验证(查看详情/编辑)
+			$(".finishBtn").click(function() {
+				if ($(".roleName").val() == "") {
+					$(".roleName").parents(".form-group").addClass("errorIns");
+					return false;
+				}
+				
+				var token = localStorage.getItem("access-token");
+				var directory_ids = [];
+				var checks = $(".i-checks");
+				for(var i = 0; i < checks.length; i++){
+					if($(checks[i]).find(".icheckbox_square-green").hasClass("checked")){
+						directory_ids.push($(checks[i]).attr("data-id"));
+					}
+				}
+				if ($(".quanXianIns").val() == "") {
+					$(".quanXianIns").parents(".form-group").addClass("errorIns");
+					return false;
+				}
+				if($(this).attr("data-state") == "0"){				//添加
+					//声明参数对象
+					var data = {
+						name : $(".roleName").val(),
+						directory_ids  : directory_ids,
+						explain :$(".quanXianIns").val()
+					};
+					//请求回调函数
+					var success = function(response) {
+						console.log("获取到的添加角色返回数据：" + JSON.stringify(response));
+						if (response.result) {
+							toastr.success("添加成功！");
+							initPage(defaultNum);
+						}else{
+							toastr.error(response.message);
+						}
+					}
+					//请求方法
+					ajaxFun.post(ApiUrl + global_url.roleAdd, data, token, success);
+				}else if($(this).attr("data-state") === "2"){		//编辑
+					var id = $(this).attr("data-id");
+					//声明参数对象
+					var data = {
+						role_id : id,
+						name :  $(".roleName").val(),
+						directory_ids  : directory_ids,
+						explain :$(".quanXianIns").val()
+					};
+					//请求回调函数
+					var success = function(response) {
+						console.log("获取到的编辑角色返回数据：" + JSON.stringify(response));
+						if (response.result) {
+							toastr.success("编辑成功！");
+							initPage(defaultNum);
+						}else{
+							toastr.error(response.message);
+						}
+					}
+					//请求方法
+					ajaxFun.post(ApiUrl + global_url.roleEdit, data, token, success);
+				}
+				
+				$(".close").click(); //关闭弹框
+			})
+			
+			//获取权限范围
+			function GetQuanXianMuLu(){
+				var token = localStorage.getItem("access-token");
+				//声明参数对象
+				var data = {};
+				//请求回调函数
+				var success = function(response) {
+					console.log("获取到的目录列表数据：" + JSON.stringify(response));
+					if (response.result) {
+						$(".checkQuanXian").empty();
+						var temHtml = '';
+						var mData = response.data;
+						for (var i = 0; i < mData.length; i++) {
+							temHtml += '<div class="i-checks" data-title="'+ mData[i].name +'" data-id="'+ mData[i].id +'"><label> <input type="checkbox" value=""><span class="checkIns">'+ mData[i].name +'</span></label></div>';
+						}
+						$(".checkQuanXian").append(temHtml);
+						$('.i-checks').iCheck({
+							checkboxClass: 'icheckbox_square-green',
+							radioClass: 'iradio_square-green',
+						});
+					}
+				}
+				//请求方法
+				ajaxFun.post(ApiUrl + global_url.directoryList, data, token, success);
+			}
+			//初始化页码
+			function initPage(defaultNum) {
+				$(".selNum").find('option[value="' + defaultNum + '"]').prop("selected", true);
+				$.ajax({
+					type: "POST",
+					url: ApiUrl + global_url.roleList,
+					cache: false, //禁用缓存
+					data: {
+						pre_page: defaultNum
+					}, //传入组装的参数
+					contentType: "application/x-www-form-urlencoded;",
+					dataType: "json",
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader('access-token', localStorage.getItem("access-token"));
+					},
+					success: function(result) {
+						//console.log(JSON.stringify(result));
+						if (result.result) {
+							//初始化表格数据
+							initTableData(defaultNum);
+							//渲染页码
+							var currentPage = 1;
+							var totalPages = result.data.last_page;
+							$("#page").bootstrapPaginator({
+								bootstrapMajorVersion: 3, //对应的bootstrap版本
+								currentPage: currentPage, //当前页数
+								numberOfPages: 10, //每次显示页数
+								totalPages: totalPages, //总页数
+								shouldShowPage: true, //是否显示该按钮
+								useBootstrapTooltip: true,
+								//分页点击事件
+								onPageClicked: function(event, originalEvent, type, page) {
+									console.log(ApiUrl + global_url.roleList + "?page=" + page);
+									//点击分页重载表格
+									table.ajax.url(ApiUrl + global_url.roleList + "?page=" + page).load();
+								}
+							});
+			
+						}
+					}
+				});
+			}
+			//获取单条角色信息
+			function GetRoleInfo(id){
+				var token = localStorage.getItem("access-token");
+				//声明参数对象
+				var data = {
+					role_id : id
+				};
+				//请求回调函数
+				var success = function(response) {
+					console.log("获取到的单条角色返回数据：" + JSON.stringify(response));
+					if (response.result) {
+						$(".roleName").val(response.data.name);
+						var arr = response.data.directorys.split(",");
+						for(var i = 0; i < arr.length; i++){
+							$('.i-checks[data-title="'+ arr[i] +'"]').find(".icheckbox_square-green").addClass("checked");
+						}
+						$(".quanXianIns").val(response.data.explain)
+					}
+				}
+				//请求方法
+				ajaxFun.post(ApiUrl + global_url.roleInfo, data, token, success);
+			}
+			//初始化表格
+			function initTableData(defaultNum) {
+				table = $('#dataTable').DataTable({
+					paging: false,
+					pageLength: 10,
+					responsive: true,
+					destroy: true,
+					bAutoWidth: false,
+					lengthMenu: [5, 10, 25, 50, ],
+					bFilter: false,
+					sPaginationType: "full_numbers",
+					bLengthChange: true,
+					info: false,
+					sDom: '<"top"<"clear">>rt<"bottom"lfip<"clear">>',
+					language: {
+						"sProcessing": "处理中...",
+						"sLengthMenu": "显示 _MENU_ 项结果",
+						"sZeroRecords": "没有匹配结果",
+						// "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+						"sInfo": "共 _TOTAL_ 项",
+						"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+						"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+						"sInfoPostFix": "",
+						"sSearch": "搜索:",
+						"sUrl": "",
+						"sEmptyTable": "表中数据为空",
+						"sLoadingRecords": "载入中...",
+						"sInfoThousands": ",",
+						"oPaginate": {
+							"sFirst": "首页",
+							"sPrevious": "上页",
+							"sNext": "下页",
+							"sLast": "末页"
+						},
+						"oAria": {
+							"sSortAscending": ": 以升序排列此列",
+							"sSortDescending": ": 以降序排列此列"
+						}
+					},
+					ajax: {
+						url: ApiUrl + global_url.roleList,
+						type: "POST",
+						contentType: "application/x-www-form-urlencoded",
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader('access-token', localStorage.getItem("access-token"));
+						},
+						data: function(obj) {
+							obj.pre_page = defaultNum;
+						},
+						dataSrc: function(json) {
+							console.log("获取到的角色列表的数据：" + JSON.stringify(json));
+							return json.data.data;
+						}
+					},
+					fnServerParams: function(aoData) { //这个里面的 aoData就是会发送到后端的数据
+						//在这里 你可以对 发送到后端之前做任何事情. 
+						// aoData._rand = Math.random();
+						console.log(aoData);
+					},
+					columns: [{
+						data: 'name'
+					},{
+						data: 'directorys'
+					}, {
+						data : "explain"
+					},  {
+						render: function(data, type, row) {
+							return row.created_at.date;
+						}
+					}, {
+						render: function(data, type, row) {
+							var strHtml = '<div data-id="' + row.id + '">' +
+										'<a data-id="'+ row.id +'" data-state="2" class="handle hdleBtn editdetail" data-toggle="modal" data-target="#myModal"><img src="img/edit_gray.png" alt=""></a>' +
+										'<a data-id="'+ row.id +'" class="handle deleteitem" href="javascript:void(0)"><img src="img/del_red.png" alt=""></a>' +
+								'</div>';
+							return strHtml;
+						}
+					}],
+					buttons: [{
+							extend: 'copy',
+							className: 'copyButton',
+							text: "复制"
+						},
+						{
+							extend: 'excel',
+							className: 'excelButton',
+							text: "导出excel",
+							title: 'ExampleFile'
+						},
+						{
+							extend: 'pdf',
+							className: 'pdfButton',
+							text: "导出pdf",
+							title: 'ExampleFile'
+						},
+						{
+							extend: 'print',
+							className: 'printButton',
+							text: "打印",
+							customize: function(win) {
+								$(win.document.body).addClass('white-bg');
+								$(win.document.body).css('font-size', '10px');
+			
+								$(win.document.body).find('table')
+									.addClass('compact')
+									.css('font-size', 'inherit');
+							}
+						}
+					],
+					fnCreatedRow: function(nRow, aData, iDataIndex) { //将id绑定在tr
+						if (typeof(aData.id) != "undefined") {
+							$(nRow).attr("tr_id", aData.id);
+						}
+					}
+				});
+			}
+			//选择每页显示条数
+			$(".selNum").change(function() {
+				var num = $(this).find("option:checked").val();
+				defaultNum = num;
+				//初始化页码
+				initPage(defaultNum);
+			})
+		</script>
+	</body>
+</html>

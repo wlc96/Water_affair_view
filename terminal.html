@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="chrome=1">
+		<script type="text/javascript">
+		</script>
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+		<style>
+			html, body, #container {
+			height: 100%;
+			width: 100%;
+			margin:0;
+			padding:0;
+		}
+
+		  .content-window-card {
+			position: relative;
+			box-shadow: none;
+			bottom: 0;
+			left: 0;
+			width: auto;
+			padding: 0;
+		  }
+
+        .content-window-card p {
+            height: 2rem;
+        }
+
+        .custom-info {
+            border: solid 1px silver;
+        }
+
+        div.info-top {
+            position: relative;
+            background: none repeat scroll 0 0 #F9F9F9;
+            border-bottom: 1px solid #CCC;
+            border-radius: 5px 5px 0 0;
+        }
+
+        div.info-top div {
+            display: inline-block;
+            color: #333333;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 31px;
+            padding: 0 10px;
+        }
+
+        div.info-top img {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            transition-duration: 0.25s;
+        }
+
+        div.info-top img:hover {
+            box-shadow: 0px 0px 5px #000;
+        }
+
+        div.info-middle {
+            font-size: 12px;
+            padding: 10px 6px;
+            line-height: 20px;
+        }
+
+        div.info-bottom {
+            height: 0px;
+            width: 100%;
+            clear: both;
+            text-align: center;
+        }
+
+        div.info-bottom img {
+            position: relative;
+            z-index: 104;
+        }
+
+        span {
+            margin-left: 5px;
+            font-size: 11px;
+        }
+
+        .info-middle img {
+            float: left;
+            margin-right: 6px;
+        }
+	  .amap-icon img{
+		  width: 30px;
+	  }
+    </style>
+		<title>高德简易行政区地图</title>
+	</head>
+	<body>
+		<div id="container" class="map" tabindex="0"></div>
+		<div class="info">
+			点击地图上的点标记，打开所添加的自定义信息窗体
+		</div>
+		<script src="public/jquery-1.11.3.js"></script>
+		<script language="javascript" src="https://webapi.amap.com/maps?v=1.4.14&key=f02b63e54c3d584304919f996f23decd&plugin=Map3D,AMap.DistrictLayer,AMap.Scale,AMap.ToolBar"></script>
+		<script src="public/bootstrap.min.js" type="text/javascript"></script>
+		<!-- 弹出警示框 -->
+		<script src="js/plugins/toastr/toastr.min.js"></script>
+		<!-- 全局js -->
+		<script src="js/global.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 引入请求数据方法 -->
+		<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/http.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				//获取到城市数据
+				GetcityTree();
+				//logMapBounds();
+				zoomOn();
+			})
+			var map = new AMap.Map('container', {
+				resizeEnable: true,
+				showIndoorMap: false,
+				isHotspot: false,
+				defaultCursor: 'pointer',
+				touchZoomCenter: 1,
+				pitch: 0,
+				center: [116.405285, 39.904989],
+				resizeEnable: true,
+				zoom: 10
+			});
+			map.addControl(new AMap.Scale());
+			map.addControl(new AMap.ToolBar({
+				liteStyle: true
+			}));
+			map.clearMap(); // 清除地图覆盖物
+			var mybounds = new AMap.Bounds([121.787075, 47.833692], [93.614224, 32.746016]);
+			map.setBounds(mybounds);
+			// 			var lnglats = [{
+			// 				icon : '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-1.png',
+			// 				position: [116.205467, 39.907761]
+			// 			}, {
+			// 				icon: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-2.png',
+			// 				position: [116.368904, 39.913423]
+			// 			}, {
+			// 				icon: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
+			// 				position: [116.305467, 39.807761]
+			// 			}];
+
+			function markerClick(e) {
+				infoWindow.setContent(e.target.content);
+				infoWindow.open(map, e.target.getPosition());
+			}
+			var center = map.getCenter();
+
+			//关闭信息窗体
+			function closeInfoWindow() {
+				map.clearInfoWindow();
+			}
+
+			
+
+
+			// 事件绑定
+			function zoomOn() {
+				map.on('zoomstart', mapZoomstart);
+				map.on('zoomchange', mapZoom);
+				map.on('zoomend', mapZoomend);
+			}
+
+			function mapZoomstart() {
+				console.log("开始缩放");
+			}
+
+			function mapZoom() {
+				logMapinfo();
+			}
+
+			function mapZoomend() {
+				console.log("缩放结束");
+				var zoom = map.getZoom(); //获取当前地图级别
+				console.log(zoom);
+			}
+
+			function logMapinfo() {
+				var zoom = map.getZoom(); //获取当前地图级别
+				if(zoom <= 6){
+					map.clearMap(); // 清除地图覆盖物
+					//获取一级城市标注数据
+					GetcityTree();
+				}else if(zoom > 6&&zoom < 10){
+					map.clearMap(); // 清除地图覆盖物
+					//获取二级城市标注数据
+					GetSecondCity();
+				}else{
+					map.clearMap(); // 清除地图覆盖物
+					//获取三级城市标注数据
+					GetThirdCity();
+				}
+			};
+			//获取到全部一级城市列表
+			function GetcityTree() {
+				var token = localStorage.getItem("access-token");
+				//声明参数对象
+				var data = {};
+				//请求回调函数
+				var success = function(response) {
+					console.log("获取到的城市数据：" + JSON.stringify(response));
+					if (response.result) {
+						var lnglats = [];
+						var bigMsker = response.data;
+						for (var i = 0; i < bigMsker.length; i++) {
+							var positions = [];
+							positions.push(bigMsker[i].citys.lng);
+							positions.push(bigMsker[i].citys.lat);
+							var obj = {};
+							obj.icon = "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-1.png";
+							obj.position = positions;
+							lnglats.push(obj);
+						}
+						console.log("得到的地图标注点数据：" + JSON.stringify(lnglats));
+						//默认窗体
+						var infoWindow = new AMap.InfoWindow({
+							offset: new AMap.Pixel(16, -45)
+						});
+						for (var i = 0, marker; i < lnglats.length; i++) {
+							var marker = new AMap.Marker({
+								position: [lnglats[i].position[0], lnglats[i].position[1]],
+								map: map
+							});
+							marker.content = '我是第' + (i + 1) + '个Marker';
+							marker.on('click', markerClick);
+						}
+					} else {
+						toastr.success(response.message);
+					}
+				}
+				//请求方法
+				ajaxFun.post(ApiUrl + global_url.cityTree, data, token, success);
+			}
+			//获取全部二级城市标注数据
+			function GetSecondCity(){
+				var token = localStorage.getItem("access-token");
+				//声明参数对象
+				var data = {};
+				//请求回调函数
+				var success = function(response) {
+					// console.log("获取到的城市数据：" + JSON.stringify(response));
+					if (response.result) {
+						var lnglats = [];
+						var bigMsker = response.data;
+						for (var i = 0; i < bigMsker.length; i++) {
+							var mData = bigMsker[i].child;
+							for(var j = 0; j < mData.length; j++){
+								var positions = [];
+								positions.push(mData[j].citys.lng);
+								positions.push(mData[j].citys.lat);
+								var obj = {};
+								obj.icon = "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-1.png";
+								obj.position = positions;
+								lnglats.push(obj);
+							}
+						}
+						console.log("得到的二级城市标注点数据：" + JSON.stringify(lnglats));
+						//默认窗体
+						var infoWindow = new AMap.InfoWindow({
+							offset: new AMap.Pixel(16, -45)
+						});
+						for (var i = 0, marker; i < lnglats.length; i++) {
+							var marker = new AMap.Marker({
+								position: [lnglats[i].position[0], lnglats[i].position[1]],
+								map: map
+							});
+							marker.content = '我是第' + (i + 1) + '个Marker';
+							marker.on('click', markerClick);
+						}
+					} else {
+						toastr.success(response.message);
+					}
+				}
+				//请求方法
+				ajaxFun.post(ApiUrl + global_url.cityTree, data, token, success);
+			}
+			//获取三级城市标注
+			function GetThirdCity(){
+				var token = localStorage.getItem("access-token");
+				//声明参数对象
+				var data = {};
+				//请求回调函数
+				var success = function(response) {
+					// console.log("获取到的城市数据：" + JSON.stringify(response));
+					if (response.result) {
+						var lnglats = [];
+						var bigMsker = response.data;
+						for (var i = 0; i < bigMsker.length; i++) {
+							var mData = bigMsker[i].child;
+							for(var j = 0; j < mData.length; j++){
+								var third = mData[j].chid;
+								for(var k = 0; k < third.length; k++){
+									var positions = [];
+										positions.push(third[k].citys.lng);
+										positions.push(third[k].citys.lat);
+										var obj = {};
+										obj.icon = "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-1.png";
+										obj.position = positions;
+										lnglats.push(obj);
+								}
+							}
+						}
+						console.log("得到的三级城市标注点数据：" + JSON.stringify(lnglats));
+						//默认窗体
+						var infoWindow = new AMap.InfoWindow({
+							offset: new AMap.Pixel(16, -45)
+						});
+						for (var i = 0, marker; i < lnglats.length; i++) {
+							var marker = new AMap.Marker({
+								position: [lnglats[i].position[0], lnglats[i].position[1]],
+								map: map
+							});
+							marker.content = '我是第' + (i + 1) + '个Marker';
+							marker.on('click', markerClick);
+						}
+					}else {
+						toastr.success(response.message);
+					}
+				}
+				//请求方法
+				ajaxFun.post(ApiUrl + global_url.cityTree, data, token, success);
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<!-- Bootstrap core CSS -->
+		<link href="public/bootstrap.min.css" title="" rel="stylesheet" />
+		<link rel="stylesheet" href="css/plugins/toastr/toastr.min.css" />
+		<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+		<link href="public/animate.css" rel="stylesheet">
+		<link rel="stylesheet" href="public/inspinia.css" />
+		<!-- <link rel="stylesheet" href="css/my_TiBaoJiLu.css" /> -->
+		<link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="public/public.css">
+		<link href="css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		    <script src="public/html5shiv.min.js"></script>
+		    <script src="public/respond.min.js"></script>
+		<![endif]-->
+		<title>财务管理</title>
+		<style>
+			.wrapper-content{
+			    padding:20px 10px 0;
+			}
+			.html5buttons{
+				padding:10px 0;
+				text-align: right;
+				background: #F5F6F9;
+				display: none;			
+			}
+			.copyButton,.excelButton,.pdfButton,.printButton{
+				background: #2BCDB8;
+				border:1px solid #2BCDB8;
+				margin:0 5px;
+				border-radius: 3px !important;			
+			}
+			.copyButton:hover,.excelButton:hover,.pdfButton:hover,.printButton:hover{
+				background: #2BCDB8;
+				border:1px solid #2BCDB8;			
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="wrapper">
+			<!--标编辑-->
+			<div id="biaobj" class=" wrapper wrapper-content animated fadeInRight">
+				<div class="duiZhang">
+					<ul class="dztype">
+						<li class="active">企业对账</li>
+						<li>用户对账</li>
+					</ul>
+					<div class="dzCon">
+						<ul>
+							<li>
+								<span class="txt">账户余额</span>
+								<p class="yuE"><span class="account_balance">0</span><sub>元</sub></p>
+								<a class="recharge" href="javascript:void(0)">充值</a>
+								<a class="reflect" href="javascript:void(0)">提现</a>
+							</li>
+							<li>
+								<span class="txt">总收入(元)</span>
+								<p class="yuE"><span class="sum_money">0</span> <sub>元</sub></p>
+								<span class="totalsr">共1270笔</span>
+							</li>
+							<li>
+								<span class="txt">本月收入(元)</span>
+								<p class="yuE"><span class="mon_money">0</span><sub>元</sub></p>
+								<span class="totalsr">共32笔</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<!--表格部分-->
+				<div class="ibox-content">
+					<div class="searchBox">
+						<form action="" class="form-horizontal">
+							<div class="form-group">
+								<label for="">查询：</label>
+								<div class="searchInput">
+									<input type="text" placeholder="请输入联系电话" class="form-control">
+									<a href="javascript:void(0)"><img src="img/look.png" alt=""></a>
+								</div>
+								<label for="">添加时间：</label>
+								<div class="date input-append form_date Ym_date" style="float:left;">
+									<div class="input-group">
+										<input class="form-control" readonly="readonly" type="text" name="bgtime" placeholder="开始时间">
+										<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
+									</div>
+								</div>
+								<span class="line"></span>
+								<div class="date input-append form_date Ym_date2" style="float:left;margin-right: 20px;">
+									<div class="input-group">
+										<input class="form-control endtime" readonly="readonly" type="text" name="endtime" placeholder="截止时间">
+										<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
+									</div>
+								</div>
+								<button type="button" class="btn btn-primary">查询</button>
+								<button type="button" class="btn btn-primary exportbtn exportExcel">导出Excel</button>
+							</div>
+							</form>
+					</div>
+					<div class="tableBox">
+						<table id="dataTable" class="table table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>订单号</th>
+									<th>分布区名称</th>
+									<th>用户编号</th>
+									<th>充值水量</th>
+									<th>充值金额</th>
+									<th>支付方式</th>
+									<th>订单日期</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+					<div class="footIns">
+						<div class="selectNum">
+							当前显示
+							<select name="" id="" class="selNum">
+								<option value="5">5</option>
+								<option value="10">10</option>
+								<option value="25">25</option>
+							</select>
+							项结果
+						</div>
+						<ul id="page"></ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="public/jquery-1.11.3.js"></script>
+		<script src="public/bootstrap.min.js" type="text/javascript"></script>
+		<!-- <script src="js/plugins/lhgdialog/lhgdialog.js"></script> -->
+		<!-- 弹出警示框 -->
+		<script src="js/plugins/toastr/toastr.min.js"></script>
+
+		<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+		<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+		<script src="js/plugins/dataTables/datatables.min.js"></script>
+
+		<!-- 时间控件样式 -->
+		<script src="js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+		<script src="js/plugins/datetimepicker/bootstrap-datetimepicker-update.min.js"></script>
+		<script src="js/plugins/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
+		<!-- 页码 -->
+		<script src="js/bootstrap-paginator.js" type="text/javascript"></script>
+		<!-- 全局js -->
+		<script src="js/global.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 引入请求数据方法 -->
+		<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/http.js"></script>
+		<script>
+			var defaultNum = 5;
+			var table;
+			$(function() {
+				GetFinanceIns();
+				var bgTime;
+				/*只选择年月（开始时间）*/
+				$('.Ym_date').datetimepicker({
+					format: 'yyyy-mm',
+					autoclose: true,
+					todayBtn: true,
+					startView: 'year',
+					minView: 'year',
+					maxView: 'decade',
+					forceParse: false, // 当选择器关闭的时候，是否强制解析输入框中的值。
+					language: 'zh-CN',
+					pickerPosition: "bottom-left",
+				}).on('changeDate', function(ev) {
+					bgTime = ev.date.valueOf();
+				});
+				/*只选择年月（截止时间）*/
+				$('.Ym_date2').datetimepicker({
+					format: 'yyyy-mm',
+					autoclose: true,
+					todayBtn: true,
+					startView: 'year',
+					minView: 'year',
+					maxView: 'decade',
+					language: 'zh-CN',
+					forceParse: false, // 当选择器关闭的时候，是否强制解析输入框中的值。
+					pickerPosition: "bottom-left"
+				}).on('changeDate', function(ev) {
+					if (ev.date.valueOf() <= bgTime) {
+						alert("截止时间不能小于起始时间~");
+						$(".endtime").val("");
+						return false;
+					}
+				});
+				//初始化页码
+				initPage(defaultNum);
+				$('.dztype li').click(function() {
+					$(this).addClass("active").siblings().removeClass("active");
+				})
+				$("#dataTable").on("click", ".lookMore", function() {
+					alert(1);
+				})
+				$(".exportExcel").click(function() {
+					$(".excelButton").click();
+				})
+			})
+
+
+			//公司财务信息
+			function GetFinanceIns() {
+				var token = localStorage.getItem("access-token");
+				//声明参数对象
+				var data = {};
+				//请求回调函数
+				var success = function(response) {
+					console.log("获取到的财务信息数据：" + JSON.stringify(response));
+					if (response.result) {
+						for (var k in response.data) {
+							$("." + k).html(response.data[k]);
+						}
+					}
+				}
+				//请求方法
+				ajaxFun.post(ApiUrl + global_url.company, data, token, success);
+			}
+
+			//初始化页码
+			function initPage(defaultNum) {
+				$(".selNum").find('option[value="' + defaultNum + '"]').prop("selected", true);
+				$.ajax({
+					type: "POST",
+					url: ApiUrl + global_url.list,
+					cache: false, //禁用缓存
+					data: {
+						pre_page: defaultNum
+					}, //传入组装的参数
+					contentType: "application/x-www-form-urlencoded;",
+					dataType: "json",
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader('access-token', localStorage.getItem("access-token"));
+					},
+					success: function(result) {
+						//console.log(JSON.stringify(result));
+						if (result.result) {
+							//初始化表格数据
+							initTableData(defaultNum);
+							//渲染页码
+							var currentPage = 1;
+							var totalPages = result.data.last_page;
+							$("#page").bootstrapPaginator({
+								bootstrapMajorVersion: 3, //对应的bootstrap版本
+								currentPage: currentPage, //当前页数
+								numberOfPages: 10, //每次显示页数
+								totalPages: totalPages, //总页数
+								shouldShowPage: true, //是否显示该按钮
+								useBootstrapTooltip: true,
+								//分页点击事件
+								onPageClicked: function(event, originalEvent, type, page) {
+									console.log(ApiUrl + global_url.list + "?page=" + page);
+									//点击分页重载表格
+									table.ajax.url(ApiUrl + global_url.list + "?page=" + page).load();
+								}
+							});
+
+						}
+					}
+				});
+			}
+			//初始化表格
+			function initTableData(defaultNum) {
+				table = $('#dataTable').DataTable({
+					paging: false,
+					pageLength: 10,
+					responsive: true,
+					destroy: true,
+					bAutoWidth: false,
+					lengthMenu: [5, 10, 25, 50, ],
+					bFilter: false,
+					sPaginationType: "full_numbers",
+					bLengthChange: true,
+					info: false,
+					sDom: '<"top"<"clear">>rt<"bottom"lfip<"clear">>',
+					language: {
+						"sProcessing": "处理中...",
+						"sLengthMenu": "显示 _MENU_ 项结果",
+						"sZeroRecords": "没有匹配结果",
+						// "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+						"sInfo": "共 _TOTAL_ 项",
+						"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+						"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+						"sInfoPostFix": "",
+						"sSearch": "搜索:",
+						"sUrl": "",
+						"sEmptyTable": "表中数据为空",
+						"sLoadingRecords": "载入中...",
+						"sInfoThousands": ",",
+						"oPaginate": {
+							"sFirst": "首页",
+							"sPrevious": "上页",
+							"sNext": "下页",
+							"sLast": "末页"
+						},
+						"oAria": {
+							"sSortAscending": ": 以升序排列此列",
+							"sSortDescending": ": 以降序排列此列"
+						}
+					},
+					ajax: {
+						url: ApiUrl + global_url.list,
+						type: "POST",
+						contentType: "application/x-www-form-urlencoded",
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader('access-token', localStorage.getItem("access-token"));
+						},
+						data: function(obj) {
+							obj.pre_page = defaultNum;
+						},
+						dataSrc: function(json) {
+							console.log("获取到的财务订单列表的数据：" + JSON.stringify(json));
+							return json.data.data;
+						}
+					},
+					fnServerParams: function(aoData) { //这个里面的 aoData就是会发送到后端的数据
+						//在这里 你可以对 发送到后端之前做任何事情. 
+						// aoData._rand = Math.random();
+						console.log(aoData);
+					},
+					columns: [{
+						data: 'number'
+					}, {
+						data: 'station_name'
+					}, {
+						data: 'user_num'
+					}, {
+						data: 'water_quantity'
+					}, {
+						data: 'num'
+					}, {
+						data: 'type'
+					}, {
+						render: function(data, type, row) {
+							return row.created_at.date;
+						}
+					}],
+					buttons: [{
+							extend: 'copy',
+							className: 'copyButton',
+							text: "复制"
+						},
+						{
+							extend: 'excel',
+							className: 'excelButton',
+							text: "导出excel",
+							title: 'ExampleFile'
+						},
+						{
+							extend: 'pdf',
+							className: 'pdfButton',
+							text: "导出pdf",
+							title: 'ExampleFile'
+						},
+						{
+							extend: 'print',
+							className: 'printButton',
+							text: "打印",
+							customize: function(win) {
+								$(win.document.body).addClass('white-bg');
+								$(win.document.body).css('font-size', '10px');
+
+								$(win.document.body).find('table')
+									.addClass('compact')
+									.css('font-size', 'inherit');
+							}
+						}
+					],
+					fnCreatedRow: function(nRow, aData, iDataIndex) { //将id绑定在tr
+						if (typeof(aData.id) != "undefined") {
+							$(nRow).attr("tr_id", aData.id);
+						}
+					}
+				});
+			}
+			//选择每页显示条数
+			$(".selNum").change(function() {
+				var num = $(this).find("option:checked").val();
+				defaultNum = num;
+				//初始化页码
+				initPage(defaultNum);
+			})
+		</script>
+	</body>
+</html>

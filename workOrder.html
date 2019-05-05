@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<!-- Bootstrap core CSS -->
+		<link href="public/bootstrap.min.css" title="" rel="stylesheet" />
+		<link rel="stylesheet" href="css/plugins/toastr/toastr.min.css" />
+		<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+		<link href="public/animate.css" rel="stylesheet">
+		<link rel="stylesheet" href="public/inspinia.css" />
+		<!-- <link rel="stylesheet" href="css/my_TiBaoJiLu.css" /> -->
+		<link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="public/public.css">
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		    <script src="public/html5shiv.min.js"></script>
+		    <script src="public/respond.min.js"></script>
+		<![endif]-->
+		<title>工单管理</title>
+		<style>
+			.sbnoBox{
+				width: 418px;
+				float: right;
+			}
+			.sbno{
+				width: 418px;
+				float: right;
+				position: relative;
+				margin-bottom: 10px;
+			}
+			.sbno .plusbtn{
+				display: inline-block;
+				width: 18px;
+				height: 18px;
+				background: url(img/add2.png) no-repeat 0 0;
+				background-size:100% 100%;
+				position: absolute;
+				right:10px;
+				top:7px;
+			}
+			.sbno .deletebtn{
+				display: inline-block;
+				width: 18px;
+				height: 18px;
+				background: url(img/delete.png) no-repeat 0 0;
+				background-size:100% 100%;
+				position: absolute;
+				right:10px;
+				top:7px;
+			}
+			.form-group .star{
+				display: none;
+			}
+			.errorIns{
+				position: relative;
+			}
+			.errorIns label{
+				color:#F797A1;
+			}
+			.errorIns input,.errorIns select,.errorIns textarea{
+				border:1px solid #F797A1;
+				color:#F797A1;
+			}
+			.form-control:focus, .single-line:focus{
+				border-color:#e5e6e7 !important;
+			}
+			.errorIns .star{
+				position: absolute;
+				top:0;
+				right:-15px;
+				line-height: 34px;
+				display: inline;
+				color:#F797A1;
+			}
+			
+			.errorIns input::-webkit-input-placeholder {
+		         /* placeholder颜色  */
+		         color: #F797A1;
+		     }
+		     .errorIns textarea::-webkit-input-placeholder {
+		         /* placeholder颜色  */
+		         color: #F797A1;
+		     }
+		     .wrapper-content{
+			     padding:20px 10px 0;
+		     }
+		</style>
+	</head>
+
+	<body>
+		<div id="wrapper">
+			<!--标编辑-->
+			<div id="biaobj" class=" wrapper wrapper-content animated fadeInRight">
+				<!-- <div class="orderType">
+					<ul class="orderList">
+						<li>
+							<div class="left">
+								<img src="img/jyicon01.png" alt="">
+								<p>工单管理</p>
+							</div>
+							<div class="right">
+								待处理<span style="color:#8796A3;">2</span>笔
+							</div>
+						</li>
+						<li>
+							<div class="left">
+								<img src="img/jyicon02.png" alt="">
+								<p>成本管理</p>
+							</div>
+							<div class="right">
+								已录入<span style="color:#77D5F4;">2</span>次
+							</div>
+						</li>
+						<li>
+							<div class="left">
+								<img src="img/jyicon03.png" alt="">
+								<p>价格管理</p>
+							</div>
+							<div class="right">
+								已调价<span style="color:#F55F6E;">3</span>次
+							</div>
+						</li>
+						<li style="margin-right: 0;">
+							<div class="left">
+								<img src="img/jyicon04.png" alt="">
+								<p>发票管理</p>
+							</div>
+							<div class="right">
+								待开票<span style="color:#2ACDB8;">5</span>份
+							</div>
+						</li>
+					</ul>
+				</div> -->
+				<div class="btnBox">
+					<button class="plus" type="button" data-toggle="modal" data-target="#myModal"><img src="img/add.png" alt="">添加</button>
+					<button class="export" type="button"><img src="img/export.png" alt="">导出</button>
+				</div>
+				<!--表格部分-->
+				<div class="ibox-content">
+					<div class="row">
+						<div class="col-sm-12 tableSec">
+							<table id="dataTable" class="table table-bordered table-hover">
+								<thead>
+									<tr>
+										<th>流水号</th>
+										<th>用户名称</th>
+										<th>联系电话</th>
+										<th>问题类型</th>
+										<th>工单日期</th>
+										<th>操作员</th>
+										<th>状态</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+						</div>
+						<div class="footIns">
+							<div class="selectNum">
+								当前显示
+								<select name="" id="" class="selNum">
+									<option value="5">5</option>
+									<option value="10">10</option>
+									<option value="25">25</option>
+								</select>
+								项结果
+							</div>
+							<ul id="page"></ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal inmodal fade" id="myModal" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<!-- <i class="fa fa-laptop modal-icon"></i> -->
+						<h4 class="modal-title">添加工单</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label>用户名称</label>
+							<input type="text" placeholder="请输入用户名称" class="form-control userName">
+							<div style="clear:both;"></div>
+							<span class="star">*</span>
+						</div>
+						<div class="form-group">
+							<label>联系电话</label>
+							<input type="text" placeholder="请输入联系电话" class="form-control userTel">
+							<div style="clear:both;"></div>
+							<span class="star">*</span>
+						</div>
+						<div class="form-group">
+							<label>问题类型</label>
+							<select name="account" class="form-control qusType">
+								<option value="00">请选择问题类型</option>
+								<option value="1">问题2</option>
+								<option value="2">问题3</option>
+								<option value="3">问题4</option>
+							</select>
+							<div style="clear:both;"></div>
+							<span class="star">*</span>
+						</div>
+						<div class="form-group">
+							<label>站点名称</label>
+							<select name="account" class="form-control zhanDianName">
+								<option value="00">请选择站点名称</option>
+							</select>
+							<div style="clear:both;"></div>
+							<span class="star">*</span>
+						</div>
+						<div class="form-group">
+							<label>派发工单</label>
+							<select name="account" class="form-control opateUser">
+								<option value="00">请选择操作员</option>
+							</select>
+							<div style="clear:both;"></div>
+							<span class="star">*</span>
+						</div>
+						<div class="form-group" style="margin-bottom: 0px;">
+							<label>水表号</label>
+							<div class="sbnoBox">
+								<div class="sbno">
+									<input type="text" placeholder="请输入故障水表号" class="form-control sbnotxt">
+									<a class="plusbtn" href="javascript:void(0)"></a>
+								</div>
+							</div>
+							<div style="clear:both;"></div>
+							<span class="star">*</span>
+						</div>
+						<!-- <div class="form-group" style="margin-bottom: 0;">
+							<label>问题描述</label>
+							<textarea rows="" placeholder="请输入故障水表号" class="form-control qusDes" cols=""></textarea>
+							<div style="clear:both;"></div>
+							<span class="star">*</span>
+						</div> -->
+					</div>
+					<div class="modal-footer">
+						<!-- <button type="button" class="btn btn-white" data-dismiss="modal">Close</button> -->
+						<button type="button" class="btn btn-primary finishBtn">完成</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="public/jquery-1.11.3.js"></script>
+		<script src="public/bootstrap.min.js" type="text/javascript"></script>
+		<!-- <script src="js/plugins/lhgdialog/lhgdialog.js"></script> -->
+		<!-- 弹出警示框 -->
+		<script src="js/plugins/toastr/toastr.min.js"></script>
+
+		<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+		<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+		<script src="js/plugins/dataTables/datatables.min.js"></script>
+		<!-- 页码 -->
+		<script src="js/bootstrap-paginator.js" type="text/javascript"></script>
+		<!-- 全局js -->
+		<script src="js/global.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 引入请求数据方法 -->
+		<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/http.js"></script>
+		<script>
+			var defaultNum = 5;
+			var table;
+			$(function() {
+				//获取到操作员列表
+				GetOperatorList();
+				//获取到站点名称
+				GetZhanDianList();
+				//初始化页码
+				initPage(defaultNum);
+			})
+
+			
+
+			$('.dztype li').click(function() {
+				$(this).addClass("active").siblings().removeClass("active");
+			})
+			$("#dataTable").on("click", ".lookMore", function() {
+				alert(1);
+			})
+			//添加水表号
+			$(".sbnoBox").on("click", ".plusbtn", function() {
+
+				$(this).removeClass("plusbtn").addClass("deletebtn");
+
+				var html = '<div class="sbno">' +
+					'<input type="email" placeholder="请输入故障水表号" class="form-control sbnotxt">' +
+					'<a class="plusbtn" href="javascript:void(0)"></a>' +
+					'</div>';
+
+				$(".sbnoBox").append(html);
+			})
+			//删除水表号
+			$(".sbnoBox").on("click", ".deletebtn", function() {
+				// $(this).parents(".sbno").prev().find(".deletebtn").removeClass("deletebtn").addClass("plusbtn");
+				$(this).parents(".sbno").remove();
+			})
+
+			//提交表单验证
+			$(".finishBtn").click(function() {
+				if ($(".userName").val() == "") {
+					$(".userName").parents(".form-group").addClass("errorIns");
+					return false;
+				}
+				if ($(".userTel").val() == "") {
+					$(".userTel").parents(".form-group").addClass("errorIns");
+					return false;
+				}
+
+				if ($(".qusType").find("option:checked").val() == "00") {
+					$(".qusType").parents(".form-group").addClass("errorIns");
+					return false;
+				}
+				if ($(".zhanDianName").find("option:checked").val() == "00") {
+					$(".zhanDianName").parents(".form-group").addClass("errorIns");
+					return false;
+				}
+				if ($(".opateUser").find("option:checked").val() == "00") {
+					$(".opateUser").parents(".form-group").addClass("errorIns");
+					return false;
+				}
+				//判断水表号
+				if ($(".sbnotxt:eq(0)").val() == "") {
+					$(".sbnotxt:eq(0)").parents(".form-group").addClass("errorIns");
+					return false;
+				}
+
+				if ($(".qusDes").val() == "") {
+					$(".qusDes").parents(".form-group").addClass("errorIns");
+					return false;
+				}
+				//执行添加请求
+				var token = localStorage.getItem("access-token");
+				console.log($(".userName").val() + "===" + $(".userTel").val() + "===" + $(".qusType").find("option:checked").val() +
+					"===" + $(".opateUser").find("option:checked").val() + "===" + $(".sbnotxt").val());
+				
+				//拼接水表号字符串
+				var strno = "";
+				var strs = $(".sbnotxt");
+				for(var i = 0; i < strs.length; i++){
+					strno += $(strs[i]).val()+",";
+				}
+				var newStr = strno.substring(0,strno.length - 1);
+				
+				//声明参数对象
+				var data = {
+					user_name: $(".userName").val(),
+					phone: $(".userTel").val(),
+					type: $(".qusType").find("option:checked").val(),
+					operator_id: $(".opateUser").find("option:checked").val(),
+					station_id: $(".zhanDianName").find("option:checked").val(),
+					eq_num: newStr
+				};
+				//请求回调函数
+				var success = function(response) {
+					console.log("获取到的添加工单返回数据：" + JSON.stringify(response));
+					if (response.result) {
+						toastr.success("添加成功！");
+						setTimeout(function() {
+							$(".close").click(); //关闭弹框
+							initPage(defaultNum);
+						}, 1000)
+					}
+				}
+				//请求方法
+				ajaxFun.post(ApiUrl + global_url.woadd, data, token, success);
+			})
+
+			$("input").focus(function() {
+				$(this).parents(".form-group").removeClass("errorIns");
+			})
+			$("select").focus(function() {
+				$(this).parents(".form-group").removeClass("errorIns");
+			})
+			$("textarea").focus(function() {
+				$(this).parents(".form-group").removeClass("errorIns");
+			})
+			$(".close").click(function() {
+				$(".form-group").removeClass("errorIns");
+				$("input").val("");
+				$("select").find("option:eq(0)").prop("selected", true);
+				$("textarea").val("");
+
+				if ($(".sbno").length > 1) {
+					$(".sbnoBox .sbno:eq(0)").find("a").removeClass("deletebtn").addClass("plusbtn");
+					$(".sbnoBox .sbno:eq(0)").nextAll().remove();
+				}
+			})
+
+			//获取操作员列表
+			function GetOperatorList() {
+				var token = localStorage.getItem("access-token");
+				//声明参数对象
+				var data = {};
+				//请求回调函数
+				var success = function(response) {
+					console.log("获取到的操作员列表数据：" + JSON.stringify(response));
+					if (response.result) {
+						$(".opateUser").find("option:eq(0)").nextAll().remove();
+						var temHtml = '';
+						for (var i = 0; i < response.data.length; i++) {
+							temHtml += '<option value="' + response.data[i].id + '">' + response.data[i].name + '</option>';
+						}
+						$(".opateUser").append(temHtml);
+					}
+				}
+				//请求方法
+				ajaxFun.post(ApiUrl + global_url.oplist, data, token, success);
+			}
+			//获取站点名称
+			function GetZhanDianList(){
+				var token = localStorage.getItem("access-token");
+				//声明参数对象
+				var data = {};
+				//请求回调函数
+				var success = function(response) {
+					console.log("获取到的站点列表数据：" + JSON.stringify(response));
+					if (response.result) {
+						$(".zhanDianName").find("option:eq(0)").nextAll().remove();
+						var temHtml = '';
+						var mData = response.data.list.data;
+						for (var i = 0; i < mData.length; i++) {
+							temHtml += '<option value="' + mData[i].id + '">' + mData[i].name + '</option>';
+						}
+						$(".zhanDianName").append(temHtml);
+					}
+				}
+				//请求方法
+				ajaxFun.post(ApiUrl + global_url.stationList, data, token, success);
+			}
+			//初始化页码
+			function initPage(defaultNum) {
+				$(".selNum").find('option[value="'+ defaultNum +'"]').prop("selected",true);
+				$.ajax({
+					type: "POST",
+					url: ApiUrl + global_url.wolist,
+					cache: false, //禁用缓存
+					data: {
+						pre_page : defaultNum
+					}, //传入组装的参数
+					contentType: "application/x-www-form-urlencoded;",
+					dataType: "json",
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader('access-token', localStorage.getItem("access-token"));
+					},
+					success: function(result) {
+						if (result.result) {
+							//初始化表格数据
+							initTableData(defaultNum);
+							//渲染页码
+							var currentPage = 1;
+							var totalPages = result.data.last_page;
+							$("#page").bootstrapPaginator({
+								bootstrapMajorVersion: 3, //对应的bootstrap版本
+								currentPage: currentPage, //当前页数
+								numberOfPages: 10, //每次显示页数
+								totalPages: totalPages, //总页数
+								shouldShowPage: true, //是否显示该按钮
+								useBootstrapTooltip: true,
+								//分页点击事件
+								onPageClicked: function(event, originalEvent, type, page) {
+									console.log(ApiUrl + global_url.wolist + "?page=" + page);
+									//点击分页重载表格
+									table.ajax.url(ApiUrl + global_url.wolist + "?page=" + page).load();
+								}
+							});
+							
+						}
+					}
+				});
+			}
+			//初始化表格
+			function initTableData(defaultNum) {
+				table = $('#dataTable').DataTable({
+					paging: false,
+					pageLength: 10,
+					responsive: true,
+					bAutoWidth: false,
+					lengthMenu: [5, 10, 25, 50, ],
+					bFilter: false,
+					sPaginationType: "full_numbers",
+					bLengthChange: true,
+					destroy : true,
+					info : false,
+					sDom: '<"top"<"clear">>rt<"bottom"lfip<"clear">>',
+					language: {
+						"sProcessing": "处理中...",
+						"sLengthMenu": "显示 _MENU_ 项结果",
+						"sZeroRecords": "没有匹配结果",
+						// "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+						"sInfo": "共 _TOTAL_ 项",
+						"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+						"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+						"sInfoPostFix": "",
+						"sSearch": "搜索:",
+						"sUrl": "",
+						"sEmptyTable": "表中数据为空",
+						"sLoadingRecords": "载入中...",
+						"sInfoThousands": ",",
+						"oPaginate": {
+							"sFirst": "首页",
+							"sPrevious": "上页",
+							"sNext": "下页",
+							"sLast": "末页"
+						},
+						"oAria": {
+							"sSortAscending": ": 以升序排列此列",
+							"sSortDescending": ": 以降序排列此列"
+						}
+					},
+					ajax: {
+						url: ApiUrl + global_url.wolist,
+						type: "POST",
+						contentType: "application/x-www-form-urlencoded",
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader('access-token', localStorage.getItem("access-token"));
+						},
+						data: function(obj) {
+							obj.pre_page = defaultNum;
+						},
+						dataSrc: function(json) {
+							console.log("获取到的工单列表的数据：" + JSON.stringify(json));
+							return json.data.data;
+						}
+					},
+					fnServerParams: function(aoData) { //这个里面的 aoData就是会发送到后端的数据
+						//在这里 你可以对 发送到后端之前做任何事情. 
+						// aoData._rand = Math.random();
+						console.log(aoData);
+					},
+					columns: [{
+						data: 'number'
+					}, {
+						data: 'user_name'
+					}, {
+						data: 'phone'
+					}, {
+						render: function(data, type, row) {
+							var type = '';
+							if (row.type == 1) {
+								type = "水表异常"
+							}
+							return type;
+						}
+					}, {
+						render: function(data, type, row) {
+							return row.created_at.date;
+						}
+					}, {
+						data: 'operator'
+					}, {
+						data: 'status'
+					}],
+					fnCreatedRow: function(nRow, aData, iDataIndex) { //将id绑定在tr
+						// 					if( typeof(aData.id) != "undefined" ) {
+						// 						$( nRow ).attr( "tr_id", aData.id );
+						// 					}
+					}
+				});
+			}
+			
+			//选择每页显示条数
+			$(".selNum").change(function(){
+				var num = $(this).find("option:checked").val();
+				defaultNum = num;
+				//初始化页码
+				initPage(defaultNum);
+			})
+		</script>
+	</body>
+</html>

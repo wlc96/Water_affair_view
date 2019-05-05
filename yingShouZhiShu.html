@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<!-- Bootstrap core CSS -->
+		<link href="public/bootstrap.min.css" title="" rel="stylesheet" />
+		<link rel="stylesheet" href="css/plugins/toastr/toastr.min.css" />
+		<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+		<link href="public/animate.css" rel="stylesheet">
+		<link rel="stylesheet" href="public/inspinia.css" />
+		<!-- <link rel="stylesheet" href="css/my_TiBaoJiLu.css" /> -->
+		<link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="public/public.css">
+		<link href="css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		    <script src="public/html5shiv.min.js"></script>
+		    <script src="public/respond.min.js"></script>
+		<![endif]-->
+		<title>营收指数</title>
+		<style>
+			.wrapper-content{
+			    padding:20px 10px 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="wrapper">
+			<!-- 图表容器 -->
+			<div id="biaobj" class=" wrapper wrapper-content animated fadeInRight" style="padding-top:0;">
+				<!-- 运营成本 -->
+				<div class="echartBox" id="main01"></div>
+				<!-- 维保趋势 -->
+				<div class="echartBox" id="main02"></div>
+				<!-- 环保指数 -->
+				<div class="echartBox" id="main03"></div>
+			</div>
+		</div>
+		<script src="public/jquery-1.11.3.js"></script>
+		<script src="public/bootstrap.min.js" type="text/javascript"></script>
+		<!-- <script src="js/plugins/lhgdialog/lhgdialog.js"></script> -->
+		<!-- 弹出警示框 -->
+		<script src="js/plugins/toastr/toastr.min.js"></script>
+
+		<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+		<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+		<!-- 引入echarts -->
+		<script src="public/echarts.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 引入请求数据方法 -->
+		<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/http.js"></script>
+		<script>
+			$(function() {
+				//运营成本
+				YunYingChengBen();
+				//维保趋势
+				WeiBaoQuShi();
+				//环保指数
+				HuanBaoZhiShu();
+			})
+			//运营成本
+			function YunYingChengBen() {
+				var myChart = echarts.init(document.getElementById('main01'));
+				var option = {
+					title: {
+						text: '运营成本',
+						x: 'center',
+						y: '20px',
+						textStyle: {
+							color: '#666'
+						}
+					},
+					xAxis: {
+						type: 'category',
+						data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+					},
+					yAxis: {
+						type: 'value',
+						axisLabel: {
+							formatter: '{value} 次'
+						}
+					},
+					series: [{
+						data: [82, 63, 90, 93, 129, 133, 132, 90, 43, 129, 160, 132],
+						type: 'line'
+					}]
+				};
+
+				myChart.setOption(option);
+			}
+			//维保趋势
+			function WeiBaoQuShi() {
+				var myChart = echarts.init(document.getElementById('main02'));
+				var option = {
+					title: {
+						text: '维保趋势',
+						x: 'center',
+						y: '20px',
+						textStyle: {
+							color: '#666'
+						}
+					},
+					xAxis: {
+						type: 'category',
+						data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+					},
+					yAxis: {
+						type: 'value',
+						axisLabel: {
+							formatter: '{value} 次'
+						}
+					},
+					series: [{
+						data: [82, 63, 90, 93, 129, 133, 132, 90, 43, 129, 160, 132],
+						type: 'line'
+					}]
+				};
+
+				myChart.setOption(option);
+			}
+			//环保指数
+			function HuanBaoZhiShu() {
+				var myChart = echarts.init(document.getElementById('main03'));
+				var colors = ['#2ee1ca', '#77d5f4', '#f55f6e'];
+				var option = {
+					title: {
+						text: '环保指数',
+						x: 'center',
+						y: '20px',
+						textStyle: {
+							color: '#666'
+						}
+					},
+					color: colors,
+					tooltip: {
+						trigger: 'axis',
+						axisPointer: {
+							type: 'cross'
+						}
+					},
+					grid: {
+						left: '10%',
+						right: '25%',
+						bottom: '8%',
+						top: '25%',
+					},
+					toolbox: {
+						feature: {
+							dataView: {
+								show: false,
+								readOnly: false
+							},
+							restore: {
+								show: false
+							},
+							saveAsImage: {
+								show: false
+							}
+						}
+					},
+					legend: {
+						data: ['累计减少碳排放量', '累计节约成本', '累计用水量'],
+						top:45
+					},
+					xAxis: [{
+						type: 'category',
+						axisTick: {
+							alignWithLabel: true
+						},
+						data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+					}],
+					yAxis: [{
+							type: 'value',
+							name: '累计减少碳排放量',
+							position: 'left',
+							axisLine: {
+								lineStyle: {
+									color: colors[0]
+								}
+							},
+							axisLabel: {
+								formatter: '{value} 千克 '
+							}
+						},
+						{
+							type: 'value',
+							name: '累计用水量',
+							position: 'right',
+							offset: 80,
+							axisLine: {
+								lineStyle: {
+									color: colors[2]
+								}
+							},
+							axisLabel: {
+								formatter: '{value} 吨'
+							}
+						},
+						{
+							type: 'value',
+							name: '累计节约成本',
+							position: 'right',
+							axisLine: {
+								lineStyle: {
+									color: colors[1]
+								}
+							},
+							axisLabel: {
+								formatter: '{value}元'
+							}
+						}
+
+					],
+					series: [{
+							name: '累计减少碳排放量',
+							type: 'bar',
+							yAxisIndex: 0,
+							data: [240, 208, 211.0, 223.2, 225.6, 276.7, 235.6, 262.2, 232.6, 220.0, 226.4, 223.3]
+						},
+						{
+							name: '累计节约成本',
+							type: 'bar',
+							yAxisIndex: 1,
+							data: [1192.6, 925.9, 839.0, 426.4, 528.7, 670.7, 775.6, 882.2, 948.7, 918.8, 996.0, 1252.3]
+						},
+						{
+							name: '累计用水量',
+							type: 'bar',
+							yAxisIndex: 2,
+							data: [902.0, 1112.2, 723.3, 384.5, 466.3, 510.2, 620.3, 723.4, 823.0, 916.5, 912.0, 1286.2]
+						}
+					]
+				};
+
+				myChart.setOption(option);
+			}
+		</script>
+	</body>
+</html>

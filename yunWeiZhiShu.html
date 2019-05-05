@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<!-- Bootstrap core CSS -->
+		<link href="public/bootstrap.min.css" title="" rel="stylesheet" />
+		<link rel="stylesheet" href="css/plugins/toastr/toastr.min.css" />
+		<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+		<link href="public/animate.css" rel="stylesheet">
+		<link rel="stylesheet" href="public/inspinia.css" />
+		<!-- <link rel="stylesheet" href="css/my_TiBaoJiLu.css" /> -->
+		<link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="public/public.css">
+		<link href="css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		    <script src="public/html5shiv.min.js"></script>
+		    <script src="public/respond.min.js"></script>
+		<![endif]-->
+		<title>运维指数</title>
+		<style>
+			.wrapper-content{
+			    padding:20px 10px 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="wrapper">
+			<!-- 图表容器 -->
+			<div id="biaobj" class=" wrapper wrapper-content animated fadeInRight" style="padding-top:0;">
+				<!-- 充值订单 -->
+				<div class="echartBox" id="main01"></div>
+				<!-- 充值金额 -->
+				<div class="echartBox" id="main02"></div>
+				<!-- 支付方式统计 -->
+				<div class="echartBox" id="main03"></div>
+				<!-- 阶梯水价 -->
+				<div class="echartBox" id="main04"></div>
+			</div>
+		</div>
+		<script src="public/jquery-1.11.3.js"></script>
+		<script src="public/bootstrap.min.js" type="text/javascript"></script>
+		<!-- <script src="js/plugins/lhgdialog/lhgdialog.js"></script> -->
+		<!-- 弹出警示框 -->
+		<script src="js/plugins/toastr/toastr.min.js"></script>
+
+		<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+		<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+		<!-- 引入echarts -->
+		<script src="public/echarts.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 引入请求数据方法 -->
+		<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/http.js"></script>
+		<script>
+			$(function() {
+				//充值订单
+				ChongZhiDingDan();
+				//充值金额
+				ChongZhiJinE();
+				//支付方式统计
+				ZhiFuFangShi();
+				//阶梯水价
+				JieTiShuiJia();
+			})
+			//充值订单
+			function ChongZhiDingDan() {
+				var myChart = echarts.init(document.getElementById('main01'));
+				var option = {
+					title: {
+						text: '充值订单',
+						left: 'center',
+						top: 20,
+						textStyle: {
+							color: '#666'
+						}
+					},
+					tooltip: {
+						trigger: 'axis'
+					},
+					grid: {
+						left: '3%',
+						right: '3%',
+						bottom: '3%',
+						top: '20%',
+						containLabel: true
+					},
+					legend: {
+						data: ['A类表', 'B类表'],
+						top: 50
+					},
+					toolbox: {
+						show: false,
+						feature: {
+							dataView: {
+								show: true,
+								readOnly: false
+							},
+							magicType: {
+								show: true,
+								type: ['line', 'bar']
+							},
+							restore: {
+								show: true
+							},
+							saveAsImage: {
+								show: true
+							}
+						}
+					},
+					calculable: true,
+					xAxis: [{
+						type: 'category',
+						data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+					}],
+					yAxis: [{
+						type: 'value',
+						axisLabel: {
+							formatter: '{value} 笔'
+						}
+					}],
+					series: [{
+							name: 'A类表',
+							type: 'bar',
+							data: [82.0, 94.9, 57.0, 123.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+							itemStyle: {
+								normal: {
+									color: "#77d5f4"
+								}
+							}
+						},
+						{
+							name: 'B类表',
+							type: 'bar',
+							data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+							itemStyle: {
+								normal: {
+									color: "#2ee1ca"
+								}
+							}
+						}
+					]
+				};
+
+				myChart.setOption(option);
+			}
+			//充值金额
+			function ChongZhiJinE() {
+				var myChart = echarts.init(document.getElementById('main02'));
+				var option = {
+					title: {
+						text: '充值金额',
+						left: 'center',
+						top: 20,
+						textStyle: {
+							color: '#666'
+						}
+					},
+					tooltip: {
+						trigger: 'axis'
+					},
+					grid: {
+						left: '3%',
+						right: '3%',
+						bottom: '3%',
+						top: '20%',
+						containLabel: true
+					},
+					legend: {
+						data: ['A类表', 'B类表'],
+						top:50
+					},
+					toolbox: {
+						show: false,
+						feature: {
+							dataView: {
+								show: true,
+								readOnly: false
+							},
+							magicType: {
+								show: true,
+								type: ['line', 'bar']
+							},
+							restore: {
+								show: true
+							},
+							saveAsImage: {
+								show: true
+							}
+						}
+					},
+					calculable: true,
+					xAxis: [{
+						type: 'category',
+						data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+					}],
+					yAxis: [{
+						type: 'value',
+						axisLabel: {
+							formatter: '{value} 万元'
+						}
+					}],
+					series: [{
+							name: 'A类表',
+							type: 'bar',
+							data: [2.0, 4.9, 7.0, 23.2, 5.6, 6.7, 35.6, 62.2, 12.6, 20.0, 6.4, 3.3],
+							itemStyle: {
+								normal: {
+									color: "#77d5f4"
+								}
+							}
+						},
+						{
+							name: 'B类表',
+							type: 'bar',
+							data: [2.6, 5.9, 9.0, 26.4, 28.7, 50.7, 75.6, 82.2, 48.7, 18.8, 6.0, 2.3],
+							itemStyle: {
+								normal: {
+									color: "#2ee1ca"
+								}
+							}
+						}
+					]
+				};
+
+				myChart.setOption(option);
+			}
+			//支付方式统计
+			function ZhiFuFangShi() {
+				var myChart = echarts.init(document.getElementById('main03'));
+				var option = {
+					title: {
+						text: '支付方式统计',
+						left: 'center',
+						top: 20,
+						textStyle: {
+							color: '#666'
+						}
+					},
+
+					tooltip: {
+						trigger: 'item',
+						formatter: "{a} <br/>{b} : {c} ({d}%)"
+					},
+
+					visualMap: {
+						show: false,
+						min: 80,
+						max: 600,
+						inRange: {
+							colorLightness: [0, 1]
+						}
+					},
+
+					series: [{
+						name: '访问来源',
+						type: 'pie',
+						radius: '55%',
+						center: ['50%', '50%'],
+						data: [{
+								value: 335,
+								name: '支付宝'
+							},
+							{
+								value: 310,
+								name: '微信 '
+							},
+							{
+								value: 274,
+								name: '现金 '
+							}
+						].sort(function(a, b) {
+							return a.value - b.value;
+						}),
+						roseType: 'radius',
+						label: {
+							normal: {
+								textStyle: {
+									color: '#666666'
+								}
+							}
+						},
+						labelLine: {
+							normal: {
+								lineStyle: {
+									color: '#666666'
+								},
+								smooth: 0.2,
+								length: 10,
+								length2: 20
+							}
+						},
+						itemStyle: {
+							normal: {
+								color: function(params) {
+									// 根据需要制作一张彩色地图.
+									var colorList = [
+										'#fde886', '#2ee1ca', '#77d5f4'
+									];
+									return colorList[params.dataIndex]
+								},
+								shadowBlur: 200,
+								shadowColor: 'rgba(0, 0, 0, 0)'
+							}
+						},
+
+						animationType: 'scale',
+						animationEasing: 'elasticOut',
+						animationDelay: function(idx) {
+							return Math.random() * 200;
+						}
+					}]
+				};
+				myChart.setOption(option);
+			}
+			//阶梯水价
+			function JieTiShuiJia() {
+				var myChart = echarts.init(document.getElementById('main04'));
+				var option = {
+					title: {
+						text: '阶梯水价',
+						left: 'center',
+						top: 20,
+						textStyle: {
+							color: '#666'
+						}
+					},
+					tooltip: {
+						trigger: 'axis'
+					},
+					grid: {
+						left: '3%',
+						right: '3%',
+						bottom: '3%',
+						top: '20%',
+						containLabel: true
+					},
+					legend: {
+						data: ['一阶', '二阶', '三阶'],
+						top: 50
+					},
+					toolbox: {
+						show: false,
+						feature: {
+							dataView: {
+								show: true,
+								readOnly: false
+							},
+							magicType: {
+								show: true,
+								type: ['line', 'bar']
+							},
+							restore: {
+								show: true
+							},
+							saveAsImage: {
+								show: true
+							}
+						}
+					},
+					calculable: true,
+					xAxis: [{
+						type: 'category',
+						data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+					}],
+					yAxis: [{
+						type: 'value',
+						axisLabel: {
+							formatter: '{value} 元'
+						}
+					}],
+					series: [{
+							name: '一阶',
+							type: 'bar',
+							data: [2.0, 4.9, 7.0, 23.2, 5.6, 6.7, 35.6, 62.2, 12.6, 20.0, 6.4, 3.3],
+							itemStyle: {
+								normal: {
+									color: "#2ee1ca"
+								}
+							}
+						},
+						{
+							name: '二阶',
+							type: 'bar',
+							data: [2.6, 5.9, 9.0, 26.4, 28.7, 50.7, 75.6, 82.2, 48.7, 18.8, 6.0, 2.3],
+							itemStyle: {
+								normal: {
+									color: "#fde886"
+								}
+							}
+						},
+						{
+							name: '三阶',
+							type: 'bar',
+							data: [2.6, 5.9, 9.0, 26.4, 28.7, 50.7, 75.6, 82.2, 48.7, 18.8, 6.0, 2.3],
+							itemStyle: {
+								normal: {
+									color: "#f55f6e"
+								}
+							}
+
+						}
+					]
+				};
+
+				myChart.setOption(option);
+			}
+		</script>
+	</body>
+</html>

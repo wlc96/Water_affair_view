@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+		<title>智慧水务</title>
+
+		<link href="public/bootstrap.min.css" rel="stylesheet">
+		<link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+		<!-- Sweet Alert -->
+		<link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+		<!-- Toastr style -->
+		<link href="css/plugins/toastr/toastr.min.css" rel="stylesheet">
+
+		<!-- Gritter -->
+		<link href="js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+
+		<link href="pubilc/animate.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<style>
+			.navbar-fixed-top,
+			.navbar-static-top {
+				background: #fff;
+			}
+
+			.wrapper-content {
+				padding: 20px 0px 0;
+			}
+
+			.nav>li.active {
+				border-left: none;
+			}
+
+			.logoImg {
+				width: 60%;
+				margin: 10px 10% 10px 18%;
+			}
+
+			.circle {
+				display: inline-block;
+				width: 0px;
+				height: 0px;
+				border: 3px solid #FFF;
+				border-radius: 50%;
+				float: right;
+				margin-top: 5px;
+				margin-right: 3px;
+			}
+
+			.circle.active {
+				display: inline-block;
+				width: 14px;
+				height: 14px;
+				border: none;
+				margin-right: 0;
+				background: url(img/check.png) no-repeat 0 0;
+				margin-top: 2px;
+			}
+
+			.nav>li.check {
+				position: relative;
+			}
+
+			.checkImg {
+				position: absolute;
+				right: 0;
+				top: 0;
+				height: 100%;
+				display: none;
+			}
+
+			.nav.nav-second-level>li.active .checkImg {
+				display: block;
+			}
+
+			.mini-navbar .metismenu .collapse.in>li.active .checkImg {
+				display: none;
+			}
+
+			.navbar-default .nav>li>a:hover {
+				color: #a7b1c2;
+			}
+
+			.navbar-default .nav>li>a:focus {
+				color: #a7b1c2;
+			}
+
+			.nav-second-level>li.active>a:focus {
+				color: #2ACDB8;
+			}
+
+			.iconImg img {
+				display: inline-block;
+				width: 18px;
+				height: 18px;
+				position: relative;
+				top: -2px;
+			}
+
+			.nav-second-level>li.active>a {
+				color: #2ACDB8;
+			}
+
+			.metismenu>li.active>a {
+				color: #a7b1c2;
+			}
+
+			.minimalize-styl-2 {
+				color: #8796A3;
+				margin: 19px 5px 5px 20px;
+			}
+
+			.navbar {
+				min-height: 66px;
+			}
+
+			.minimalize-styl-2 img {
+				display: inline-block;
+				width: 20px;
+				display: none;
+			}
+
+			.minimalize-styl-2 img.show {
+				display: inline-block;
+			}
+
+			.crumbsNav {
+				float: left;
+			}
+
+			.crumbsNav span,
+			.crumbsNav a {
+				font-size: 16px;
+				line-height: 66px;
+			}
+
+			.crumbsNav span {
+				color: #9F9F9F;
+			}
+
+			.crumbsNav a {
+				color: #0D467B;
+			}
+
+			.rightNav ul,
+			.rightNav ul li {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+
+			.rightNav>ul {
+				float: right;
+				margin-right: 15px;
+			}
+
+			.rightNav>ul>li {
+				float: left;
+				height: 66px;
+				line-height: 66px;
+				padding: 0 15px;
+				cursor: pointer;
+			}
+
+			.rightNav>ul>li:hover {
+				background: #E5E5E5;
+			}
+
+			.rightNav>ul>li img {
+				display: inline-block;
+				width: 20px;
+				position: relative;
+				top: -2px;
+			}
+
+			.user-menu {
+				position: absolute;
+				z-index: 1000;
+				display: none;
+				right: 0;
+				top: 62px;
+				padding-bottom: 1px;
+				min-width: 110px;
+				margin: 2px 0 0;
+				font-size: 14px;
+				text-align: left;
+				list-style: none;
+				background-color: #fff;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+				box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+			}
+
+			.jiao {
+				display: inline-block;
+				position: absolute;
+				right: 24px;
+				top: -20px;
+				width: 20px;
+				float: left;
+				height: 20px;
+				border: 10px solid transparent;
+				border-bottom: 10px solid #fff;
+			}
+
+			.user-menu>ul,
+			.user-menu li {
+				margin: 0;
+				padding: 0;
+			}
+
+			.user-menu li {
+				text-align: center;
+				line-height: 40px;
+				list-style: none;
+			}
+			.user-menu li a{
+				color:#676a6c;
+			}
+			.user-menu li:hover {
+				background: #eee;
+			}
+			.user-menu li:hover a{
+				color: #0D467B;
+			}
+			.titName{
+				font-size: 24px;
+				line-height: 64px;
+				color:#363636;
+				font-weight: bold;
+				float: right;
+				margin-right: 20px;
+			}
+			.wrapper-content{
+				padding:0;
+				margin:0 -15px;
+			}
+			.leftNav{
+				width: 217px;
+				overflow-y: auto;
+			}
+			.leftNav.fold{
+				display: inline;
+				width: 70px;
+			}
+			.leftNav.open{
+				position: fixed;
+				width: 217px;
+			}
+			#side-menu>li{
+				display: none;
+			}
+			#side-menu>li.show{
+				display: block;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="wrapper">
+			<div class="leftNav open">
+			<nav class="navbar-default navbar-static-side" role="navigation">
+				<img class="logoImg" src="img/logo.png" alt="">
+				<div class="sidebar-collapse">
+					<ul class="nav metismenu" id="side-menu">
+						<li class="goToUrl" data-name="终端分布" data-url="terminal.html">
+							<a href="javascript:void(0)">
+								<i class="iconImg">
+									<img class="littleicon" src="img/icon01.png" alt="">
+								</i>
+								<span class="nav-label">终端分布</span>
+								<span class="circle active"></span>
+							</a>
+						</li>
+						<li data-name="设备管理">
+							<a href="javascript:void(0)">
+								<!-- <i class="fa fa-th-large"></i> -->
+								<i class="iconImg">
+									<img class="littleicon" src="img/icon02.png" alt="">
+								</i>
+								<span class="nav-label">设备管理</span>
+								<!-- <span class="fa arrow"></span> -->
+								<span class="circle"></span>
+							</a>
+							<ul class="nav nav-second-level">
+								<li class="goToUrl" data-url="device.html">
+									<a href="javascript:void(0)">总览</a>
+									<img class="checkImg" src="img/checkImg.png" alt="">
+								</li>
+								<li class="goToUrl" data-url="waterMeterFile.html">
+									<a href="javascript:void(0)">水表档案管理</a>
+									<img class="checkImg" src="img/checkImg.png" alt="">
+								</li>
+								<li class="goToUrl" data-url="chaoBiao.html">
+									<a href="javascript:void(0)">智能抄表</a>
+									<img class="checkImg" src="img/checkImg.png" alt="">
+								</li>
+							</ul>
+						</li>
+						<li data-name="经营管理">
+							<a href="javascript:void(0)">
+								<!-- <i class="fa fa-th-large"></i> -->
+								<i class="iconImg">
+									<img class="littleicon" src="img/icon03.png" alt="">
+								</i>
+								<span class="nav-label">经营管理</span>
+								<!-- <span class="fa arrow"></span> -->
+								<span class="circle"></span>
+							</a>
+							<ul class="nav nav-second-level">
+								<li class="goToUrl" data-url="financialInfor.html">
+									<a href="javascript:void(0)">财务信息</a>
+									<img class="checkImg" src="img/checkImg.png" alt="">
+								</li>
+								<li class="goToUrl" data-url="workOrder.html">
+									<a href="javascript:void(0)">工单管理</a>
+									<img class="checkImg" src="img/checkImg.png" alt="">
+								</li>
+								<li class="goToUrl" data-url="cost.html">
+									<a href="javascript:void(0)">成本管理</a>
+									<img class="checkImg" src="img/checkImg.png" alt="">
+								</li>
+								<li class="goToUrl" data-url="price.html">
+									<a href="javascript:void(0)">价格管理</a>
+									<img class="checkImg" src="img/checkImg.png" alt="">
+								</li>
+								<li class="goToUrl" data-url="invoice.html">
+									<a href="javascript:void(0)">发票管理</a>
+									<img class="checkImg" src="img/checkImg.png" alt="">
+								</li>
+							</ul>
+						</li>
+						<li data-name="运维管理">
+							<a href="javascript:void(0)">
+								<i class="iconImg">
+									<img class="littleicon" src="img/icon04.png" alt="">
+								</i>
+								<span class="nav-label">运维管理</span>
+								<span class="circle"></span>
+							</a>
+							<ul class="nav nav-second-level">
+								<li class="goToUrl" data-url="eventProcess.html">
+									<a href="javascript:void(0)">事件处理</a>
+									<img class="checkImg" src="img/checkImg.png" alt="">
+								</li>
+								<li class="goToUrl" data-url="workOrderProcess.html">
+									<a href="javascript:void(0)">工单处理</a>
+									<img class="checkImg" src="img/checkImg.png" alt="">
+								</li>
+								<li class="goToUrl" data-url="operation.html">
+									<a href="javascript:void(0)">故障处理</a>
+									<img class="checkImg" src="img/checkImg.png" alt="">
+								</li>
+								<li class="goToUrl" data-url="patrolPlan.html">
+									<a href="javascript:void(0)">巡检计划</a>
+									<img class="checkImg" src="img/checkImg.png" alt="">
+								</li>
+								<li class="goToUrl" data-url="xunJianRenYuan.html">
+									<a href="javascript:void(0)">运维人员</a>
+									<img class="checkImg" src="img/checkImg.png" alt="">
+								</li>
+							</ul>
+						</li>
+						<!-- <li class="goToUrl" data-url="undefined">
+							<a href="javascript:void(0)">
+								<i class="iconImg">
+									<img class="littleicon" src="img/icon05.png" alt="">
+								</i>
+								<span class="nav-label">用水报告</span>
+								<span class="circle"></span>
+							</a>
+						</li> -->
+						<li data-name="数据统计">
+							<a href="javascript:void(0)">
+								<i class="iconImg">
+									<img class="littleicon" src="img/icon06.png" alt="">
+								</i>
+								<span class="nav-label">数据统计</span>
+								<span class="circle"></span>
+							</a>
+							<ul class="nav nav-second-level">
+								<li class="goToUrl" data-url="sheBeiZhiShu.html">
+									<a href="javascript:void(0)">设备指数</a>
+									<img class="checkImg" src="img/checkImg.png" alt="">
+								</li>
+								<li class="goToUrl" data-url="yongShuiZhiShu.html">
+									<a href="javascript:void(0)">用水指数</a>
+									<img class="checkImg" src="img/checkImg.png" alt="">
+								</li>
+								<li class="goToUrl" data-url="yingShouZhiShu.html">
+									<a href="javascript:void(0)">营收指数</a>
+									<img class="checkImg" src="img/checkImg.png" alt="">
+								</li>
+								<li class="goToUrl" data-url="yunWeiZhiShu.html">
+									<a href="javascript:void(0)">运维指数</a>
+									<img class="checkImg" src="img/checkImg.png" alt="">
+								</li>
+							</ul>
+						</li>
+						<li data-name="系统管理">
+							<a href="javascript:void(0)">
+								<i class="iconImg">
+									<img class="littleicon" src="img/icon07.png" alt="">
+								</i>
+								<span class="nav-label">系统管理</span>
+								<span class="circle"></span>
+							</a>
+							<ul class="nav nav-second-level">
+								<li class="goToUrl" data-url="jueSeGuanLi.html">
+									<a href="javascript:void(0)">角色管理</a>
+									<img class="checkImg" src="img/checkImg.png" alt="">
+								</li>
+								<li class="goToUrl" data-url="quanXianGuanLi.html">
+									<a href="javascript:void(0)">权限管理</a>
+									<img class="checkImg" src="img/checkImg.png" alt="">
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</nav>
+			</div>
+			<div id="page-wrapper" class="gray-bg dashbard-1">
+				<div class="row border-bottom">
+					<nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+						<div class="navbar-header">
+							<a class="navbar-minimalize minimalize-styl-2" data-state="0" href="javascript:void(0)">
+								<!-- <i class="fa fa-bars"></i> -->
+								<img class="open show" src="img/open.png" alt="">
+								<img class="fold" src="img/fold.png" alt="">
+							</a>
+						</div>
+						<!-- 面包屑导航 -->
+						<div class="crumbsNav">
+							<span class="firstTit">终端分布</span>
+							<a class="subTit" style="display: none;" href="javascript:void(0)">-</a>
+						</div>
+						<div class="rightNav">
+							<ul>
+								<li>
+									<img src="img/sx.png" alt="">
+									刷新
+								</li>
+								<li>
+									<img src="img/help.png" alt="">
+									帮助
+								</li>
+								<li>
+									<img src="img/msg.png" alt="">
+									消息
+								</li>
+								<li id="drop_menu">
+									<img src="img/touXiang.png" alt="">
+									<div class="user-menu" style="display: none;">
+										<span class="jiao"></span>
+										<ul>
+											<li id="xiuGai_pwd" data-toggle="modal" data-target="#myModal1">
+												<a href="javascript:void(0)">基础资料</a>
+											</li>
+											<li id="xiuGai_pwd" data-toggle="modal" data-target="#myModal1">
+												<a href="javascript:void(0)">安全设置</a>
+											</li>
+											<li class="loginOut">
+												<a href="javascript:void(0)">退出</a>
+											</li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="titName">北京市水务局</div>
+					</nav>
+				</div>
+				<!-- 此处放iframe -->
+				<div class="iframeBox wrapper wrapper-content">
+					<iframe id="ifr" src="terminal.html" frameborder="no" scrolling="auto" width="100%" height="100%" allowtransparency="true"></iframe>
+				</div>
+			</div>
+		</div>
+
+		<!-- Mainly scripts -->
+		<script src="public/jquery-1.11.3.js"></script>
+		<script src="public/bootstrap.min.js"></script>
+		<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+		<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+		<!-- Custom and plugin javascript -->
+		<script src="public/inspinia.js"></script>
+		<script src="js/plugins/pace/pace.min.js"></script>
+		<!-- Toastr -->
+		<script src="js/plugins/toastr/toastr.min.js"></script>
+		<!-- Sweet alert -->
+		<script src="js/plugins/sweetalert/sweetalert.min.js"></script>
+		<!-- 全局js -->
+		<script src="js/global.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 引入请求数据方法 -->
+		<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/http.js"></script>
+		<script>
+			$(document).ready(function() {
+				if(localStorage.getItem("access-token") === null){
+					window.location.href = baseUrl + "login.html";
+				}
+				//获取权限
+				GetQuanXian();
+				setTimeout(function() {
+					toastr.options = {
+						closeButton: true,
+						progressBar: true,
+						showMethod: 'slideDown',
+						timeOut: 4000
+					};
+					//toastr.success('Responsive Admin Theme', 'Welcome to INSPINIA');
+				}, 1300);
+
+				var tarHeight = $('#page-wrapper').height();
+				$('.iframeBox').css('height', (tarHeight - 86));
+				$('.leftNav').css('height', tarHeight);
+			});
+
+			$("#side-menu>li>a").click(function() {
+				if ($(this).siblings('.nav-second-level').length !== 0) {
+					if ($(this).parent().hasClass("active")) {
+						$(this).find(".circle").removeClass("active");
+					} else {
+						$(this).find(".circle").addClass("active");
+					}
+				} else {
+					if ($("#side-menu>li.active").length !== 0) {
+						$(".nav-second-level>li").removeClass("active");
+						$(this).find(".circle").addClass("active");
+					} else {
+						$(".nav-second-level>li").removeClass("active");
+						$(".circle").removeClass("active");
+						$(this).find(".circle").addClass("active");
+					}
+				}
+
+			})
+			$(".nav-second-level>li").click(function() {
+				$(".circle").removeClass("active");
+				$(this).parent().siblings().find(".circle").addClass("active");
+				$(".nav-second-level>li").removeClass("active");
+				$(this).addClass("active");
+			})
+			//左侧菜单展开与折叠
+			$(".minimalize-styl-2").click(function() {
+				$(this).find("img").removeClass("show");
+				if ($(this).attr("data-state") == "0") {
+					$(this).find(".fold").addClass("show");
+					$(this).attr("data-state", "1");
+					$('.leftNav').removeClass("open");
+					$('.leftNav').addClass("fold");
+					$(".logoImg").attr("src","img/logo_fold.png")
+				} else {
+					$(this).find(".open").addClass("show");
+					$(this).attr("data-state", "0");
+					$('.leftNav').removeClass("fold");
+					$('.leftNav').addClass("open");
+					$(".logoImg").attr("src","img/logo.png")
+				}
+			})
+			
+			//用户头像下拉菜单
+			$('#drop_menu').mouseover(function(){
+				$(this).parent().find('.user-menu').css('display','block');
+			});
+			$('#drop_menu').mouseleave(function(){
+				$('.user-menu').css('display','none');
+			});
+			//点击左侧菜单切换页面
+			$(".goToUrl").click(function(){
+				$(".thrTit").remove();
+				if($(this).parent().hasClass("nav-second-level") == false){
+					var inner = $(this).find(".nav-label").html();
+					$(".subTit").hide();
+					$(".firstTit").html(inner);
+				}else{
+					$(".subTit").show();
+					var firtit = $(this).parent().siblings("a").find(".nav-label").html();
+					var subtit = $(this).find("a").html();
+					$(".firstTit").html(firtit);
+					$(".subTit").html('/'+subtit);
+				}
+				
+				var tarUrl = $(this).attr("data-url");
+				if(tarUrl !== "undefined"){
+					$("#ifr").attr("src",tarUrl);
+				}else{
+					return false;
+				}
+			})
+			
+			//退出登录
+			$(".loginOut").click(function(){
+				swal({
+				    title: "退出登录",
+				    text: "确定退出当前登录？",
+				    type: "warning",
+				    showCancelButton: true,
+				    confirmButtonColor: "#DD6B55",
+				    confirmButtonText: "退出",
+					cancelButtonText: "取消",
+				    closeOnConfirm: true
+				}, function () {
+				    localStorage.removeItem("access-token");
+				    window.location.href = baseUrl + "login.html";
+				});
+			})
+			
+			//获取权限数据
+			function GetQuanXian(){
+				$('#side-menu>li').removeClass("show");
+				var token = localStorage.getItem("access-token");
+				//声明参数对象
+				var data = {
+					admin_id : $(this).attr("data-id")
+				};
+				//请求回调函数
+				var success = function(response) {
+					console.log("获取到的权限数据：" + JSON.stringify(response));
+					if (response.result) {
+						for(var i = 0; i < response.data.length; i++){
+							$('#side-menu>li[data-name="'+ response.data[i] +'"]').addClass("show");
+						}
+					}
+				}
+				//请求方法
+				ajaxFun.post(ApiUrl + global_url.power, data, token, success);
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<!-- Bootstrap core CSS -->
+		<link href="public/bootstrap.min.css" title="" rel="stylesheet" />
+		<link rel="stylesheet" href="css/plugins/toastr/toastr.min.css" />
+		<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+		<link href="public/animate.css" rel="stylesheet">
+		<link rel="stylesheet" href="public/inspinia.css" />
+		<!-- <link rel="stylesheet" href="css/my_TiBaoJiLu.css" /> -->
+		<link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="public/public.css">
+		<link href="css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		    <script src="public/html5shiv.min.js"></script>
+		    <script src="public/respond.min.js"></script>
+		<![endif]-->
+		<title>巡检计划</title>
+		<style>
+			.wrapper-content{
+			    padding:20px 10px 0;
+			}
+			.input-group{
+				width: 190px;
+				float: right;
+			}
+			.modal-body .form-group .input-append .form-control{
+				width: 155px;
+			}
+			span.line{
+				width: 19px;
+				float: right;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="wrapper">
+			<!--标编辑-->
+			<div id="biaobj" class=" wrapper wrapper-content animated fadeInRight" style="padding-top:0;">
+				<!-- <div class="btnBox">
+					<button class="plus" type="button" data-toggle="modal" data-target="#myModal"><img src="img/add.png" alt="">添加</button>
+					<button class="export" type="button"><img src="img/export.png" alt="">导出</button>
+				</div> -->
+				<!--表格部分-->
+				<div class="ibox-content" style="margin-top:0;">
+					<div class="searchBox">
+						<form action="" class="form-horizontal">
+							<div class="form-group">
+								<label for="">查询：</label>
+								<div class="searchInput" style="margin-right: 20px;width:280px;">
+									<input type="text" placeholder="输入计划名称、区域名称、巡检人员" class="form-control">
+									<a href="javascript:void(0)"><img src="img/look.png" alt=""></a>
+								</div>
+								<!-- <label for="">添加时间：</label>
+								<div class="date input-append form_date Ym_date" style="float:left;">
+									<div class="input-group">
+										<input class="form-control" readonly="readonly" type="text" name="bgtime" placeholder="开始时间">
+										<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
+									</div>
+								</div>
+								<span class="line"></span>
+								<div class="date input-append form_date Ym_date2" style="float:left;margin-right: 20px;">
+									<div class="input-group">
+										<input class="form-control endtime" readonly="readonly" type="text" name="endtime" placeholder="截止时间">
+										<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
+									</div>
+								</div> -->
+								<button type="button" class="btn btn-primary">查询</button>
+
+								<button type="button" class="btn btn-white exportbtn exportExcel"><img src="img/export.png" alt="">导出Excel</button>
+								<button type="button" class="btn btn-primary exportbtn hdleBtn addplan" data-state="0" data-toggle="modal" data-target="#myModal"><img src="img/add.png" alt="">新增计划</button>
+							</div>
+							</from>
+					</div>
+					<div class="tableBox">
+						<table id="dataTable" class="table table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>计划名称</th>
+									<th>区域名称</th>
+									<th>巡检方式</th>
+									<th>巡检对象</th>
+									<th>巡检周期</th>
+									<th>巡检人员</th>
+									<th>创建人</th>
+									<th>巡检日期</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+					<div class="footIns">
+						<div class="selectNum">
+							当前显示
+							<select name="" id="" class="selNum">
+								<option value="5">5</option>
+								<option value="10">10</option>
+								<option value="25">25</option>
+							</select>
+							项结果
+						</div>
+						<ul id="page"></ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal inmodal fade" id="myModal" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<!-- <i class="fa fa-laptop modal-icon"></i> -->
+						<h4 class="modal-title"><span class="handleInner">-</span>巡检计划</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label>计划名称</label>
+							<input type="text" placeholder="请输入计划名称" class="form-control planName">
+							<div style="clear:both;"></div>
+							<span class="star">*</span>
+						</div>
+						<div class="form-group">
+							<label>区域名称</label>
+							<select name="account" class="form-control areaName">
+								<option value="00">请选择区域名称</option>
+							</select>
+							<div style="clear:both;"></div>
+							<span class="star">*</span>
+						</div>
+						<div class="form-group">
+							<label>巡检方式</label>
+							<select name="account" class="form-control patrolMode">
+								<option value="00">请选择巡检方式</option>
+								<option value="1">徒步</option>
+								<option value="2">驾车</option>
+							</select>
+							<div style="clear:both;"></div>
+							<span class="star">*</span>
+						</div>
+						<div class="form-group">
+							<label>巡检对象</label>
+							<input type="text" placeholder="请输入巡检对象" class="form-control patrolObj">
+							<div style="clear:both;"></div>
+							<span class="star">*</span>
+						</div>
+						<div class="form-group">
+							<label>巡检周期</label>
+							<input type="text" placeholder="请输入巡检周期" class="form-control patrolCycle">
+							<div style="clear:both;"></div>
+							<span class="star">*</span>
+						</div>
+						<div class="form-group">
+							<label>巡检人员</label>
+							<select name="account" class="form-control patrolUser">
+								<option value="00">请选择巡检人员</option>
+							</select>
+							<div style="clear:both;"></div>
+							<span class="star">*</span>
+						</div>
+						<div class="form-group" style="margin-bottom:0;">
+							<label>巡检日期</label>
+							<div class="date input-append Ym_date2">
+								<div class="input-group">
+									<input class="form-control endtime" readonly="readonly" type="text" name="endtime" placeholder="截止时间">
+									<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
+								</div>
+							</div>
+							<span class="line"></span>
+							<div class="date input-append Ym_date">
+								<div class="input-group">
+									<input class="form-control bgtime" readonly="readonly" type="text" name="bgtime" placeholder="开始时间">
+									<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
+								</div>
+							</div>
+							<div style="clear:both;"></div>
+							<span class="star">*</span>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<!-- <button type="button" class="btn btn-white" data-dismiss="modal">Close</button> -->
+						<button type="button" class="btn btn-primary finishBtn">完成</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="public/jquery-1.11.3.js"></script>
+		<script src="public/bootstrap.min.js" type="text/javascript"></script>
+		<!-- <script src="js/plugins/lhgdialog/lhgdialog.js"></script> -->
+		<!-- 弹出警示框 -->
+		<script src="js/plugins/toastr/toastr.min.js"></script>
+
+		<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+		<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+		<!-- 时间控件样式 -->
+		<script src="js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+		<script src="js/plugins/datetimepicker/bootstrap-datetimepicker-update.min.js"></script>
+		<script src="js/plugins/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
+		<script src="js/plugins/dataTables/datatables.min.js"></script>
+		<!-- 页码 -->
+		<script src="js/bootstrap-paginator.js" type="text/javascript"></script>
+		<!-- 全局js -->
+		<script src="js/global.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 引入请求数据方法 -->
+		<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/http.js"></script>
+		<script>
+			var defaultNum = 5;
+			var table;
+			$(function() {
+				var bgTime;
+				/*只选择年月（开始时间）*/
+				$('.Ym_date').datetimepicker({
+					format: 'yyyy-mm',
+					autoclose: true,
+					todayBtn: true,
+					startView: 'year',
+					minView: 'year',
+					maxView: 'decade',
+					forceParse: false, // 当选择器关闭的时候，是否强制解析输入框中的值。
+					language: 'zh-CN',
+					pickerPosition: "bottom-left",
+				}).on('changeDate', function(ev) {
+					bgTime = ev.date.valueOf();
+				});
+				/*只选择年月（截止时间）*/
+				$('.Ym_date2').datetimepicker({
+					format: 'yyyy-mm',
+					autoclose: true,
+					todayBtn: true,
+					startView: 'year',
+					minView: 'year',
+					maxView: 'decade',
+					language: 'zh-CN',
+					forceParse: false, // 当选择器关闭的时候，是否强制解析输入框中的值。
+					pickerPosition: "bottom-left"
+				}).on('changeDate', function(ev) {
+					if (ev.date.valueOf() <= bgTime) {
+						// alert("截止时间不能小于起始时间~");
+						toastr.warning("截止时间不能小于起始时间");
+						$(".endtime").val("");
+						return false;
+					}
+				});
+				//获取区域名称列表
+				GetAreaName();
+				//获取巡检人员列表
+				GetExaminerList();
+				//初始化页码
+				initPage(defaultNum);
+			})
+			//表单元素获取焦点时取消警示效果
+			$("input").focus(function() {
+				$(this).parents(".form-group").removeClass("errorIns");
+			})
+			$("select").focus(function() {
+				$(this).parents(".form-group").removeClass("errorIns");
+			})
+			//关闭模态框的按钮点击事件(清空表单数据)
+			$(".close").click(function() {
+				$(".form-group").removeClass("errorIns");
+				$("input").val("");
+				$("select").find("option:eq(0)").prop("selected", true);
+			})
+			//导出excel数据
+			$(".exportExcel").click(function() {
+				$(".excelButton").click();
+			})
+			//列表中的查看详情按钮
+			$("body").on("click",".hdleBtn",function() {
+				$(".modal-body").find("input").prop("disabled", false);
+				$(".modal-body").find("select").prop("disabled", false);
+				$(".modal-body").find("textarea").prop("disabled", false);
+				if($(this).attr("data-state") === "0"){		//添加
+					$(".handleInner").html("添加");
+					$(".finishBtn").attr("data-state","0");
+				}else if($(this).attr("data-state") === "1"){	//查看
+					//获取当前事件信息
+					var id = $(this).parent().attr("data-id");
+					GetPatrolPlanInfo(id);
+					$(".finishBtn").attr("data-id",id);
+				
+					$(".handleInner").html("查看");
+					$(".modal-body").find("input").prop("disabled", true);
+					$(".modal-body").find("select").prop("disabled", true);
+					$(".modal-body").find("textarea").prop("disabled", true);
+					$(".finishBtn").attr("data-state","1");
+				}else if($(this).attr("data-state") === "2"){	//编辑
+					//获取当前事件信息
+					var id = $(this).parent().attr("data-id");
+					GetPatrolPlanInfo(id);
+					$(".finishBtn").attr("data-id",id);
+				
+					$(".handleInner").html("编辑");
+					$(".finishBtn").attr("data-state","2");
+				}
+			})
+			//删除巡检计划
+			$("body").on("click",".deleteitem",function() {
+				var token = localStorage.getItem("access-token");
+				//声明参数对象
+				var data = {
+					plan_id : $(this).attr("data-id")
+				};
+				//请求回调函数
+				var success = function(response) {
+					console.log("获取到的删除返回数据：" + JSON.stringify(response));
+					if (response.result) {
+						toastr.success("删除成功！");
+						initPage(defaultNum);
+					}
+				}
+				//请求方法
+				ajaxFun.post(ApiUrl + global_url.patrolPlanDelete, data, token, success);
+			})
+			//当前事件信息
+			function GetPatrolPlanInfo(id){
+				var token = localStorage.getItem("access-token");
+				//声明参数对象
+				var data = {
+					plan_id : id
+				};
+				//请求回调函数
+				var success = function(response) {
+					console.log("获取到的巡检计划返回数据：" + JSON.stringify(response));
+					if (response.result) {
+						$(".planName").val(response.data.name);
+						$(".areaName").find('option[value="'+ response.data.station +'"]').prop("selected",true);
+						$(".patrolMode").find('option[value="'+ response.data.type +'"]').prop("selected",true);
+						$(".patrolObj").val(response.data.xobject);
+						$(".patrolCycle").val(response.data.xobject);
+						$(".patrolUser").find('option[value="'+ response.data.examiner +'"]').prop("selected",true);
+						$(".bgtime").val(response.data.time.substring(0, 7));
+						$(".endtime").val(response.data.time.substring(8, 15));
+					}
+				}
+				//请求方法
+				ajaxFun.post(ApiUrl + global_url.patrolPlanInfo, data, token, success);
+			}
+			//提交表单验证(查看详情/编辑)
+			$(".finishBtn").click(function() {
+				var tarId = $(this).attr("data-state");
+				if (tarId !== "1") { //如果当前是编辑/添加状态,执行表单验证
+					if ($(".planName").val().trim() == "") {
+						$(".planName").parents(".form-group").addClass("errorIns");
+						return false;
+					}
+					if ($(".areaName").find("option:checked").val() == "00") {
+						$(".areaName").parents(".form-group").addClass("errorIns");
+						return false;
+					}
+					if ($(".patrolMode").find("option:checked").val() == "00") {
+						$(".patrolMode").parents(".form-group").addClass("errorIns");
+						return false;
+					}
+					if ($(".patrolObj").val().trim() == "") {
+						$(".patrolObj").parents(".form-group").addClass("errorIns");
+						return false;
+					}
+					if ($(".patrolCycle").val().trim() == "") {
+						$(".patrolCycle").parents(".form-group").addClass("errorIns");
+						return false;
+					}
+					if ($(".patrolUser").find("option:checked").val() == "00") {
+						$(".patrolUser").parents(".form-group").addClass("errorIns");
+						return false;
+					}
+					if ($(".bgtime").val().trim() == "") {
+						$(".bgtime").parents(".form-group").addClass("errorIns");
+						return false;
+					}
+					if ($(".endtime").val().trim() == "") {
+						$(".endtime").parents(".form-group").addClass("errorIns");
+						return false;
+					}
+					
+					//执行添加请求
+					var token = localStorage.getItem("access-token");
+					if(tarId === "0"){
+						//声明参数对象
+						var data = {
+							name : $(".planName").val(),
+							station_id : $(".areaName").find("option:checked").val(),
+							type : $(".patrolMode").find("option:checked").val(),
+							xobject : $(".patrolObj").val(),
+							cycle : $(".patrolCycle").val(),
+							examiner_id : $(".patrolUser").find("option:checked").val(),
+							time : $(".bgtime").val()+ "-" + $(".endtime").val()
+						};
+						//请求回调函数
+						var success = function(response) {
+							console.log("获取到的添加巡检计划返回数据：" + JSON.stringify(response));
+							if (response.result) {
+								toastr.success("添加成功！");
+								setTimeout(function() {
+									$(".close").click(); //关闭弹框
+									initPage(defaultNum);
+								}, 1000)
+							}else{
+								toastr.error(response.message);
+							}
+						}
+						//请求方法
+						ajaxFun.post(ApiUrl + global_url.patrolPlanAdd, data, token, success);
+					}else if(tarId == "2"){
+						var id = $(".finishBtn").attr("data-id");
+						//声明参数对象
+						var data = {
+							plan_id : id,
+							name : $(".planName").val(),
+							station_id : $(".areaName").find("option:checked").val(),
+							type : $(".patrolMode").find("option:checked").val(),
+							xobject : $(".patrolObj").val(),
+							cycle : $(".patrolCycle").val(),
+							examiner_id : $(".patrolUser").find("option:checked").val(),
+							time : $(".bgtime").val()+ "-" + $(".endtime").val()
+						};
+						//请求回调函数
+						var success = function(response) {
+							console.log("获取到的编辑巡检计划返回数据：" + JSON.stringify(response));
+							if (response.result) {
+								toastr.success("编辑成功！");
+								setTimeout(function() {
+									$(".close").click(); //关闭弹框
+									initPage(defaultNum);
+								}, 1000)
+							}else{
+								toastr.error(response.message);
+							}
+						}
+						//请求方法
+						ajaxFun.post(ApiUrl + global_url.patrolPlanEdit, data, token, success);
+					}
+					
+				}
+				$(".close").click(); //关闭弹框
+			})
+			
+			//初始化页码
+			function initPage(defaultNum) {
+				$(".selNum").find('option[value="' + defaultNum + '"]').prop("selected", true);
+				$.ajax({
+					type: "POST",
+					url: ApiUrl + global_url.patrolPlanList,
+					cache: false, //禁用缓存
+					data: {
+						pre_page: defaultNum
+					}, //传入组装的参数
+					contentType: "application/x-www-form-urlencoded;",
+					dataType: "json",
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader('access-token', localStorage.getItem("access-token"));
+					},
+					success: function(result) {
+						console.log(JSON.stringify(result));
+						if (result.result) {
+							//初始化表格数据
+							initTableData(defaultNum);
+							//渲染页码
+							var currentPage = 1;
+							var totalPages = result.data.last_page;
+							$("#page").bootstrapPaginator({
+								bootstrapMajorVersion: 3, //对应的bootstrap版本
+								currentPage: currentPage, //当前页数
+								numberOfPages: 10, //每次显示页数
+								totalPages: totalPages, //总页数
+								shouldShowPage: true, //是否显示该按钮
+								useBootstrapTooltip: true,
+								//分页点击事件
+								onPageClicked: function(event, originalEvent, type, page) {
+									console.log(ApiUrl + global_url.patrolPlanList + "?page=" + page);
+									//点击分页重载表格
+									table.ajax.url(ApiUrl + global_url.patrolPlanList + "?page=" + page).load();
+								}
+							});
+
+						}
+					}
+				});
+			}
+			//初始化表格
+			function initTableData(defaultNum) {
+				table = $('#dataTable').DataTable({
+					paging: false,
+					pageLength: 10,
+					responsive: true,
+					bAutoWidth: false,
+					lengthMenu: [5, 10, 25, 50, ],
+					bFilter: false,
+					sPaginationType: "full_numbers",
+					bLengthChange: true,
+					destroy: true,
+					info: false,
+					sDom: '<"top"<"clear">>rt<"bottom"lfip<"clear">>',
+					language: {
+						"sProcessing": "处理中...",
+						"sLengthMenu": "显示 _MENU_ 项结果",
+						"sZeroRecords": "没有匹配结果",
+						// "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+						"sInfo": "共 _TOTAL_ 项",
+						"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+						"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+						"sInfoPostFix": "",
+						"sSearch": "搜索:",
+						"sUrl": "",
+						"sEmptyTable": "表中数据为空",
+						"sLoadingRecords": "载入中...",
+						"sInfoThousands": ",",
+						"oPaginate": {
+							"sFirst": "首页",
+							"sPrevious": "上页",
+							"sNext": "下页",
+							"sLast": "末页"
+						},
+						"oAria": {
+							"sSortAscending": ": 以升序排列此列",
+							"sSortDescending": ": 以降序排列此列"
+						}
+					},
+					ajax: {
+						url: ApiUrl + global_url.patrolPlanList,
+						type: "POST",
+						contentType: "application/x-www-form-urlencoded",
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader('access-token', localStorage.getItem("access-token"));
+						},
+						data: function(obj) {
+							obj.pre_page = defaultNum;
+						},
+						dataSrc: function(json) {
+							console.log("获取到的巡检计划列表的数据：" + JSON.stringify(json));
+							return json.data.data;
+						}
+					},
+					fnServerParams: function(aoData) { //这个里面的 aoData就是会发送到后端的数据
+						//在这里 你可以对 发送到后端之前做任何事情. 
+						// aoData._rand = Math.random();
+						console.log(aoData);
+					},
+					columns: [{
+						data: 'name'
+					}, {
+						data: 'station'
+					}, {
+						data: 'type'
+					}, {
+						data: 'xobject'
+					}, {
+						data : 'cycle'
+					}, {
+						data : 'examiner'
+					}, {
+						data: 'admin'
+					}, {
+						data: 'time'
+					}, {
+						render: function(data, type, row) {
+							var strHtml = '<div data-id="' + row.id +'">'+
+								'<a class="handle hdleBtn lookdetail" data-state="1" data-toggle="modal" data-target="#myModal"><img src="img/listsearch.png" alt=""></a>' +
+								'<a class="handle hdleBtn editdetail" data-state="2" data-toggle="modal" data-target="#myModal"><img src="img/edit_gray.png" alt=""></a>' +
+								'<a data-id="' + row.id +'" class="handle deleteitem" href="javascript:void(0)"><img src="img/del_red.png" alt=""></a>'+
+								'<div>';
+							return strHtml;
+						}
+					}],
+					buttons: [{
+							extend: 'copy',
+							className: 'copyButton',
+							text: "复制"
+						},
+						{
+							extend: 'excel',
+							className: 'excelButton',
+							text: "导出excel",
+							title: 'ExampleFile'
+						},
+						{
+							extend: 'pdf',
+							className: 'pdfButton',
+							text: "导出pdf",
+							title: 'ExampleFile'
+						},
+						{
+							extend: 'print',
+							className: 'printButton',
+							text: "打印",
+							customize: function(win) {
+								$(win.document.body).addClass('white-bg');
+								$(win.document.body).css('font-size', '10px');
+
+								$(win.document.body).find('table')
+									.addClass('compact')
+									.css('font-size', 'inherit');
+							}
+						}
+					],
+					fnCreatedRow: function(nRow, aData, iDataIndex) { //将id绑定在tr
+						if (typeof(aData.id) != "undefined") {
+							$(nRow).attr("tr_id", aData.id);
+						}
+					}
+				});
+			}
+			//选择每页显示条数
+			$(".selNum").change(function() {
+				var num = $(this).find("option:checked").val();
+				defaultNum = num;
+				//初始化页码
+				initPage(defaultNum);
+			})
+			//获取区域名称列表
+			function GetAreaName(){
+				var token = localStorage.getItem("access-token");
+				//声明参数对象
+				var data = {};
+				//请求回调函数
+				var success = function(response) {
+					console.log("获取到的区域列表数据：" + JSON.stringify(response));
+					if (response.result) {
+						$(".areaName").find("option:eq(0)").nextAll().remove();
+						var temHtml = '';
+						var mData = response.data.list.data;
+						for (var i = 0; i < mData.length; i++) {
+							temHtml += '<option value="' + mData[i].id + '">' + mData[i].name + '</option>';
+						}
+						$(".areaName").append(temHtml);
+					}
+				}
+				//请求方法
+				ajaxFun.post(ApiUrl + global_url.stationList, data, token, success);
+			}
+			//获取巡检人员列表
+			function GetExaminerList(){
+				var token = localStorage.getItem("access-token");
+				//声明参数对象
+				var data = {};
+				//请求回调函数
+				var success = function(response) {
+					console.log("获取到的巡检人员列表数据：" + JSON.stringify(response));
+					if (response.result) {
+						$(".patrolUser").find("option:eq(0)").nextAll().remove();
+						var temHtml = '';
+						var mData = response.data.data;
+						for (var i = 0; i < mData.length; i++) {
+							temHtml += '<option value="' + mData[i].id + '">' + mData[i].name + '</option>';
+						}
+						$(".patrolUser").append(temHtml);
+					}
+				}
+				//请求方法
+				ajaxFun.post(ApiUrl + global_url.examinerList, data, token, success);
+			}
+		</script>
+	</body>
+</html>
