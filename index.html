@@ -21,6 +21,11 @@
 
 		<link href="public/animate.css" rel="stylesheet">
 		<link href="css/style.css" rel="stylesheet">
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		    <script src="public/html5shiv.min.js"></script>
+		    <script src="public/respond.min.js"></script>
+		<![endif]-->
 		<style>
 			.navbar-fixed-top,
 			.navbar-static-top {
@@ -134,7 +139,7 @@
 
 			.crumbsNav span,
 			.crumbsNav a {
-				font-size: 16px;
+				font-size: 18px;
 				line-height: 66px;
 			}
 
@@ -144,6 +149,7 @@
 
 			.crumbsNav a {
 				color: #0D467B;
+				font-weight: bold;
 			}
 
 			.rightNav ul,
@@ -155,10 +161,16 @@
 
 			.rightNav>ul {
 				float: right;
-				margin-right: 15px;
+				margin-right: 7px;
 			}
-
+			#drop_menu{
+				margin-left: 27px;
+			}
+			#drop_menu>img{
+				width: 38px;
+			}
 			.rightNav>ul>li {
+				font-size: 18px;
 				float: left;
 				height: 66px;
 				line-height: 66px;
@@ -172,16 +184,17 @@
 
 			.rightNav>ul>li img {
 				display: inline-block;
-				width: 20px;
+				width: 24px;
 				position: relative;
 				top: -2px;
+				margin-right: 10px;
 			}
 
 			.user-menu {
 				position: absolute;
 				z-index: 1000;
 				display: none;
-				right: 0;
+				right: 16px;
 				top: 62px;
 				padding-bottom: 1px;
 				min-width: 110px;
@@ -234,7 +247,7 @@
 				color:#363636;
 				font-weight: bold;
 				float: right;
-				margin-right: 20px;
+				margin-right: 80px;
 			}
 			.wrapper-content{
 				padding:0;
@@ -258,6 +271,22 @@
 			#side-menu>li.show{
 				display: block;
 			}
+			.nav>li>a{
+				font-size: 16px;
+			}
+			.nav-second-level li a{
+				font-size: 14px;
+			}
+			.nav>li>a>span{
+				margin-left: 8px;
+			}
+			.nav-second-level li a{
+				padding-left: 61px;
+			}
+			.italicLine{
+				margin:0 3px;
+				display: none;
+			}
 		</style>
 	</head>
 
@@ -268,7 +297,7 @@
 				<img class="logoImg" src="img/logo.png" alt="">
 				<div class="sidebar-collapse">
 					<ul class="nav metismenu" id="side-menu">
-						<li class="goToUrl" data-name="终端分布" data-url="terminal.html">
+						<li data-name="终端分布">
 							<a href="javascript:void(0)">
 								<i class="iconImg">
 									<img class="littleicon" src="img/icon01.png" alt="">
@@ -276,6 +305,12 @@
 								<span class="nav-label">终端分布</span>
 								<span class="circle active"></span>
 							</a>
+							<ul class="nav nav-second-level">
+								<li class="goToUrl" data-url="terminal.html">
+									<a href="javascript:void(0)">总览</a>
+									<img class="checkImg" src="img/checkImg.png" alt="">
+								</li>
+							</ul>
 						</li>
 						<li data-name="设备管理">
 							<a href="javascript:void(0)">
@@ -438,6 +473,7 @@
 						<!-- 面包屑导航 -->
 						<div class="crumbsNav">
 							<span class="firstTit">终端分布</span>
+							<span class="italicLine">/</span>
 							<a class="subTit" style="display: none;" href="javascript:void(0)">-</a>
 						</div>
 						<div class="rightNav">
@@ -523,6 +559,7 @@
 			});
 
 			$("#side-menu>li>a").click(function() {
+				$(".circle").removeClass("active");
 				if ($(this).siblings('.nav-second-level').length !== 0) {
 					if ($(this).parent().hasClass("active")) {
 						$(this).find(".circle").removeClass("active");
@@ -578,13 +615,15 @@
 				if($(this).parent().hasClass("nav-second-level") == false){
 					var inner = $(this).find(".nav-label").html();
 					$(".subTit").hide();
+					$(".italicLine").hide();
 					$(".firstTit").html(inner);
 				}else{
 					$(".subTit").show();
 					var firtit = $(this).parent().siblings("a").find(".nav-label").html();
 					var subtit = $(this).find("a").html();
 					$(".firstTit").html(firtit);
-					$(".subTit").html('/'+subtit);
+					$(".italicLine").show();
+					$(".subTit").html(subtit);
 				}
 				
 				var tarUrl = $(this).attr("data-url");

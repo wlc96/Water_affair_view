@@ -371,7 +371,7 @@
             }
 			//新加的
             var itemCustom = $("<li></li>");//创建一个容器
-            var itemHtml = "<span><input type='text' style='width: 30px;height: 20px;' value='"+this.currentPage+"'/>/"+this.totalPages+"</span>";
+            var itemHtml = "<span><input type='text' style='width: 30px;height: 20px;' value='"+this.currentPage+"'/><b style='margin:0 5px;font-weight:normal;'>/</b>"+this.totalPages+"</span>";
             itemCustom.append(itemHtml);
             listContainer.append(itemCustom);
             var itemlast = $("<li></li>");//创建一个‘跳转’的span

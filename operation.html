@@ -22,9 +22,7 @@
 		<![endif]-->
 		<title>故障处理</title>
 		<style>
-			.wrapper-content{
-			    padding:20px 10px 0;
-			 }
+			
 		</style>
 	</head>
 
@@ -37,50 +35,50 @@
 					<button class="export" type="button"><img src="img/export.png" alt="">导出</button>
 				</div> -->
 				<!--表格部分-->
-				<div class="ibox-content" style="margin-top:0;">
-					<div class="searchBox">
-						<form action="" class="form-horizontal">
-							<div class="form-group">
-								<label for="">查询：</label>
-								<div class="searchInput">
-									<input type="text" placeholder="请输入联系电话" class="form-control">
-									<a href="javascript:void(0)"><img src="img/look.png" alt=""></a>
-								</div>
-								<label for="">添加时间：</label>
-								<div class="date input-append form_date Ym_date" style="float:left;">
-									<div class="input-group">
-										<input class="form-control" readonly="readonly" type="text" name="bgtime" placeholder="开始时间">
-										<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
+				<div class="ibox-content">
+						<div class="searchBox">
+							<form action="" class="form-horizontal">
+								<div class="form-group">
+									<label for="">查询：</label>
+									<div class="searchInput">
+										<input type="text" placeholder="请输入联系电话" class="form-control">
+										<a href="javascript:void(0)"><img src="img/look.png" alt=""></a>
 									</div>
-								</div>
-								<span class="line"></span>
-								<div class="date input-append form_date Ym_date2" style="float:left;margin-right: 20px;">
-									<div class="input-group">
-										<input class="form-control endtime" readonly="readonly" type="text" name="endtime" placeholder="截止时间">
-										<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
+									<label for="">添加时间：</label>
+									<div class="date input-append form_date Ym_date" style="float:left;">
+										<div class="input-group">
+											<input class="form-control" readonly="readonly" type="text" name="bgtime" placeholder="开始时间">
+											<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
+										</div>
 									</div>
+									<span class="line"></span>
+									<div class="date input-append form_date Ym_date2" style="float:left;margin-right: 20px;">
+										<div class="input-group">
+											<input class="form-control endtime" readonly="readonly" type="text" name="endtime" placeholder="截止时间">
+											<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
+										</div>
+									</div>
+									<button type="button" class="btn btn-primary">查询</button>
+									<button type="button" class="btn btn-primary exportbtn exportExcel">导出Excel</button>
 								</div>
-								<button type="button" class="btn btn-primary">查询</button>
-								<button type="button" class="btn btn-primary exportbtn exportExcel">导出Excel</button>
-							</div>
-							</from>
-					</div>
-					<div class="tableBox">
-						<table id="dataTable" class="table table-bordered table-hover">
-							<thead>
-								<tr>
-									<th>流水号</th>
-									<th>分布区域名称</th>
-									<th>水表身码</th>
-									<th>故障类型</th>
-									<th>告警时间</th>
-									<th>操作员</th>
-									<th>联系电话</th>
-									<th>状态</th>
-								</tr>
-							</thead>
-							<tbody>
-								<!-- <tr>
+							</form>
+						</div>
+						<div class="tableBox tableSec">
+							<table id="dataTable" class="table table-bordered table-hover">
+								<thead>
+									<tr>
+										<th>流水号</th>
+										<th>分布区域名称</th>
+										<th>水表身码</th>
+										<th>故障类型</th>
+										<th>告警时间</th>
+										<th>操作员</th>
+										<th>联系电话</th>
+										<th>状态</th>
+									</tr>
+								</thead>
+								<tbody>
+									<!-- <tr>
 									<td>ECW1517218533157345</td>
 									<td>河畔丽景</td>
 									<td>49073313975</td>
@@ -106,22 +104,22 @@
 										<a class="handle lookdetail" data-toggle="modal" data-target="#myModal" href="javascript:void(0)"><img src="img/listsearch.png" alt=""></a>
 									</td>
 								</tr> -->
-							</tbody>
-						</table>
-					</div>
-					
-					<div class="footIns">
-						<div class="selectNum">
-							当前显示
-							<select name="" id="" class="selNum">
-								<option value="5">5</option>
-								<option value="10">10</option>
-								<option value="25">25</option>
-							</select>
-							项结果
+								</tbody>
+							</table>
 						</div>
-						<ul id="page"></ul>
-					</div>
+
+						<div class="footIns">
+							<div class="selectNum">
+								当前显示
+								<select name="" id="" class="selNum">
+									<option value="5">5</option>
+									<option value="10">10</option>
+									<option value="25">25</option>
+								</select>
+								项结果
+							</div>
+							<ul id="page"></ul>
+						</div>
 				</div>
 			</div>
 		</div>
@@ -223,7 +221,7 @@
 				//初始化页码
 				initPage(defaultNum);
 			})
-			
+
 
 			//表单元素获取焦点时取消警示效果
 			$("input").focus(function() {
@@ -247,40 +245,40 @@
 			// 				$(".excelButton").click();
 			// 			})
 			//列表中的查看详情按钮
-			$("body").on("click",".hdleBtn",function() {
+			$("body").on("click", ".hdleBtn", function() {
 				//获取当前事件信息
 				var id = $(this).attr("data-id");
 				GetFaultInfo(id);
-				$(".finishBtn").attr("data-id",id);
-				
+				$(".finishBtn").attr("data-id", id);
+
 				$(".modal-body").find("input").prop("disabled", false);
 				$(".modal-body").find("select").prop("disabled", false);
 				$(".modal-body").find("textarea").prop("disabled", false);
-				if($(this).attr("data-state") === "1"){	//查看
+				if ($(this).attr("data-state") === "1") { //查看
 					$(".handleInner").html("查看");
 					$('.faultState').find('option[value="1"]').prop("selected", true);
 					$(".modal-body").find("input").prop("disabled", true);
 					$(".modal-body").find("select").prop("disabled", true);
 					$(".modal-body").find("textarea").prop("disabled", true);
-					$(".finishBtn").attr("data-state","1");
-				}else if($(this).attr("data-state") === "2"){	//编辑
+					$(".finishBtn").attr("data-state", "1");
+				} else if ($(this).attr("data-state") === "2") { //编辑
 					$(".handleInner").html("编辑");
 					$('.faultState').find('option[value="0"]').prop("selected", true);
-					$(".finishBtn").attr("data-state","2");
+					$(".finishBtn").attr("data-state", "2");
 				}
 			})
 			//获取当前故障信息
-			function GetFaultInfo(id){
+			function GetFaultInfo(id) {
 				var token = localStorage.getItem("access-token");
 				//声明参数对象
 				var data = {
-					event_id : id
+					event_id: id
 				};
 				//请求回调函数
 				var success = function(response) {
 					console.log("获取到的事件返回数据：" + JSON.stringify(response));
 					if (response.result) {
-						$(".eventState").find('option[value="'+ response.data.status +'"]').prop("selected",true);
+						$(".eventState").find('option[value="' + response.data.status + '"]').prop("selected", true);
 					}
 				}
 				//请求方法
@@ -297,13 +295,13 @@
 						$(".tcp_content").parents(".form-group").addClass("errorIns");
 						return false;
 					}
-					
+
 					var token = localStorage.getItem("access-token");
 					//声明参数对象
 					var data = {
-						order_id : $(this).attr("data-id"),
-						status : $(".faultState").find("option:checked").val(),
-						explain :$(".tcp_content").val()
+						order_id: $(this).attr("data-id"),
+						status: $(".faultState").find("option:checked").val(),
+						explain: $(".tcp_content").val()
 					};
 					//请求回调函数
 					var success = function(response) {
@@ -311,7 +309,7 @@
 						if (response.result) {
 							toastr.success("编辑成功！");
 							initPage(defaultNum);
-						}else{
+						} else {
 							toastr.error(response.message);
 						}
 					}
@@ -357,7 +355,7 @@
 									table.ajax.url(ApiUrl + global_url.faultList + "?page=" + page).load();
 								}
 							});
-			
+
 						}
 					}
 				});
@@ -374,6 +372,7 @@
 					sPaginationType: "full_numbers",
 					bLengthChange: true,
 					destroy: true,
+					ordering : false,
 					info: false,
 					sDom: '<"top"<"clear">>rt<"bottom"lfip<"clear">>',
 					language: {
@@ -434,18 +433,20 @@
 							return row.created_at.date;
 						}
 					}, {
-						data : 'operator'
+						data: 'operator'
 					}, {
 						data: 'phone'
 					}, {
 						render: function(data, type, row) {
 							var strHtml;
-							if(row.status == "0"){
-								strHtml = '<span class="redtit">待处理</span>'+
-											'<a data-id="'+ row.id +'" data-state="2" class="handle hdleBtn editdetail" data-toggle="modal" data-target="#myModal"><img src="img/edit_red.png" alt=""></a>';
-							}else if(row.status == "1"){
-								strHtml = '<span class="greentit">已解决</span>'+
-											'<a data-id="'+ row.id +'" data-state="1" class="handle hdleBtn lookdetail" data-toggle="modal" data-target="#myModal"><img src="img/listsearch.png" alt=""></a>';
+							if (row.status == "0") {
+								strHtml = '<span class="redtit">待处理</span>' +
+									'<a data-id="' + row.id +
+									'" data-state="2" class="handle hdleBtn editdetail" data-toggle="modal" data-target="#myModal"><img src="img/edit_red.png" alt=""></a>';
+							} else if (row.status == "1") {
+								strHtml = '<span class="greentit">已解决</span>' +
+									'<a data-id="' + row.id +
+									'" data-state="1" class="handle hdleBtn lookdetail" data-toggle="modal" data-target="#myModal"><img src="img/listsearch.png" alt=""></a>';
 							}
 							return strHtml;
 						}
@@ -474,7 +475,7 @@
 							customize: function(win) {
 								$(win.document.body).addClass('white-bg');
 								$(win.document.body).css('font-size', '10px');
-			
+
 								$(win.document.body).find('table')
 									.addClass('compact')
 									.css('font-size', 'inherit');

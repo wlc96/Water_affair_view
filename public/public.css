@@ -1,3 +1,23 @@
+@font-face {
+	font-family: 'Glyphicons Halflings';
+
+	src: url('../fonts/glyphicons-halflings-regular.eot');
+	src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
+.glyphicon {
+	position: relative;
+	top: 1px;
+	display: inline-block;
+	font-family: 'Glyphicons Halflings';
+	font-style: normal;
+	font-weight: normal;
+	line-height: 1;
+
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
 /*子页面公共样式*/
 ul,
 li {
@@ -10,10 +30,14 @@ body {
 	background: #F5F6F9;
 }
 
+table.dataTable {
+	margin-top: 0 !important;
+}
+
 .ibox-content {
-	margin-top: 15px;
+	margin-top: 20px;
 	border-top: none;
-	padding: 0px 0px 20px 0px;
+	padding: 0px 0px 0px 0px;
 }
 
 .table-bordered>thead>tr>th,
@@ -79,6 +103,7 @@ body {
 .pagination>li>a,
 .pagination>li>span {
 	padding: 5px 10px;
+	border:1px solid #e5e5e5
 }
 
 /*水表档案管理*/
@@ -293,7 +318,7 @@ body {
 
 .btnBox {
 	text-align: right;
-	margin-top: 15px;
+	margin-top: 0px;
 }
 
 .btnBox button {
@@ -374,7 +399,7 @@ body {
 
 .searchBox {
 	background: #F5F6F9;
-	padding: 10px 0;
+	padding: 0px 0px 20px;
 }
 
 .searchBox .form-group label {
@@ -1017,22 +1042,59 @@ span.offline {
 	cursor: pointer;
 }
 
-.selectNum{
+.selectNum {
 	line-height: 30px;
 	display: inline-block;
 	float: left;
-	margin-left: 20px;
+	margin-left: 0px;
 	margin-right: 15px;
 }
-.selectNum select.selNum{
-	margin:0 5px;
+
+.selectNum select.selNum {
+	margin: 0 5px;
 	line-height: 30px;
 	display: inline-block;
 	width: 50px;
 	height: 30px;
 	outline: none;
 	border-radius: 5px;
+	border-color:#e5e5e5;
 }
+
 .dataTables_wrapper {
-    padding-bottom: 0;
+	padding-bottom: 0;
+}
+
+/*列表公共样式*/
+.table thead th {
+	border-bottom: none !important;
+}
+
+.pagination>li>a {
+	padding: 6px 10px;
+}
+
+.pagination>li:last-child>span {
+	padding: 6px 10px;
+}
+
+.tableSec {
+	background: #fff;
+}
+
+.footIns {
+	margin-top: 20px;
+}
+
+.table{
+	border-radius: 6px;
+}
+.wrapper-content {
+    padding: 20px 20px 40px;
+}
+.form-control, .single-line{
+	border:1px solid #e5e5e5;
+}
+.input-group-addon{
+	border:1px solid #e5e5e5;
 }

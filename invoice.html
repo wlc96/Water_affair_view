@@ -40,7 +40,7 @@
 				resize: none;
 			}
 			 .wrapper-content{
-			     padding:20px 10px 0;
+			     padding:20px 20px 0;
 			 }
 		</style>
 	</head>
@@ -95,8 +95,7 @@
 				</div>
 				<!--表格部分-->
 				<div class="ibox-content">
-					<div class="row">
-						<div class="col-sm-12">
+						<div class="tableSec">
 							<table id="dataTable" class="table table-bordered table-hover">
 								<thead>
 									<tr>
@@ -124,7 +123,6 @@
 							</div>
 							<ul id="page"></ul>
 						</div>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -347,6 +345,7 @@
 					bFilter: false,
 					sPaginationType: "full_numbers",
 					bLengthChange: true,
+					ordering : false,
 					destroy : true,
 					info : false,
 					sDom: '<"top"<"clear">>rt<"bottom"lfip<"clear">>',

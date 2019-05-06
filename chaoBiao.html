@@ -62,55 +62,55 @@
 								<tbody>
 									<tr>
 										<td>实抄（户）</td>
-										<td class="now should_num">0</td>
-										<td class="prev should_num">0</td>
+										<td class="mData now should_num">0</td>
+										<td class="mData prev should_num">0</td>
 										<td class="up">
-											3.7%
+											0
 											<span class="fa fa-sort-up"></span>
 										</td>
 										<td class="down">
-											1.4%
+											0
 											<span class="fa fa-sort-down"></span>
 										</td>
 									</tr>
 									<tr>
 										<td>应抄（户）</td>
-										<td class="now real_num">76000</td>
-										<td class="prev real_num">77000</td>
+										<td class="mData now real_num">0</td>
+										<td class="mData prev real_num">0</td>
 										<td class="up">
-											4.2%
+											0
 											<span class="fa fa-sort-up"></span>
 										</td>
 										<td class="down">
-											1.4%
+											0
 											<span class="fa fa-sort-down"></span>
 										</td>
 									</tr>
 									<tr>
 										<td>抄表完成率</td>
-										<td class="now completion_rate"></td>
-										<td class="prev completion_rate"></td>
+										<td class="mData now completion_rate">0</td>
+										<td class="mData prev completion_rate">0</td>
 										<td></td>
 										<td></td>
 									</tr>
 									<tr>
 										<td>抄表准确率</td>
-										<td class="now accuracy_rate"></td>
-										<td class="prev accuracy_rate"></td>
+										<td class="mData now accuracy_rate">0</td>
+										<td class="mData prev accuracy_rate">0</td>
 										<td></td>
 										<td></td>
 									</tr>
 									<tr>
 										<td>抄表抄见率</td>
-										<td class="now mr_rate"></td>
-										<td class="prev mr_rate"></td>
+										<td class="mData now mr_rate">0</td>
+										<td class="mData prev mr_rate">0</td>
 										<td></td>
 										<td></td>
 									</tr>
 									<tr>
 										<td>趸售比例</td>
-										<td class="now ws_rate"></td>
-										<td class="prev ws_rate"></td>
+										<td class="mData now ws_rate">0</td>
+										<td class="mData prev ws_rate">0</td>
 										<td></td>
 										<td></td>
 									</tr>
@@ -147,7 +147,9 @@
 				var month = date.getMonth() + 1;
 				var strDate = date.getDate();
 				if(month >= 1 && month <= 9) {
-					month = "0" + month;
+					month = "0" + (month - 1);
+				}else{
+					month = (month - 1);
 				}
 				var currentdate = date.getFullYear() + seperator1 + month;
 				$('#addtime').val(currentdate);
@@ -161,20 +163,32 @@
 					maxView: 'decade',
 					language: 'zh-CN',
 					pickerPosition: "bottom-left"
+				}).on('changeDate', function(ev) {
+					bgTime = ev.date.valueOf();
+					var time = $('#addtime').val();
+					GetChaoBiaoData(time);
 				});
 				
 				//获取只能抄表数据
 				GetChaoBiaoData();
 			})
 			
-			
-			function GetChaoBiaoData(){
+			function GetChaoBiaoData(dateTime){
+				var time;
+				if(!arguments[0]) {
+					time = " ";
+				}else{
+					time = dateTime;
+				}
 				var token = localStorage.getItem("access-token");
 				//声明参数对象
-				var data = {};
+				var data = {
+					time : time
+				};
 				//请求回调函数
 				var success = function(response) {
 					console.log("获取到的智能抄表数据：" + JSON.stringify(response));
+					$(".mData").html(0)
 					//当期
 					for(var k in response.data.now){
 						$(".now." + k).html(response.data.now[k]);

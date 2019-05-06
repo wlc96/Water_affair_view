@@ -11,6 +11,8 @@
 		<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
 		<link href="public/animate.css" rel="stylesheet">
 		<link rel="stylesheet" href="public/inspinia.css" />
+		<!-- Sweet Alert -->
+		<link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 		<!-- <link rel="stylesheet" href="css/my_TiBaoJiLu.css" /> -->
 		<link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="public/public.css">
@@ -22,9 +24,6 @@
 		<![endif]-->
 		<title>巡检计划</title>
 		<style>
-			.wrapper-content{
-			    padding:20px 10px 0;
-			}
 			.input-group{
 				width: 190px;
 				float: right;
@@ -48,16 +47,16 @@
 					<button class="export" type="button"><img src="img/export.png" alt="">导出</button>
 				</div> -->
 				<!--表格部分-->
-				<div class="ibox-content" style="margin-top:0;">
-					<div class="searchBox">
-						<form action="" class="form-horizontal">
-							<div class="form-group">
-								<label for="">查询：</label>
-								<div class="searchInput" style="margin-right: 20px;width:280px;">
-									<input type="text" placeholder="输入计划名称、区域名称、巡检人员" class="form-control">
-									<a href="javascript:void(0)"><img src="img/look.png" alt=""></a>
-								</div>
-								<!-- <label for="">添加时间：</label>
+				<div class="ibox-content">
+						<div class="searchBox">
+							<form action="" class="form-horizontal">
+								<div class="form-group">
+									<label for="">查询：</label>
+									<div class="searchInput" style="margin-right: 20px;width:280px;">
+										<input type="text" placeholder="输入计划名称、区域名称、巡检人员" class="form-control">
+										<a href="javascript:void(0)"><img src="img/look.png" alt=""></a>
+									</div>
+									<!-- <label for="">添加时间：</label>
 								<div class="date input-append form_date Ym_date" style="float:left;">
 									<div class="input-group">
 										<input class="form-control" readonly="readonly" type="text" name="bgtime" placeholder="开始时间">
@@ -71,43 +70,44 @@
 										<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
 									</div>
 								</div> -->
-								<button type="button" class="btn btn-primary">查询</button>
+									<button type="button" class="btn btn-primary">查询</button>
 
-								<button type="button" class="btn btn-white exportbtn exportExcel"><img src="img/export.png" alt="">导出Excel</button>
-								<button type="button" class="btn btn-primary exportbtn hdleBtn addplan" data-state="0" data-toggle="modal" data-target="#myModal"><img src="img/add.png" alt="">新增计划</button>
-							</div>
-							</from>
-					</div>
-					<div class="tableBox">
-						<table id="dataTable" class="table table-bordered table-hover">
-							<thead>
-								<tr>
-									<th>计划名称</th>
-									<th>区域名称</th>
-									<th>巡检方式</th>
-									<th>巡检对象</th>
-									<th>巡检周期</th>
-									<th>巡检人员</th>
-									<th>创建人</th>
-									<th>巡检日期</th>
-									<th>操作</th>
-								</tr>
-							</thead>
-							<tbody></tbody>
-						</table>
-					</div>
-					<div class="footIns">
-						<div class="selectNum">
-							当前显示
-							<select name="" id="" class="selNum">
-								<option value="5">5</option>
-								<option value="10">10</option>
-								<option value="25">25</option>
-							</select>
-							项结果
+									<button type="button" class="btn btn-white exportbtn exportExcel"><img src="img/export.png" alt="">导出Excel</button>
+									<button type="button" class="btn btn-primary exportbtn hdleBtn addplan" data-state="0" data-toggle="modal"
+									 data-target="#myModal"><img src="img/add.png" alt="">新增计划</button>
+								</div>
+							</form>
 						</div>
-						<ul id="page"></ul>
-					</div>
+						<div class="tableBox tableSec">
+							<table id="dataTable" class="table table-bordered table-hover">
+								<thead>
+									<tr>
+										<th>计划名称</th>
+										<th>区域名称</th>
+										<th>巡检方式</th>
+										<th>巡检对象</th>
+										<th>巡检周期</th>
+										<th>巡检人员</th>
+										<th>创建人</th>
+										<th>巡检日期</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+						</div>
+						<div class="footIns">
+							<div class="selectNum">
+								当前显示
+								<select name="" id="" class="selNum">
+									<option value="5">5</option>
+									<option value="10">10</option>
+									<option value="25">25</option>
+								</select>
+								项结果
+							</div>
+							<ul id="page"></ul>
+						</div>
 				</div>
 			</div>
 		</div>
@@ -195,7 +195,8 @@
 		<!-- <script src="js/plugins/lhgdialog/lhgdialog.js"></script> -->
 		<!-- 弹出警示框 -->
 		<script src="js/plugins/toastr/toastr.min.js"></script>
-
+		<!-- Sweet alert -->
+		<script src="js/plugins/sweetalert/sweetalert.min.js"></script>
 		<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 		<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 		<!-- 时间控件样式 -->
@@ -273,69 +274,81 @@
 				$(".excelButton").click();
 			})
 			//列表中的查看详情按钮
-			$("body").on("click",".hdleBtn",function() {
+			$("body").on("click", ".hdleBtn", function() {
 				$(".modal-body").find("input").prop("disabled", false);
 				$(".modal-body").find("select").prop("disabled", false);
 				$(".modal-body").find("textarea").prop("disabled", false);
-				if($(this).attr("data-state") === "0"){		//添加
+				if ($(this).attr("data-state") === "0") { //添加
 					$(".handleInner").html("添加");
-					$(".finishBtn").attr("data-state","0");
-				}else if($(this).attr("data-state") === "1"){	//查看
+					$(".finishBtn").attr("data-state", "0");
+				} else if ($(this).attr("data-state") === "1") { //查看
 					//获取当前事件信息
 					var id = $(this).parent().attr("data-id");
 					GetPatrolPlanInfo(id);
-					$(".finishBtn").attr("data-id",id);
-				
+					$(".finishBtn").attr("data-id", id);
+
 					$(".handleInner").html("查看");
 					$(".modal-body").find("input").prop("disabled", true);
 					$(".modal-body").find("select").prop("disabled", true);
 					$(".modal-body").find("textarea").prop("disabled", true);
-					$(".finishBtn").attr("data-state","1");
-				}else if($(this).attr("data-state") === "2"){	//编辑
+					$(".finishBtn").attr("data-state", "1");
+				} else if ($(this).attr("data-state") === "2") { //编辑
 					//获取当前事件信息
 					var id = $(this).parent().attr("data-id");
 					GetPatrolPlanInfo(id);
-					$(".finishBtn").attr("data-id",id);
-				
+					$(".finishBtn").attr("data-id", id);
+
 					$(".handleInner").html("编辑");
-					$(".finishBtn").attr("data-state","2");
+					$(".finishBtn").attr("data-state", "2");
 				}
 			})
 			//删除巡检计划
-			$("body").on("click",".deleteitem",function() {
-				var token = localStorage.getItem("access-token");
-				//声明参数对象
-				var data = {
-					plan_id : $(this).attr("data-id")
-				};
-				//请求回调函数
-				var success = function(response) {
-					console.log("获取到的删除返回数据：" + JSON.stringify(response));
-					if (response.result) {
-						toastr.success("删除成功！");
-						initPage(defaultNum);
+			$("body").on("click", ".deleteitem", function() {
+				var id = $(this).attr("data-id");
+				swal({
+					title: "删除",
+					text: "确定删除当前数据？",
+					type: "warning",
+					showCancelButton: true,
+					confirmButtonColor: "#DD6B55",
+					confirmButtonText: "退出",
+					cancelButtonText: "取消",
+					closeOnConfirm: true
+				}, function() {
+					var token = localStorage.getItem("access-token");
+					//声明参数对象
+					var data = {
+						plan_id: id
+					};
+					//请求回调函数
+					var success = function(response) {
+						console.log("获取到的删除返回数据：" + JSON.stringify(response));
+						if (response.result) {
+							toastr.success("删除成功！");
+							initPage(defaultNum);
+						}
 					}
-				}
-				//请求方法
-				ajaxFun.post(ApiUrl + global_url.patrolPlanDelete, data, token, success);
+					//请求方法
+					ajaxFun.post(ApiUrl + global_url.patrolPlanDelete, data, token, success);
+				});
 			})
 			//当前事件信息
-			function GetPatrolPlanInfo(id){
+			function GetPatrolPlanInfo(id) {
 				var token = localStorage.getItem("access-token");
 				//声明参数对象
 				var data = {
-					plan_id : id
+					plan_id: id
 				};
 				//请求回调函数
 				var success = function(response) {
 					console.log("获取到的巡检计划返回数据：" + JSON.stringify(response));
 					if (response.result) {
 						$(".planName").val(response.data.name);
-						$(".areaName").find('option[value="'+ response.data.station +'"]').prop("selected",true);
-						$(".patrolMode").find('option[value="'+ response.data.type +'"]').prop("selected",true);
+						$(".areaName").find('option[value="' + response.data.station + '"]').prop("selected", true);
+						$(".patrolMode").find('option[value="' + response.data.type + '"]').prop("selected", true);
 						$(".patrolObj").val(response.data.xobject);
 						$(".patrolCycle").val(response.data.xobject);
-						$(".patrolUser").find('option[value="'+ response.data.examiner +'"]').prop("selected",true);
+						$(".patrolUser").find('option[value="' + response.data.examiner + '"]').prop("selected", true);
 						$(".bgtime").val(response.data.time.substring(0, 7));
 						$(".endtime").val(response.data.time.substring(8, 15));
 					}
@@ -379,19 +392,19 @@
 						$(".endtime").parents(".form-group").addClass("errorIns");
 						return false;
 					}
-					
+
 					//执行添加请求
 					var token = localStorage.getItem("access-token");
-					if(tarId === "0"){
+					if (tarId === "0") {
 						//声明参数对象
 						var data = {
-							name : $(".planName").val(),
-							station_id : $(".areaName").find("option:checked").val(),
-							type : $(".patrolMode").find("option:checked").val(),
-							xobject : $(".patrolObj").val(),
-							cycle : $(".patrolCycle").val(),
-							examiner_id : $(".patrolUser").find("option:checked").val(),
-							time : $(".bgtime").val()+ "-" + $(".endtime").val()
+							name: $(".planName").val(),
+							station_id: $(".areaName").find("option:checked").val(),
+							type: $(".patrolMode").find("option:checked").val(),
+							xobject: $(".patrolObj").val(),
+							cycle: $(".patrolCycle").val(),
+							examiner_id: $(".patrolUser").find("option:checked").val(),
+							time: $(".bgtime").val() + "-" + $(".endtime").val()
 						};
 						//请求回调函数
 						var success = function(response) {
@@ -402,24 +415,24 @@
 									$(".close").click(); //关闭弹框
 									initPage(defaultNum);
 								}, 1000)
-							}else{
+							} else {
 								toastr.error(response.message);
 							}
 						}
 						//请求方法
 						ajaxFun.post(ApiUrl + global_url.patrolPlanAdd, data, token, success);
-					}else if(tarId == "2"){
+					} else if (tarId == "2") {
 						var id = $(".finishBtn").attr("data-id");
 						//声明参数对象
 						var data = {
-							plan_id : id,
-							name : $(".planName").val(),
-							station_id : $(".areaName").find("option:checked").val(),
-							type : $(".patrolMode").find("option:checked").val(),
-							xobject : $(".patrolObj").val(),
-							cycle : $(".patrolCycle").val(),
-							examiner_id : $(".patrolUser").find("option:checked").val(),
-							time : $(".bgtime").val()+ "-" + $(".endtime").val()
+							plan_id: id,
+							name: $(".planName").val(),
+							station_id: $(".areaName").find("option:checked").val(),
+							type: $(".patrolMode").find("option:checked").val(),
+							xobject: $(".patrolObj").val(),
+							cycle: $(".patrolCycle").val(),
+							examiner_id: $(".patrolUser").find("option:checked").val(),
+							time: $(".bgtime").val() + "-" + $(".endtime").val()
 						};
 						//请求回调函数
 						var success = function(response) {
@@ -430,18 +443,18 @@
 									$(".close").click(); //关闭弹框
 									initPage(defaultNum);
 								}, 1000)
-							}else{
+							} else {
 								toastr.error(response.message);
 							}
 						}
 						//请求方法
 						ajaxFun.post(ApiUrl + global_url.patrolPlanEdit, data, token, success);
 					}
-					
+
 				}
 				$(".close").click(); //关闭弹框
 			})
-			
+
 			//初始化页码
 			function initPage(defaultNum) {
 				$(".selNum").find('option[value="' + defaultNum + '"]').prop("selected", true);
@@ -493,6 +506,7 @@
 					bAutoWidth: false,
 					lengthMenu: [5, 10, 25, 50, ],
 					bFilter: false,
+					ordering: false,
 					sPaginationType: "full_numbers",
 					bLengthChange: true,
 					destroy: true,
@@ -552,19 +566,20 @@
 					}, {
 						data: 'xobject'
 					}, {
-						data : 'cycle'
+						data: 'cycle'
 					}, {
-						data : 'examiner'
+						data: 'examiner'
 					}, {
 						data: 'admin'
 					}, {
 						data: 'time'
 					}, {
 						render: function(data, type, row) {
-							var strHtml = '<div data-id="' + row.id +'">'+
+							var strHtml = '<div data-id="' + row.id + '">' +
 								'<a class="handle hdleBtn lookdetail" data-state="1" data-toggle="modal" data-target="#myModal"><img src="img/listsearch.png" alt=""></a>' +
 								'<a class="handle hdleBtn editdetail" data-state="2" data-toggle="modal" data-target="#myModal"><img src="img/edit_gray.png" alt=""></a>' +
-								'<a data-id="' + row.id +'" class="handle deleteitem" href="javascript:void(0)"><img src="img/del_red.png" alt=""></a>'+
+								'<a data-id="' + row.id +
+								'" class="handle deleteitem" href="javascript:void(0)"><img src="img/del_red.png" alt=""></a>' +
 								'<div>';
 							return strHtml;
 						}
@@ -615,7 +630,7 @@
 				initPage(defaultNum);
 			})
 			//获取区域名称列表
-			function GetAreaName(){
+			function GetAreaName() {
 				var token = localStorage.getItem("access-token");
 				//声明参数对象
 				var data = {};
@@ -636,7 +651,7 @@
 				ajaxFun.post(ApiUrl + global_url.stationList, data, token, success);
 			}
 			//获取巡检人员列表
-			function GetExaminerList(){
+			function GetExaminerList() {
 				var token = localStorage.getItem("access-token");
 				//声明参数对象
 				var data = {};

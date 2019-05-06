@@ -11,6 +11,8 @@
 		<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
 		<link href="public/animate.css" rel="stylesheet">
 		<link rel="stylesheet" href="public/inspinia.css" />
+		<!-- Sweet Alert -->
+		<link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 		<!-- <link rel="stylesheet" href="css/my_TiBaoJiLu.css" /> -->
 		<link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="public/public.css">
@@ -23,9 +25,6 @@
 		<![endif]-->
 		<title>权限管理</title>
 		<style>
-			.wrapper-content{
-			    padding:20px 10px 0;
-			 }
 			 .input-group{
 				 width: 190px;
 				 float: right;
@@ -49,39 +48,40 @@
 					<button class="export" type="button"><img src="img/export.png" alt="">导出</button>
 				</div> -->
 				<!--表格部分-->
-				<div class="ibox-content" style="margin-top:0;">
-					<div class="searchBox">
-						<form action="" class="form-horizontal">
-							<div class="form-group">
-								<label for="">查询：</label>
-								<div class="searchInput" style="margin-right: 20px;width:280px;">
-									<input type="text" placeholder="输入人员编号、管理人员名称" class="form-control">
-									<a href="javascript:void(0)"><img src="img/look.png" alt=""></a>
-								</div>
-								<button type="button" class="btn btn-primary">查询</button>
+				<div class="ibox-content">
+						<div class="searchBox">
+							<form action="" class="form-horizontal">
+								<div class="form-group">
+									<label for="">查询：</label>
+									<div class="searchInput" style="margin-right: 20px;width:280px;">
+										<input type="text" placeholder="输入人员编号、管理人员名称" class="form-control">
+										<a href="javascript:void(0)"><img src="img/look.png" alt=""></a>
+									</div>
+									<button type="button" class="btn btn-primary">查询</button>
 
-								<!-- <button type="button" class="btn btn-white exportbtn exportExcel"><img src="img/export.png" alt="">导出</button> -->
-								<button type="button" data-state="0" class="btn btn-primary hdleBtn exportbtn addUser" data-toggle="modal" data-target="#myModal"><img src="img/add.png" alt="">添加</button>
-							</div>
-							</from>
-					</div>
-					<div class="tableBox">
-						<table id="dataTable" class="table table-bordered table-hover">
-							<thead>
-								<tr>
-									<!-- <th>人员编号</th> -->
-									<th>管理人员名称</th>
-									<th>用户登录名</th>
-									<th>联系电话</th>
-									<th>邮箱</th>
-									<th>角色名称</th>
-									<th>权限范围</th>
-									<th>创建日期</th>
-									<th>操作</th>
-								</tr>
-							</thead>
-							<tbody>
-								<!-- <tr>
+									<!-- <button type="button" class="btn btn-white exportbtn exportExcel"><img src="img/export.png" alt="">导出</button> -->
+									<button type="button" data-state="0" class="btn btn-primary hdleBtn exportbtn addUser" data-toggle="modal"
+									 data-target="#myModal"><img src="img/add.png" alt="">添加</button>
+								</div>
+							</form>
+						</div>
+						<div class="tableBox tableSec">
+							<table id="dataTable" class="table table-bordered table-hover">
+								<thead>
+									<tr>
+										<!-- <th>人员编号</th> -->
+										<th>管理人员名称</th>
+										<th>用户登录名</th>
+										<th>联系电话</th>
+										<th>邮箱</th>
+										<th>角色名称</th>
+										<th>权限范围</th>
+										<th>创建日期</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<!-- <tr>
 									<td>78653465468675</td>
 									<td>王先生</td>
 									<td>wxs786534</td>
@@ -126,21 +126,21 @@
 										<a class="handle deleteitemd" href="javascript:void(0)"><img src="img/del_red.png" alt=""></a>
 									</td>
 								</tr> -->
-							</tbody>
-						</table>
-					</div>
-					<div class="footIns">
-						<div class="selectNum">
-							当前显示
-							<select name="" id="" class="selNum">
-								<option value="5">5</option>
-								<option value="10">10</option>
-								<option value="25">25</option>
-							</select>
-							项结果
+								</tbody>
+							</table>
 						</div>
-						<ul id="page"></ul>
-					</div>
+						<div class="footIns">
+							<div class="selectNum">
+								当前显示
+								<select name="" id="" class="selNum">
+									<option value="5">5</option>
+									<option value="10">10</option>
+									<option value="25">25</option>
+								</select>
+								项结果
+							</div>
+							<ul id="page"></ul>
+						</div>
 				</div>
 			</div>
 		</div>
@@ -222,7 +222,8 @@
 		<!-- <script src="js/plugins/lhgdialog/lhgdialog.js"></script> -->
 		<!-- 弹出警示框 -->
 		<script src="js/plugins/toastr/toastr.min.js"></script>
-
+		<!-- Sweet alert -->
+		<script src="js/plugins/sweetalert/sweetalert.min.js"></script>
 		<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 		<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 		<!-- 时间控件样式 -->
@@ -299,18 +300,18 @@
 				$(".excelButton").click();
 			})
 			//列表中的查看详情按钮
-			$("body").on("click",".hdleBtn",function() {
+			$("body").on("click", ".hdleBtn", function() {
 				$(".loginNameBox").hide();
-				if($(this).attr("data-state") === "0"){	//添加
+				if ($(this).attr("data-state") === "0") { //添加
 					$(".handleInner").html("添加");
 					$(".loginNameBox").show();
-					$(".finishBtn").attr("data-state","0");
-				}else if($(this).attr("data-state") === "2"){	//编辑
+					$(".finishBtn").attr("data-state", "0");
+				} else if ($(this).attr("data-state") === "2") { //编辑
 					var id = $(this).parent().attr("data-id");
 					GetAdminInfo(id);
-					$(".finishBtn").attr("data-id",id);
+					$(".finishBtn").attr("data-id", id);
 					$(".handleInner").html("编辑");
-					$(".finishBtn").attr("data-state","2");
+					$(".finishBtn").attr("data-state", "2");
 				}
 			})
 			//提交表单验证(查看详情/编辑)
@@ -334,8 +335,8 @@
 				}
 				var role_ids = [];
 				role_ids.push($(".roleList").find("option:checked").attr("data-id"));
-				
-				if($(this).attr("data-state") == "0"){
+
+				if ($(this).attr("data-state") == "0") {
 					if ($(".loginName").val() == "") {
 						$(".loginName").parents(".form-group").addClass("errorIns");
 						return false;
@@ -348,23 +349,23 @@
 						$(".confimPsd").parents(".form-group").addClass("errorIns");
 						return false;
 					}
-					if($(".confimPsd").val() !== $(".loginPsd").val()){
+					if ($(".confimPsd").val() !== $(".loginPsd").val()) {
 						toastr.error("两次密码不一致！");
 						$(".confimPsd").val('');
 						$(".confimPsd").parents(".form-group").addClass("errorIns");
 						return false;
 					}
 				}
-				
-				if($(this).attr("data-state") == "0"){				//添加
+
+				if ($(this).attr("data-state") == "0") { //添加
 					//声明参数对象
 					var data = {
-						relname : $(".adminName").val(),	//巡检人员名称
-						phone : $(".contactTel").val(),	//手机号
-						name : $(".loginName").val(),	//登录名
-						password : $(".confimPsd").val(),//密码
-						email :	$(".email").val(),//邮箱
-						role_ids : role_ids 	//角色
+						relname: $(".adminName").val(), //巡检人员名称
+						phone: $(".contactTel").val(), //手机号
+						name: $(".loginName").val(), //登录名
+						password: $(".confimPsd").val(), //密码
+						email: $(".email").val(), //邮箱
+						role_ids: role_ids //角色
 					};
 					//请求回调函数
 					var success = function(response) {
@@ -372,21 +373,21 @@
 						if (response.result) {
 							toastr.success("添加成功！");
 							initPage(defaultNum);
-						}else{
+						} else {
 							toastr.error(response.message);
 						}
 					}
 					//请求方法
 					ajaxFun.post(ApiUrl + global_url.adminAdd, data, token, success);
-				}else if($(this).attr("data-state") === "2"){		//编辑
+				} else if ($(this).attr("data-state") === "2") { //编辑
 					var id = $(this).attr("data-id");
 					//声明参数对象
 					var data = {
-						admin_id : id,
-						relname : $(".adminName").val(),
-						phone : $(".contactTel").val(),	//手机号
-						email :	$(".email").val(),
-						role_ids : role_ids,
+						admin_id: id,
+						relname: $(".adminName").val(),
+						phone: $(".contactTel").val(), //手机号
+						email: $(".email").val(),
+						role_ids: role_ids,
 					};
 					//请求回调函数
 					var success = function(response) {
@@ -394,7 +395,7 @@
 						if (response.result) {
 							toastr.success("编辑成功！");
 							initPage(defaultNum);
-						}else{
+						} else {
 							toastr.error(response.message);
 						}
 					}
@@ -404,26 +405,38 @@
 				$(".close").click(); //关闭弹框
 			})
 			//删除管理员
-			$("body").on("click",".deleteitem",function() {
-				var token = localStorage.getItem("access-token");
-				//声明参数对象
-				var data = {
-					admin_id : $(this).attr("data-id")
-				};
-				//请求回调函数
-				var success = function(response) {
-					console.log("获取到的删除管理员返回数据：" + JSON.stringify(response));
-					if (response.result) {
-						toastr.success("删除成功！");
-						initPage(defaultNum);
+			$("body").on("click", ".deleteitem", function() {
+				var id = $(this).attr("data-id");
+				swal({
+				    title: "删除",
+				    text: "确定删除当前数据？",
+				    type: "warning",
+				    showCancelButton: true,
+				    confirmButtonColor: "#DD6B55",
+				    confirmButtonText: "退出",
+					cancelButtonText: "取消",
+				    closeOnConfirm: true
+				}, function () {
+					var token = localStorage.getItem("access-token");
+					//声明参数对象
+					var data = {
+						admin_id: id
+					};
+					//请求回调函数
+					var success = function(response) {
+						console.log("获取到的删除管理员返回数据：" + JSON.stringify(response));
+						if (response.result) {
+							toastr.success("删除成功！");
+							initPage(defaultNum);
+						}
 					}
-				}
-				//请求方法
-				ajaxFun.post(ApiUrl + global_url.adminDelete, data, token, success);
+					//请求方法
+					ajaxFun.post(ApiUrl + global_url.adminDelete, data, token, success);
+				});
 			})
-			
+
 			//获取权限范围
-			function GetQuanXianMuLu(){
+			function GetQuanXianMuLu() {
 				var token = localStorage.getItem("access-token");
 				//声明参数对象
 				var data = {};
@@ -435,7 +448,8 @@
 						var temHtml = '';
 						var mData = response.data;
 						for (var i = 0; i < mData.length; i++) {
-							temHtml += '<div class="i-checks" data-title="'+ mData[i].name +'" data-id="'+ mData[i].id +'"><label> <input type="checkbox" value=""><span class="checkIns">'+ mData[i].name +'</span></label></div>';
+							temHtml += '<div class="i-checks" data-title="' + mData[i].name + '" data-id="' + mData[i].id +
+								'"><label> <input type="checkbox" value=""><span class="checkIns">' + mData[i].name + '</span></label></div>';
 						}
 						$(".checkQuanXian").append(temHtml);
 						$('.i-checks').iCheck({
@@ -448,7 +462,7 @@
 				ajaxFun.post(ApiUrl + global_url.directoryList, data, token, success);
 			}
 			//获取角色列表
-			function GetRoleList(){
+			function GetRoleList() {
 				var token = localStorage.getItem("access-token");
 				//声明参数对象
 				var data = {};
@@ -460,11 +474,11 @@
 						var temHtml = '';
 						var mData = response.data.data;
 						for (var i = 0; i < mData.length; i++) {
-							temHtml += '<option data-id="'+ mData[i].id +'" value="'+ mData[i].name +'">'+mData[i].name+'</option>';
+							temHtml += '<option data-id="' + mData[i].id + '" value="' + mData[i].name + '">' + mData[i].name + '</option>';
 						}
 						$(".roleList").append(temHtml);
-						
-						$(".roleList").change(function(){
+
+						$(".roleList").change(function() {
 							var id = $(this).find("option:checked").attr("data-id");
 							GetRoleInfo(id);
 						})
@@ -474,20 +488,20 @@
 				ajaxFun.post(ApiUrl + global_url.roleList, data, token, success);
 			}
 			//获取单条角色信息
-			function GetRoleInfo(id){
+			function GetRoleInfo(id) {
 				$(".icheckbox_square-green").removeClass("checked");
 				var token = localStorage.getItem("access-token");
 				//声明参数对象
 				var data = {
-					role_id : id
+					role_id: id
 				};
 				//请求回调函数
 				var success = function(response) {
 					console.log("获取到的单条角色返回数据：" + JSON.stringify(response));
 					if (response.result) {
 						var arr = response.data.directorys.split(",");
-						for(var i = 0; i < arr.length; i++){
-							$('.i-checks[data-title="'+ arr[i] +'"]').find(".icheckbox_square-green").addClass("checked");
+						for (var i = 0; i < arr.length; i++) {
+							$('.i-checks[data-title="' + arr[i] + '"]').find(".icheckbox_square-green").addClass("checked");
 						}
 					}
 				}
@@ -531,17 +545,17 @@
 									table.ajax.url(ApiUrl + global_url.adminList + "?page=" + page).load();
 								}
 							});
-			
+
 						}
 					}
 				});
 			}
 			//获取单条管理员信息
-			function GetAdminInfo(id){
+			function GetAdminInfo(id) {
 				var token = localStorage.getItem("access-token");
 				//声明参数对象
 				var data = {
-					admin_id : id
+					admin_id: id
 				};
 				//请求回调函数
 				var success = function(response) {
@@ -550,8 +564,8 @@
 						$(".adminName").val(response.data.relname);
 						$(".contactTel").val(response.data.phone);
 						$(".email").val(response.data.email);
-						$(".roleList").find('option[value="'+ response.data.role_name +'"]').prop("selected",true);
-						var id = $(".roleList").find('option[value="'+ response.data.role_name +'"]').attr("data-id");
+						$(".roleList").find('option[value="' + response.data.role_name + '"]').prop("selected", true);
+						var id = $(".roleList").find('option[value="' + response.data.role_name + '"]').attr("data-id");
 						GetRoleInfo(id);
 					}
 				}
@@ -566,6 +580,7 @@
 					responsive: true,
 					destroy: true,
 					bAutoWidth: false,
+					ordering : false,
 					lengthMenu: [5, 10, 25, 50, ],
 					bFilter: false,
 					sPaginationType: "full_numbers",
@@ -618,26 +633,28 @@
 						console.log(aoData);
 					},
 					columns: [{
-						data: 'name'
-					},{
 						data: 'relname'
 					}, {
-						data : "phone"
-					},{
-						data : "email"
-					},{
+						data: 'name'
+					}, {
+						data: "phone"
+					}, {
+						data: "email"
+					}, {
 						render: function(data, type, row) {
 							return row.created_at.date;
 						}
-					},{
-						data : "role_name"
-					},{
-						data : "directorys"
-					},{
+					}, {
+						data: "role_name"
+					}, {
+						data: "directorys"
+					}, {
 						render: function(data, type, row) {
 							var strHtml = '<div data-id="' + row.id + '">' +
-										'<a data-id="'+ row.id +'" data-state="2" class="handle hdleBtn editdetail" data-toggle="modal" data-target="#myModal"><img src="img/edit_gray.png" alt=""></a>' +
-										'<a data-id="'+ row.id +'" class="handle deleteitem" href="javascript:void(0)"><img src="img/del_red.png" alt=""></a>' +
+								'<a data-id="' + row.id +
+								'" data-state="2" class="handle hdleBtn editdetail" data-toggle="modal" data-target="#myModal"><img src="img/edit_gray.png" alt=""></a>' +
+								'<a data-id="' + row.id +
+								'" class="handle deleteitem" href="javascript:void(0)"><img src="img/del_red.png" alt=""></a>' +
 								'</div>';
 							return strHtml;
 						}
@@ -666,7 +683,7 @@
 							customize: function(win) {
 								$(win.document.body).addClass('white-bg');
 								$(win.document.body).css('font-size', '10px');
-			
+
 								$(win.document.body).find('table')
 									.addClass('compact')
 									.css('font-size', 'inherit');

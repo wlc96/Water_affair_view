@@ -14,7 +14,7 @@
 		<!-- <link rel="stylesheet" href="css/my_TiBaoJiLu.css" /> -->
 		<link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="public/public.css">
-		<!-- <link href="css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen"> -->
+		<link href="css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
 		    <script src="public/html5shiv.min.js"></script>
@@ -23,7 +23,7 @@
 		<title>财务管理</title>
 		<style>
 			.wrapper-content{
-			    padding:20px 10px 0;
+			    padding:20px 20px 0;
 			}
 			.html5buttons{
 				padding:10px 0;
@@ -59,7 +59,7 @@
 								<span class="txt">账户余额</span>
 								<p class="yuE"><span class="account_balance">0</span><sub>元</sub></p>
 								<a class="recharge" href="javascript:void(0)">充值</a>
-								<a class="reflect" href="javascript:void(0)">提现</a>
+								<!-- <a class="reflect" href="javascript:void(0)">提现</a> -->
 							</li>
 							<li>
 								<span class="txt">总收入(元)</span>
@@ -77,61 +77,61 @@
 
 				<!--表格部分-->
 				<div class="ibox-content">
-					<div class="searchBox">
-						<form action="" class="form-horizontal">
-							<div class="form-group">
-								<label for="">查询：</label>
-								<div class="searchInput">
-									<input type="text" placeholder="请输入联系电话" class="form-control">
-									<a href="javascript:void(0)"><img src="img/look.png" alt=""></a>
-								</div>
-								<label for="">添加时间：</label>
-								<div class="date input-append form_date Ym_date" style="float:left;">
-									<div class="input-group">
-										<input class="form-control" readonly="readonly" type="text" name="bgtime" placeholder="开始时间">
-										<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
+						<div class="searchBox">
+							<form action="" class="form-horizontal">
+								<div class="form-group">
+									<label for="">查询：</label>
+									<div class="searchInput">
+										<input type="text" placeholder="请输入联系电话" class="form-control">
+										<a href="javascript:void(0)"><img src="img/look.png" alt=""></a>
 									</div>
-								</div>
-								<span class="line"></span>
-								<div class="date input-append form_date Ym_date2" style="float:left;margin-right: 20px;">
-									<div class="input-group">
-										<input class="form-control endtime" readonly="readonly" type="text" name="endtime" placeholder="截止时间">
-										<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
+									<label for="">添加时间：</label>
+									<div class="date input-append form_date Ym_date" style="float:left;">
+										<div class="input-group">
+											<input class="form-control" readonly="readonly" type="text" name="bgtime" placeholder="开始时间">
+											<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
+										</div>
 									</div>
+									<span class="line"></span>
+									<div class="date input-append form_date Ym_date2" style="float:left;margin-right: 20px;">
+										<div class="input-group">
+											<input class="form-control endtime" readonly="readonly" type="text" name="endtime" placeholder="截止时间">
+											<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
+										</div>
+									</div>
+									<button type="button" class="btn btn-primary">查询</button>
+									<button type="button" class="btn btn-primary exportbtn exportExcel">导出Excel</button>
 								</div>
-								<button type="button" class="btn btn-primary">查询</button>
-								<button type="button" class="btn btn-primary exportbtn exportExcel">导出Excel</button>
-							</div>
 							</form>
-					</div>
-					<div class="tableBox">
-						<table id="dataTable" class="table table-bordered table-hover">
-							<thead>
-								<tr>
-									<th>订单号</th>
-									<th>分布区名称</th>
-									<th>用户编号</th>
-									<th>充值水量</th>
-									<th>充值金额</th>
-									<th>支付方式</th>
-									<th>订单日期</th>
-								</tr>
-							</thead>
-							<tbody></tbody>
-						</table>
-					</div>
-					<div class="footIns">
-						<div class="selectNum">
-							当前显示
-							<select name="" id="" class="selNum">
-								<option value="5">5</option>
-								<option value="10">10</option>
-								<option value="25">25</option>
-							</select>
-							项结果
 						</div>
-						<ul id="page"></ul>
-					</div>
+						<div class="tableBox tableSec">
+							<table id="dataTable" class="table table-bordered table-hover">
+								<thead>
+									<tr>
+										<th>订单号</th>
+										<th>分布区名称</th>
+										<th>用户编号</th>
+										<th>充值水量</th>
+										<th>充值金额</th>
+										<th>支付方式</th>
+										<th>订单日期</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+						</div>
+						<div class="footIns">
+							<div class="selectNum">
+								当前显示
+								<select name="" id="" class="selNum">
+									<option value="5">5</option>
+									<option value="10">10</option>
+									<option value="25">25</option>
+								</select>
+								项结果
+							</div>
+							<ul id="page"></ul>
+						</div>
 				</div>
 			</div>
 		</div>
@@ -276,6 +276,7 @@
 					responsive: true,
 					destroy: true,
 					bAutoWidth: false,
+					ordering : false,
 					lengthMenu: [5, 10, 25, 50, ],
 					bFilter: false,
 					sPaginationType: "full_numbers",

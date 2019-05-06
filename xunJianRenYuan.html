@@ -10,6 +10,8 @@
 		<link rel="stylesheet" href="css/plugins/toastr/toastr.min.css" />
 		<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
 		<link href="public/animate.css" rel="stylesheet">
+		<!-- Sweet Alert -->
+		<link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 		<link rel="stylesheet" href="public/inspinia.css" />
 		<!-- <link rel="stylesheet" href="css/my_TiBaoJiLu.css" /> -->
 		<link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
@@ -22,9 +24,6 @@
 		<![endif]-->
 		<title>巡检人员管理</title>
 		<style>
-			.wrapper-content{
-			    padding:20px 10px 0;
-			 }
 			 .input-group{
 				 width: 190px;
 				 float: right;
@@ -48,38 +47,39 @@
 					<button class="export" type="button"><img src="img/export.png" alt="">导出</button>
 				</div> -->
 				<!--表格部分-->
-				<div class="ibox-content" style="margin-top:0;">
-					<div class="searchBox">
-						<form action="" class="form-horizontal">
-							<div class="form-group">
-								<label for="">查询：</label>
-								<div class="searchInput" style="margin-right: 20px;width:280px;">
-									<input type="text" placeholder="输入人员编号、巡检人员名称" class="form-control">
-									<a href="javascript:void(0)"><img src="img/look.png" alt=""></a>
-								</div>
-								<button type="button" class="btn btn-primary">查询</button>
+				<div class="ibox-content">
+						<div class="searchBox">
+							<form action="" class="form-horizontal">
+								<div class="form-group">
+									<label for="">查询：</label>
+									<div class="searchInput" style="margin-right: 20px;width:280px;">
+										<input type="text" placeholder="输入人员编号、巡检人员名称" class="form-control">
+										<a href="javascript:void(0)"><img src="img/look.png" alt=""></a>
+									</div>
+									<button type="button" class="btn btn-primary">查询</button>
 
-								<button type="button" class="btn btn-white exportbtn exportExcel"><img src="img/export.png" alt="">导出</button>
-								<button  data-state="0" type="button" class="btn btn-primary hdleBtn exportbtn addUser" data-toggle="modal" data-target="#myModal"><img src="img/add.png" alt="">新增人员</button>
-							</div>
-							</from>
-					</div>
-					<div class="tableBox">
-						<table id="dataTable" class="table table-bordered table-hover">
-							<thead>
-								<tr>
-									<th>人员编号</th>
-									<th>巡检人员名称</th>
-									<th>登录名</th>
-									<th>负责区域</th>
-									<th>联系电话</th>
-									<th>创建日期</th>
-									<th>创建人</th>
-									<th>操作</th>
-								</tr>
-							</thead>
-							<tbody>
-								<!-- <tr>
+									<button type="button" class="btn btn-white exportbtn exportExcel"><img src="img/export.png" alt="">导出</button>
+									<button data-state="0" type="button" class="btn btn-primary hdleBtn exportbtn addUser" data-toggle="modal"
+									 data-target="#myModal"><img src="img/add.png" alt="">新增人员</button>
+								</div>
+							</form>
+						</div>
+						<div class="tableBox tableSec">
+							<table id="dataTable" class="table table-bordered table-hover">
+								<thead>
+									<tr>
+										<th>人员编号</th>
+										<th>巡检人员名称</th>
+										<th>登录名</th>
+										<th>负责区域</th>
+										<th>联系电话</th>
+										<th>创建日期</th>
+										<th>创建人</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<!-- <tr>
 									<td>78653465468675</td>
 									<td>王先生</td>
 									<td>wxs786534</td>
@@ -121,21 +121,21 @@
 										<a class="handle deleteitemd" href="javascript:void(0)"><img src="img/del_red.png" alt=""></a>
 									</td>
 								</tr> -->
-							</tbody>
-						</table>
-					</div>
-					<div class="footIns">
-						<div class="selectNum">
-							当前显示
-							<select name="" id="" class="selNum">
-								<option value="5">5</option>
-								<option value="10">10</option>
-								<option value="25">25</option>
-							</select>
-							项结果
+								</tbody>
+							</table>
 						</div>
-						<ul id="page"></ul>
-					</div>
+						<div class="footIns">
+							<div class="selectNum">
+								当前显示
+								<select name="" id="" class="selNum">
+									<option value="5">5</option>
+									<option value="10">10</option>
+									<option value="25">25</option>
+								</select>
+								项结果
+							</div>
+							<ul id="page"></ul>
+						</div>
 				</div>
 			</div>
 		</div>
@@ -202,7 +202,8 @@
 		<!-- <script src="js/plugins/lhgdialog/lhgdialog.js"></script> -->
 		<!-- 弹出警示框 -->
 		<script src="js/plugins/toastr/toastr.min.js"></script>
-
+		<!-- Sweet alert -->
+		<script src="js/plugins/sweetalert/sweetalert.min.js"></script>
 		<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 		<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 		<!-- 时间控件样式 -->
@@ -276,43 +277,55 @@
 			$(".exportExcel").click(function() {
 				$(".excelButton").click();
 			})
-			
+
 			//列表中的查看详情按钮
-			$("body").on("click",".hdleBtn",function() {
+			$("body").on("click", ".hdleBtn", function() {
 				$(".loginNameBox").hide();
-				if($(this).attr("data-state") === "0"){	//添加
+				if ($(this).attr("data-state") === "0") { //添加
 					$(".handleInner").html("添加");
-					$(".finishBtn").attr("data-state","0");
+					$(".finishBtn").attr("data-state", "0");
 					$(".loginNameBox").show();
-				}else if($(this).attr("data-state") === "2"){	//编辑
+				} else if ($(this).attr("data-state") === "2") { //编辑
 					var id = $(this).parent().attr("data-id");
 					GetXunJianInfo(id);
-					$(".finishBtn").attr("data-id",id);
+					$(".finishBtn").attr("data-id", id);
 					$(".handleInner").html("编辑");
-					$(".finishBtn").attr("data-state","2");
+					$(".finishBtn").attr("data-state", "2");
 				}
 			})
 			//删除事件
-			$("body").on("click",".deleteitem",function() {
-				var token = localStorage.getItem("access-token");
-				//声明参数对象
-				var data = {
-					examiner_id : $(this).attr("data-id")
-				};
-				//请求回调函数
-				var success = function(response) {
-					console.log("获取到的删除返回数据：" + JSON.stringify(response));
-					if (response.result) {
-						toastr.success("删除成功！");
-						initPage(defaultNum);
+			$("body").on("click", ".deleteitem", function() {
+				var id = $(this).attr("data-id");
+				swal({
+					title: "删除",
+					text: "确定删除当前数据？",
+					type: "warning",
+					showCancelButton: true,
+					confirmButtonColor: "#DD6B55",
+					confirmButtonText: "退出",
+					cancelButtonText: "取消",
+					closeOnConfirm: true
+				}, function() {
+					var token = localStorage.getItem("access-token");
+					//声明参数对象
+					var data = {
+						examiner_id: id
+					};
+					//请求回调函数
+					var success = function(response) {
+						console.log("获取到的删除返回数据：" + JSON.stringify(response));
+						if (response.result) {
+							toastr.success("删除成功！");
+							initPage(defaultNum);
+						}
 					}
-				}
-				//请求方法
-				ajaxFun.post(ApiUrl + global_url.examinerDelete, data, token, success);
+					//请求方法
+					ajaxFun.post(ApiUrl + global_url.examinerDelete, data, token, success);
+				});
 			})
 			//提交表单验证(查看详情/编辑)
 			$(".finishBtn").click(function() {
-				
+
 				if ($(".InspectorsName").val() == "") {
 					$(".InspectorsName").parents(".form-group").addClass("errorIns");
 					return false;
@@ -325,7 +338,7 @@
 					$(".contactTel").parents(".form-group").addClass("errorIns");
 					return false;
 				}
-				if($(this).attr("data-state") == "0"){
+				if ($(this).attr("data-state") == "0") {
 					if ($(".loginName").val() == "") {
 						$(".loginName").parents(".form-group").addClass("errorIns");
 						return false;
@@ -338,24 +351,24 @@
 						$(".confimPsd").parents(".form-group").addClass("errorIns");
 						return false;
 					}
-					if($(".confimPsd").val() !== $(".loginPsd").val()){
+					if ($(".confimPsd").val() !== $(".loginPsd").val()) {
 						toastr.error("两次密码不一致！");
 						$(".confimPsd").val('');
 						$(".confimPsd").parents(".form-group").addClass("errorIns");
 						return false;
 					}
 				}
-				
-				if($(this).attr("data-state") === "0"){	//添加
+
+				if ($(this).attr("data-state") === "0") { //添加
 					var token = localStorage.getItem("access-token");
-					console.log($(this).attr("data-id")+"========"+$(".eventState").find("option:checked").val());
+					console.log($(this).attr("data-id") + "========" + $(".eventState").find("option:checked").val());
 					//声明参数对象
 					var data = {
-						relname : $(".InspectorsName").val(),
-						station_id : $(".fuZeQuYu").find("option:checked").val(),				//站点id(负责区域)
-						phone : $(".contactTel").val(),
-						name : $(".loginName").val(),
-						password : $(".confimPsd").val(),
+						relname: $(".InspectorsName").val(),
+						station_id: $(".fuZeQuYu").find("option:checked").val(), //站点id(负责区域)
+						phone: $(".contactTel").val(),
+						name: $(".loginName").val(),
+						password: $(".confimPsd").val(),
 					};
 					//请求回调函数
 					var success = function(response) {
@@ -363,23 +376,23 @@
 						if (response.result) {
 							toastr.success("添加成功！");
 							initPage(defaultNum);
-						}else{
+						} else {
 							toastr.error(response.message);
 						}
 					}
 					//请求方法
 					ajaxFun.post(ApiUrl + global_url.examinerAdd, data, token, success);
-				}else if($(this).attr("data-state") === "2"){	//编辑
+				} else if ($(this).attr("data-state") === "2") { //编辑
 					var stationId = $(this).attr("data-id");
 					var token = localStorage.getItem("access-token");
-					console.log($(this).attr("data-id")+"========"+$(".eventState").find("option:checked").val());
+					console.log($(this).attr("data-id") + "========" + $(".eventState").find("option:checked").val());
 					//声明参数对象
 					var data = {
-						examiner_id : stationId,
-						relname : $(".InspectorsName").val(),
-						station_id : $(".fuZeQuYu").find("option:checked").val(),				//站点id(负责区域)
-						phone  : $(".contactTel").val(),
-						password : $(".confimPsd").val(),
+						examiner_id: stationId,
+						relname: $(".InspectorsName").val(),
+						station_id: $(".fuZeQuYu").find("option:checked").val(), //站点id(负责区域)
+						phone: $(".contactTel").val(),
+						password: $(".confimPsd").val(),
 					};
 					//请求回调函数
 					var success = function(response) {
@@ -387,7 +400,7 @@
 						if (response.result) {
 							toastr.success("编辑成功！");
 							initPage(defaultNum);
-						}else{
+						} else {
 							toastr.error(response.message);
 						}
 					}
@@ -397,18 +410,18 @@
 				$(".close").click(); //关闭弹框
 			})
 			//获取当前巡检人员信息
-			function GetXunJianInfo(id){
+			function GetXunJianInfo(id) {
 				var token = localStorage.getItem("access-token");
 				//声明参数对象
 				var data = {
-					examiner_id  : id
+					examiner_id: id
 				};
 				//请求回调函数
 				var success = function(response) {
 					console.log("获取到的巡检人员返回数据：" + JSON.stringify(response));
 					if (response.result) {
 						$(".InspectorsName").val(response.data.relname);
-						$(".fuZeQuYu").find('option[value="'+ response.data.station +'"]').prop("selected",true);
+						$(".fuZeQuYu").find('option[value="' + response.data.station + '"]').prop("selected", true);
 						$(".contactTel").val(response.data.phone);
 						$(".InspectorsName").val(response.data.name);
 					}
@@ -417,7 +430,7 @@
 				ajaxFun.post(ApiUrl + global_url.examinerInfo, data, token, success);
 			}
 			//获取站点名称
-			function GetZhanDianList(){
+			function GetZhanDianList() {
 				var token = localStorage.getItem("access-token");
 				//声明参数对象
 				var data = {};
@@ -474,7 +487,7 @@
 									table.ajax.url(ApiUrl + global_url.examinerList + "?page=" + page).load();
 								}
 							});
-			
+
 						}
 					}
 				});
@@ -487,6 +500,7 @@
 					responsive: true,
 					destroy: true,
 					bAutoWidth: false,
+					ordering : false,
 					lengthMenu: [5, 10, 25, 50, ],
 					bFilter: false,
 					sPaginationType: "full_numbers",
@@ -540,10 +554,10 @@
 					},
 					columns: [{
 						data: 'number'
-					},{
+					}, {
 						data: 'relname'
 					}, {
-						data : "name"
+						data: "name"
 					}, {
 						data: 'phone'
 					}, {
@@ -553,12 +567,14 @@
 							return row.created_at.date;
 						}
 					}, {
-						data : "admin"
+						data: "admin"
 					}, {
 						render: function(data, type, row) {
 							var strHtml = '<div data-id="' + row.id + '">' +
-										'<a data-id="'+ row.id +'" data-state="2" class="handle hdleBtn editdetail" data-toggle="modal" data-target="#myModal"><img src="img/edit_gray.png" alt=""></a>' +
-										'<a data-id="'+ row.id +'" class="handle deleteitem" href="javascript:void(0)"><img src="img/del_red.png" alt=""></a>' +
+								'<a data-id="' + row.id +
+								'" data-state="2" class="handle hdleBtn editdetail" data-toggle="modal" data-target="#myModal"><img src="img/edit_gray.png" alt=""></a>' +
+								'<a data-id="' + row.id +
+								'" class="handle deleteitem" href="javascript:void(0)"><img src="img/del_red.png" alt=""></a>' +
 								'</div>';
 							return strHtml;
 						}
@@ -587,7 +603,7 @@
 							customize: function(win) {
 								$(win.document.body).addClass('white-bg');
 								$(win.document.body).css('font-size', '10px');
-			
+
 								$(win.document.body).find('table')
 									.addClass('compact')
 									.css('font-size', 'inherit');

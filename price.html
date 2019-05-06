@@ -72,8 +72,7 @@
 				</div>
 				<!--表格部分-->
 				<div class="ibox-content">
-					<div class="row">
-						<div class="col-sm-12">
+						<div class="tableSec">
 							<table id="dataTable" class="table table-bordered table-hover">
 								<thead>
 									<tr>
@@ -101,7 +100,6 @@
 							</div>
 							<ul id="page"></ul>
 						</div>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -133,6 +131,7 @@
 				bAutoWidth: false,
 				lengthMenu: [5,10, 25, 50,],
 				bFilter: false,
+				ordering : false,
 				bLengthChange: true,
 				sDom: '<"top"<"clear">>rt<"bottom"lfip<"clear">>',
 				language: {
@@ -230,6 +229,7 @@
 					bFilter: false,
 					sPaginationType: "full_numbers",
 					bLengthChange: true,
+					ordering : false,
 					destroy : true,
 					info : false,
 					sDom: '<"top"<"clear">>rt<"bottom"lfip<"clear">>',

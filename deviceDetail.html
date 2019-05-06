@@ -24,9 +24,6 @@
 		<![endif]-->
 		<title>设备详情</title>
 		<style>
-			.wrapper-content{
-			    padding:20px 10px 0;
-			 }
 			.input-group{
 			 	width: 190px;
 			 	float: right;
@@ -120,6 +117,12 @@
 			font-size: 200px;
 			z-index: 111;
         }
+		.jiJiaType>li{
+			display: none;
+		}
+		.jiJiaType>li.show{
+			display: block;
+		}
 		</style>
 	</head>
 
@@ -180,10 +183,11 @@
 							<a href="javascript:void(0)" class="editBtn ceshi" data-toggle="modal" data-target="#myModal1"><img src="img/edit.png"
 								 alt=""></a>
 							<p>当前水价计费类型：<span>阶梯计价</span></p>
-							<ul>
-								<li>第一阶梯：<span class="first_order">-</span>元/吨</li>
-								<li>第二阶梯：<span class="second_order">-</span>元/吨</li>
-								<li>最大价格：<span class="third_order">-</span>元/吨</li>
+							<ul class="jiJiaType">
+								<li class="jieti">第一阶梯：<span class="first_order">-</span>元/吨</li>
+								<li class="jieti">第二阶梯：<span class="second_order">-</span>元/吨</li>
+								<li class="jieti">最大价格：<span class="third_order">-</span>元/吨</li>
+								<li class="tongyi">统一价格：<span class="first_order">-</span>元/吨</li>
 							</ul>
 						</li>
 					</ul>
@@ -791,6 +795,9 @@
 						for (var k in response.data) {
 							$("." + k).html(response.data[k]);
 						}
+						$(".open_num").html((response.data.open_num + response.data.close_num));
+						$(".fault_num").html(response.data.fault_num);
+						$(".Off_line_num").html(response.data.Off_line_num);
 						$(".statusCon").attr("data-state",response.data.status);
 						if (response.data.status == 0) {
 							$(".statusCon").html("正常营业");
@@ -813,9 +820,17 @@
 				var success = function(response) {
 					console.log("获取到的获取站点阶梯水价数据：" + JSON.stringify(response));
 					if (response.result) {
-						for (var k in response.data) {
-							$("." + k).html(response.data[k]);
+						$(".jiJiaType>li").removeClass("show");
+						if(response.data.first_order === response.data.second_order&& response.data.first_order === response.data.third_order){
+							$(".tongyi").addClass("show");
+							$(".tongyi .first_order").html(response.data.first_order);
+						}else{
+							$(".jieti").addClass("show");
+							for (var k in response.data) {
+								$("." + k).html(response.data[k]);
+							}
 						}
+						
 						$(".finishBtn2").attr("data-id", response.data.id);
 					}
 				}
@@ -850,16 +865,26 @@
 							strHtml += '			<img src="img/water.png" alt="">';
 							strHtml += '			累计用水量：<span>' + mData.total_water + '吨</span>';
 							strHtml += '		</li>';
-							strHtml += '		<li class="noImg">';
-							strHtml += '			当期用水量：<span>' + mData.this_month + '吨</span>';
-							strHtml += '		</li>';
-							strHtml += '		<li class="noImg">';
-							strHtml += '			剩&nbsp;余&nbsp;水&nbsp;量：<span>' + mData.surplus_water + '吨</span>';
-							strHtml += '		</li>';
-							strHtml += '		<li>';
-							strHtml += '			<img src="img/money.png" alt="">';
-							strHtml += '			当&nbsp;前&nbsp;余&nbsp;额：<span>' + mData.surplus_money + '元</span>';
-							strHtml += '		</li>';
+							if(mData.surplus_water > 0){
+								strHtml += '		<li class="noImg">';
+								strHtml += '			当期用水量：<span>' + mData.this_month + '吨</span>';
+								strHtml += '		</li>';
+								strHtml += '		<li class="noImg">';
+								strHtml += '			剩&nbsp;余&nbsp;水&nbsp;量：<span>' + mData.surplus_water + '吨</span>';
+								strHtml += '		</li>';
+								strHtml += '		<li>';
+								strHtml += '			<img src="img/money.png" alt="">';
+								strHtml += '			当&nbsp;前&nbsp;余&nbsp;额：<span>' + mData.surplus_money + '元</span>';
+								strHtml += '		</li>';
+							}else{
+								strHtml += '		<li class="noImg">';
+								strHtml += '			上月用水量：<span>' + mData.last_month + '吨</span>';
+								strHtml += '		</li>';
+								strHtml += '		<li>';
+								strHtml += '			<img src="img/money.png" alt="">';
+								strHtml += '			应&nbsp;缴&nbsp;金&nbsp;额：<span>' + Math.abs(mData.surplus_money) + '元</span>';
+								strHtml += '		</li>';
+							}
 							strHtml += '	</ul>';
 							strHtml += '	<button type="button" data-id="' + mData.number + '" class="handle czBtn" data-toggle="modal" data-target="#myModal2">操作</button>';
 							strHtml += '</div>';

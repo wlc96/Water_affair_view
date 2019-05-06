@@ -85,7 +85,7 @@
 		         color: #F797A1;
 		     }
 		     .wrapper-content{
-			     padding:20px 10px 0;
+			     padding:20px 20px 0;
 		     }
 		</style>
 	</head>
@@ -140,8 +140,8 @@
 				</div>
 				<!--表格部分-->
 				<div class="ibox-content">
-					<div class="row">
-						<div class="col-sm-12 tableSec">
+					<!-- <div class="row"> -->
+						<div class="tableSec">
 							<table id="dataTable" class="table table-bordered table-hover">
 								<thead>
 									<tr>
@@ -169,7 +169,6 @@
 							</div>
 							<ul id="page"></ul>
 						</div>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -479,6 +478,7 @@
 					paging: false,
 					pageLength: 10,
 					responsive: true,
+					ordering : false,
 					bAutoWidth: false,
 					lengthMenu: [5, 10, 25, 50, ],
 					bFilter: false,

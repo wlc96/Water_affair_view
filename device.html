@@ -38,7 +38,7 @@
 				display: flex;
 				align-items: center;
 				border:1px solid #E5E5E5;
-				border-radius: 3px;
+				border-radius: 6px;
 			}
 			.dataList li:last-child{
 				margin-right: 0;
@@ -89,6 +89,7 @@
 				border-radius: 50%;
 				position: relative;
 				top:1px;
+				margin-right: 5px;
 			}
 			span.green{
 				background: #2ACDB8;
@@ -185,22 +186,32 @@
 				</div>
 				<!--表格部分-->
 				<div class="ibox-content">
-					<div class="row">
-						<div class="col-sm-12">
-							<table id="dataTable" class="table table-bordered table-hover">
-								<thead>
-									<tr>
-										<th>序号</th>
-										<th>水表分布区名称</th>
-										<th>总水量（吨）</th>
-										<th>总表数</th>
-										<th>今日用水量</th>
-										<th>当前水表状态</th>
-										<th>查看明细</th>
-									</tr>
-								</thead>
-								<tbody>
-									<!-- <tr>
+					<div class="searchBox">
+						<form action="" class="form-horizontal">
+							<div class="form-group">
+								<label for="">查询：</label>
+								<div class="searchInput">
+									<input type="text" placeholder="输入分布区名称" class="form-control fenBu">
+									<a class="searchCon" href="javascript:void(0)"><img src="img/look.png" alt=""></a>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="tableSec">
+						<table id="dataTable" class="table table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>序号</th>
+									<th>水表分布区名称</th>
+									<th>总水量（吨）</th>
+									<!-- <th>总表数</th> -->
+									<th>今日用水量</th>
+									<th>当前水表状态</th>
+									<th>查看明细</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- <tr>
 										<td>1</td>
 										<td>西城嘉和小区营业点</td>
 										<td>268.00</td>
@@ -228,21 +239,20 @@
 											</a>
 										</td>
 									</tr> -->
-								</tbody>
-							</table>
+							</tbody>
+						</table>
+					</div>
+					<div class="footIns">
+						<div class="selectNum">
+							当前显示
+							<select name="" id="" class="selNum">
+								<option value="5">5</option>
+								<option value="10">10</option>
+								<option value="25">25</option>
+							</select>
+							项结果
 						</div>
-						<div class="footIns">
-							<div class="selectNum">
-								当前显示
-								<select name="" id="" class="selNum">
-									<option value="5">5</option>
-									<option value="10">10</option>
-									<option value="25">25</option>
-								</select>
-								项结果
-							</div>
-							<ul id="page"></ul>
-						</div>
+						<ul id="page"></ul>
 					</div>
 				</div>
 			</div>
@@ -266,26 +276,31 @@
 		<script>
 			var defaultNum = 5;
 			var table;
-			
-			$(function(){
+
+			$(function() {
 				//初始化页码
 				initPage(defaultNum);
 			})
-			
+
 			$("#dataTable").on("click", ".lookMore", function() {
 				var currentId = $(this).attr("data-id");
-				parent.$("#ifr").attr("src", "deviceDetail.html?id="+currentId);
+				parent.$("#ifr").attr("src", "deviceDetail.html?id=" + currentId);
 			})
-			
+			$(".searchCon").click(function() {
+				var inner = $(this).siblings(".fenBu").val();
+				initPage(defaultNum, inner);
+			})
 			//初始化页码
-			function initPage(defaultNum) {
+			function initPage(defaultNum, name) {
+				name = arguments[1] ? arguments[1] : " ";
 				$(".selNum").find('option[value="' + defaultNum + '"]').prop("selected", true);
 				$.ajax({
 					type: "POST",
 					url: ApiUrl + global_url.stationList,
 					cache: false, //禁用缓存
 					data: {
-						pre_page: defaultNum
+						pre_page: defaultNum,
+						name: name
 					}, //传入组装的参数
 					contentType: "application/x-www-form-urlencoded;",
 					dataType: "json",
@@ -296,7 +311,7 @@
 						//console.log(JSON.stringify(result));
 						if (result.result) {
 							//初始化表格数据
-							initTableData(defaultNum);
+							initTableData(defaultNum, name);
 							//渲染页码
 							var currentPage = 1;
 							var totalPages = result.data.last_page;
@@ -314,13 +329,14 @@
 									table.ajax.url(ApiUrl + global_url.stationList + "?page=" + page).load();
 								}
 							});
-			
+
 						}
 					}
 				});
 			}
 			//初始化表格
-			function initTableData(defaultNum) {
+			function initTableData(defaultNum, name) {
+				name = arguments[1] ? arguments[1] : " ";
 				table = $('#dataTable').DataTable({
 					paging: false,
 					pageLength: 10,
@@ -331,6 +347,7 @@
 					bFilter: false,
 					sPaginationType: "full_numbers",
 					bLengthChange: true,
+					ordering: false,
 					info: false,
 					sDom: '<"top"<"clear">>rt<"bottom"lfip<"clear">>',
 					language: {
@@ -367,10 +384,11 @@
 						},
 						data: function(obj) {
 							obj.pre_page = defaultNum;
+							obj.name = name;
 						},
 						dataSrc: function(json) {
-							console.log("获取到的站点信息列表的数据：" + JSON.stringify(json));
-							for(var k in json.data){
+							console.log("获取到的站点信息列表的数据：" + JSON.stringify(json) + "========>" + name);
+							for (var k in json.data) {
 								$("span." + k).html(json.data[k]);
 							}
 							return json.data.list.data;
@@ -382,15 +400,15 @@
 						console.log(aoData);
 					},
 					columns: [{
-						data: null
+						render: function(data, type, row, meta) {
+							return meta.row + meta.settings._iDisplayStart + 1;
+						}
 					}, {
 						data: 'name'
 					}, {
 						data: 'sum_num'
 					}, {
-						data: "today_num"
-					}, {
-						data: 'sum_num'
+						data: 'today_num'
 					}, {
 						render: function(data, type, row) {
 							var html = '';
@@ -413,7 +431,7 @@
 					}, {
 						render: function(data, type, row) {
 							var html = '';
-							html = '<a class="lookMore" data-id="'+ row.id +'" href="javascript:void(0)">' +
+							html = '<a class="lookMore" data-id="' + row.id + '" href="javascript:void(0)">' +
 								'<span class="fa fa-search"></span>' +
 								'</a>';
 							return html;
@@ -443,7 +461,7 @@
 							customize: function(win) {
 								$(win.document.body).addClass('white-bg');
 								$(win.document.body).css('font-size', '10px');
-			
+
 								$(win.document.body).find('table')
 									.addClass('compact')
 									.css('font-size', 'inherit');
@@ -456,17 +474,6 @@
 						}
 					}
 				});
-				//自动给第一列设置行号
-				table.on('order.dt search.dt', function() {
-					table.column(0, {
-						search: 'applied',
-						order: 'applied'
-					}).nodes().each(
-						function(cell, i) {
-							cell.innerHTML = i + 1;
-						}
-					);
-				}).draw();
 			}
 			//选择每页显示条数
 			$(".selNum").change(function() {

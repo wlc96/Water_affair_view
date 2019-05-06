@@ -1,16 +1,18 @@
 var ajaxFun = {
 	post: function(url,data,userToken,success) {
+		jQuery.support.cors = true;
 		if(userToken == ""){
 			$.ajax({
 				url: url, //请求url
 				type: "post",
 				data : data,
+				crossDomain: true, 
 				contentType: "application/x-www-form-urlencoded",
 				success: function(response){
 					success(response);
 				},
 				error: function(err){
-					console.log("错误信息：" + JSON.stringify(err))
+					console.log("登录返回的错误信息：" + JSON.stringify(err))
 				}
 			})
 		}else{
@@ -20,6 +22,7 @@ var ajaxFun = {
 				},
 				url: url, //请求url
 				type: "post",
+				crossDomain: true, 
 				data : data,
 				contentType: "application/x-www-form-urlencoded",
 				success: function(response){
@@ -34,7 +37,7 @@ var ajaxFun = {
 					
 				},
 				error: function(err){
-					console.log("错误信息：" + JSON.stringify(err))
+					console.log("返回的错误信息：" + JSON.stringify(err))
 				}
 			})
 		}

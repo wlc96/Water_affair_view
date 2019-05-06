@@ -11,6 +11,8 @@
 		<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
 		<link href="public/animate.css" rel="stylesheet">
 		<link rel="stylesheet" href="public/inspinia.css" />
+		<!-- Sweet Alert -->
+		<link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 		<!-- <link rel="stylesheet" href="css/my_TiBaoJiLu.css" /> -->
 		<link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="public/public.css">
@@ -23,9 +25,6 @@
 		<![endif]-->
 		<title>角色管理</title>
 		<style>
-			.wrapper-content{
-			    padding:20px 10px 0;
-			 }
 			 .input-group{
 				 width: 190px;
 				 float: right;
@@ -46,7 +45,7 @@
 			<div id="biaobj" class=" wrapper wrapper-content animated fadeInRight" style="padding-top:0;">
 				<div class="roleIns">
 					<ul class="roleList">
-						<li>
+						<!-- <li>
 							<span>超级管理员</span>
 							<p>拥有至高无上的权利，可分配企业管理员及权限</p>
 						</li>
@@ -69,38 +68,38 @@
 						<li>
 							<span>数据分析员</span>
 							<p>数据统计、分析报告相关功能；查看运营过程中相关数据报告</p>
-						</li>
+						</li> -->
 					</ul>
 				</div>
 				<!--表格部分-->
-				<div class="ibox-content" style="margin-top:0;">
-					<div class="searchBox">
-						<form action="" class="form-horizontal">
-							<div class="form-group">
-								<label for="">查询：</label>
-								<div class="searchInput" style="margin-right: 20px;width:280px;">
-									<input type="text" placeholder="输入角色名称、权限名称" class="form-control">
-									<a href="javascript:void(0)"><img src="img/look.png" alt=""></a>
+				<div class="ibox-content">
+						<div class="searchBox">
+							<form action="" class="form-horizontal">
+								<div class="form-group">
+									<label for="">查询：</label>
+									<div class="searchInput" style="margin-right: 20px;width:280px;">
+										<input type="text" placeholder="输入角色名称、权限名称" class="form-control">
+										<a href="javascript:void(0)"><img src="img/look.png" alt=""></a>
+									</div>
+									<!-- <button type="button" class="btn btn-white exportbtn exportExcel"><img src="img/export.png" alt="">导出</button> -->
+									<button type="button" data-state="0" class="btn btn-primary hdleBtn exportbtn addUser" data-toggle="modal"
+									 data-target="#myModal"><img src="img/add.png" alt="">添加</button>
 								</div>
-								<!-- <button type="button" class="btn btn-white exportbtn exportExcel"><img src="img/export.png" alt="">导出</button> -->
-								<button type="button" data-state="0" class="btn btn-primary hdleBtn exportbtn addUser" data-toggle="modal" data-target="#myModal"><img
-									 src="img/add.png" alt="">添加</button>
-							</div>
 							</form>
-					</div>
-					<div class="tableBox">
-						<table id="dataTable" class="table table-bordered table-hover">
-							<thead>
-								<tr>
-									<th>角色名称</th>
-									<th>权限范围</th>
-									<th>具体描述</th>
-									<th>创建日期</th>
-									<th>操作</th>
-								</tr>
-							</thead>
-							<tbody>
-								<!-- <tr>
+						</div>
+						<div class="tableBox tableSec">
+							<table id="dataTable" class="table table-bordered table-hover">
+								<thead>
+									<tr>
+										<th>角色名称</th>
+										<th>权限范围</th>
+										<th>具体描述</th>
+										<th>创建日期</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<!-- <tr>
 									<td>78653465468675</td>
 									<td>王先生</td>
 									<td>wxs786534</td>
@@ -145,21 +144,21 @@
 										<a class="handle deleteitemd" href="javascript:void(0)"><img src="img/del_red.png" alt=""></a>
 									</td>
 								</tr> -->
-							</tbody>
-						</table>
-					</div>
-					<div class="footIns">
-						<div class="selectNum">
-							当前显示
-							<select name="" id="" class="selNum">
-								<option value="5">5</option>
-								<option value="10">10</option>
-								<option value="25">25</option>
-							</select>
-							项结果
+								</tbody>
+							</table>
 						</div>
-						<ul id="page"></ul>
-					</div>
+						<div class="footIns">
+							<div class="selectNum">
+								当前显示
+								<select name="" id="" class="selNum">
+									<option value="5">5</option>
+									<option value="10">10</option>
+									<option value="25">25</option>
+								</select>
+								项结果
+							</div>
+							<ul id="page"></ul>
+						</div>
 				</div>
 			</div>
 		</div>
@@ -220,6 +219,8 @@
 
 		<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 		<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+		<!-- Sweet alert -->
+		<script src="js/plugins/sweetalert/sweetalert.min.js"></script>
 		<!-- 时间控件样式 -->
 		<script src="js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
 		<script src="js/plugins/datetimepicker/bootstrap-datetimepicker-update.min.js"></script>
@@ -238,7 +239,7 @@
 			var defaultNum = 5;
 			var table;
 			$(function() {
-				
+
 				var bgTime;
 				/*只选择年月（开始时间）*/
 				$('.Ym_date').datetimepicker({
@@ -276,6 +277,8 @@
 				initPage(defaultNum);
 				//获取权限范围目录
 				GetQuanXianMuLu();
+				//获取顶部角色列表
+				GetTopList();
 			})
 			//表单元素获取焦点时取消警示效果
 			$("input").focus(function() {
@@ -299,38 +302,54 @@
 				$(".excelButton").click();
 			})
 			//列表中的查看详情按钮
-			$("body").on("click",".hdleBtn",function() {
+			$("body").on("click", ".hdleBtn", function() {
 				$(".i-checks").find(".icheckbox_square-green").removeClass("checked");
-				if($(this).attr("data-state") === "0"){	//添加
+				if ($(this).attr("data-state") === "0") { //添加
 					$(".handleInner").html("添加");
 					$(".pl_tcp").show();
-					$(".finishBtn").attr("data-state","0");
-				}else if($(this).attr("data-state") === "2"){	//编辑
+					$(".finishBtn").attr("data-state", "0");
+				} else if ($(this).attr("data-state") === "2") { //编辑
 					var id = $(this).parent().attr("data-id");
 					GetRoleInfo(id);
-					$(".finishBtn").attr("data-id",id);
+					$(".finishBtn").attr("data-id", id);
 					$(".pl_tcp").hide();
 					$(".handleInner").html("编辑");
-					$(".finishBtn").attr("data-state","2");
+					$(".finishBtn").attr("data-state", "2");
 				}
 			})
 			//删除角色
-			$("body").on("click",".deleteitem",function() {
-				var token = localStorage.getItem("access-token");
-				//声明参数对象
-				var data = {
-					role_id  : $(this).attr("data-id")
-				};
-				//请求回调函数
-				var success = function(response) {
-					console.log("获取到的删除角色返回数据：" + JSON.stringify(response));
-					if (response.result) {
-						toastr.success("删除成功！");
-						initPage(defaultNum);
-					}
+			$("body").on("click", ".deleteitem", function() {
+				var id = $(this).attr("data-id");
+				if($(this).attr("data-type") !== "1" ){
+					swal({
+					    title: "删除",
+					    text: "确定删除当前数据？",
+					    type: "warning",
+					    showCancelButton: true,
+					    confirmButtonColor: "#DD6B55",
+					    confirmButtonText: "退出",
+						cancelButtonText: "取消",
+					    closeOnConfirm: true
+					}, function () {
+					    var token = localStorage.getItem("access-token");
+					    //声明参数对象
+					    var data = {
+					    	role_id: id
+					    };
+					    //请求回调函数
+					    var success = function(response) {
+					    	console.log("获取到的删除角色返回数据：" + JSON.stringify(response));
+					    	if (response.result) {
+					    		toastr.success("删除成功！");
+					    		initPage(defaultNum);
+					    	}
+					    }
+					    //请求方法
+					    ajaxFun.post(ApiUrl + global_url.roleDelete, data, token, success);
+					});
+				}else{
+					toastr.warning("此角色禁止删除！");
 				}
-				//请求方法
-				ajaxFun.post(ApiUrl + global_url.roleDelete, data, token, success);
 			})
 			//提交表单验证(查看详情/编辑)
 			$(".finishBtn").click(function() {
@@ -338,12 +357,12 @@
 					$(".roleName").parents(".form-group").addClass("errorIns");
 					return false;
 				}
-				
+
 				var token = localStorage.getItem("access-token");
 				var directory_ids = [];
 				var checks = $(".i-checks");
-				for(var i = 0; i < checks.length; i++){
-					if($(checks[i]).find(".icheckbox_square-green").hasClass("checked")){
+				for (var i = 0; i < checks.length; i++) {
+					if ($(checks[i]).find(".icheckbox_square-green").hasClass("checked")) {
 						directory_ids.push($(checks[i]).attr("data-id"));
 					}
 				}
@@ -351,12 +370,12 @@
 					$(".quanXianIns").parents(".form-group").addClass("errorIns");
 					return false;
 				}
-				if($(this).attr("data-state") == "0"){				//添加
+				if ($(this).attr("data-state") == "0") { //添加
 					//声明参数对象
 					var data = {
-						name : $(".roleName").val(),
-						directory_ids  : directory_ids,
-						explain :$(".quanXianIns").val()
+						name: $(".roleName").val(),
+						directory_ids: directory_ids,
+						explain: $(".quanXianIns").val()
 					};
 					//请求回调函数
 					var success = function(response) {
@@ -364,20 +383,20 @@
 						if (response.result) {
 							toastr.success("添加成功！");
 							initPage(defaultNum);
-						}else{
+						} else {
 							toastr.error(response.message);
 						}
 					}
 					//请求方法
 					ajaxFun.post(ApiUrl + global_url.roleAdd, data, token, success);
-				}else if($(this).attr("data-state") === "2"){		//编辑
+				} else if ($(this).attr("data-state") === "2") { //编辑
 					var id = $(this).attr("data-id");
 					//声明参数对象
 					var data = {
-						role_id : id,
-						name :  $(".roleName").val(),
-						directory_ids  : directory_ids,
-						explain :$(".quanXianIns").val()
+						role_id: id,
+						name: $(".roleName").val(),
+						directory_ids: directory_ids,
+						explain: $(".quanXianIns").val()
 					};
 					//请求回调函数
 					var success = function(response) {
@@ -385,19 +404,19 @@
 						if (response.result) {
 							toastr.success("编辑成功！");
 							initPage(defaultNum);
-						}else{
+						} else {
 							toastr.error(response.message);
 						}
 					}
 					//请求方法
 					ajaxFun.post(ApiUrl + global_url.roleEdit, data, token, success);
 				}
-				
+
 				$(".close").click(); //关闭弹框
 			})
-			
+
 			//获取权限范围
-			function GetQuanXianMuLu(){
+			function GetQuanXianMuLu() {
 				var token = localStorage.getItem("access-token");
 				//声明参数对象
 				var data = {};
@@ -409,7 +428,8 @@
 						var temHtml = '';
 						var mData = response.data;
 						for (var i = 0; i < mData.length; i++) {
-							temHtml += '<div class="i-checks" data-title="'+ mData[i].name +'" data-id="'+ mData[i].id +'"><label> <input type="checkbox" value=""><span class="checkIns">'+ mData[i].name +'</span></label></div>';
+							temHtml += '<div class="i-checks" data-title="' + mData[i].name + '" data-id="' + mData[i].id +
+								'"><label> <input type="checkbox" value=""><span class="checkIns">' + mData[i].name + '</span></label></div>';
 						}
 						$(".checkQuanXian").append(temHtml);
 						$('.i-checks').iCheck({
@@ -458,17 +478,17 @@
 									table.ajax.url(ApiUrl + global_url.roleList + "?page=" + page).load();
 								}
 							});
-			
+
 						}
 					}
 				});
 			}
 			//获取单条角色信息
-			function GetRoleInfo(id){
+			function GetRoleInfo(id) {
 				var token = localStorage.getItem("access-token");
 				//声明参数对象
 				var data = {
-					role_id : id
+					role_id: id
 				};
 				//请求回调函数
 				var success = function(response) {
@@ -476,8 +496,8 @@
 					if (response.result) {
 						$(".roleName").val(response.data.name);
 						var arr = response.data.directorys.split(",");
-						for(var i = 0; i < arr.length; i++){
-							$('.i-checks[data-title="'+ arr[i] +'"]').find(".icheckbox_square-green").addClass("checked");
+						for (var i = 0; i < arr.length; i++) {
+							$('.i-checks[data-title="' + arr[i] + '"]').find(".icheckbox_square-green").addClass("checked");
 						}
 						$(".quanXianIns").val(response.data.explain)
 					}
@@ -492,6 +512,7 @@
 					pageLength: 10,
 					responsive: true,
 					destroy: true,
+					ordering : false,
 					bAutoWidth: false,
 					lengthMenu: [5, 10, 25, 50, ],
 					bFilter: false,
@@ -546,19 +567,20 @@
 					},
 					columns: [{
 						data: 'name'
-					},{
+					}, {
 						data: 'directorys'
 					}, {
-						data : "explain"
-					},  {
+						data: "explain"
+					}, {
 						render: function(data, type, row) {
 							return row.created_at.date;
 						}
 					}, {
 						render: function(data, type, row) {
 							var strHtml = '<div data-id="' + row.id + '">' +
-										'<a data-id="'+ row.id +'" data-state="2" class="handle hdleBtn editdetail" data-toggle="modal" data-target="#myModal"><img src="img/edit_gray.png" alt=""></a>' +
-										'<a data-id="'+ row.id +'" class="handle deleteitem" href="javascript:void(0)"><img src="img/del_red.png" alt=""></a>' +
+								'<a data-id="' + row.id +
+								'" data-state="2" class="handle hdleBtn editdetail" data-toggle="modal" data-target="#myModal"><img src="img/edit_gray.png" alt=""></a>' +
+								'<a data-id="' + row.id + '" data-type="'+ row.type +'" class="handle deleteitem" href="javascript:void(0)"><img src="img/del_red.png" alt=""></a>' +
 								'</div>';
 							return strHtml;
 						}
@@ -587,7 +609,7 @@
 							customize: function(win) {
 								$(win.document.body).addClass('white-bg');
 								$(win.document.body).css('font-size', '10px');
-			
+
 								$(win.document.body).find('table')
 									.addClass('compact')
 									.css('font-size', 'inherit');
@@ -608,6 +630,32 @@
 				//初始化页码
 				initPage(defaultNum);
 			})
+			//获取顶部角色描述列表
+			function GetTopList(){
+				var token = localStorage.getItem("access-token");
+				//声明参数对象
+				var data = {
+					pre_page: ""
+				};
+				//请求回调函数
+				var success = function(response) {
+					console.log("获取到的角色返回数据：" + JSON.stringify(response));
+					if (response.result) {
+						$(".roleList").empty();
+						var strHtml = '';
+						var mData = response.data.data;
+						for(var i = 0; i < mData.length; i++){
+							strHtml += '<li>';
+							strHtml += '<span>'+ mData[i].name +'</span>';
+							strHtml += '<p>'+ mData[i].explain +'</p>';
+							strHtml += '</li>';
+						}
+						$(".roleList").append(strHtml);
+					}
+				}
+				//请求方法
+				ajaxFun.post(ApiUrl + global_url.roleList, data, token, success);
+			}
 		</script>
 	</body>
 </html>

@@ -11,6 +11,8 @@
 		<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
 		<link href="public/animate.css" rel="stylesheet">
 		<link rel="stylesheet" href="public/inspinia.css" />
+		<!-- Sweet Alert -->
+		<link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 		<!-- <link rel="stylesheet" href="css/my_TiBaoJiLu.css" /> -->
 		<link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="public/public.css">
@@ -40,7 +42,7 @@
 				border-color:#e5e6e7 !important;
 			}
 			 .wrapper-content{
-			    padding:20px 10px 0;
+			    padding:20px 20px 0;
 			 }
 			 .sbnoBox{
 			 	width: 418px;
@@ -87,51 +89,51 @@
 					<button class="export" type="button"><img src="img/export.png" alt="">导出</button>
 				</div> -->
 				<!--表格部分-->
-				<div class="ibox-content" style="margin-top:0;">
-					<div class="searchBox">
-						<form action="" class="form-horizontal">
-							<div class="form-group">
-								<label for="">查询：</label>
-								<div class="searchInput">
-									<input type="text" placeholder="输入流水号、用户名称" class="form-control">
-									<a href="javascript:void(0)"><img src="img/look.png" alt=""></a>
-								</div>
-								<label for="">添加时间：</label>
-								<div class="date input-append form_date Ym_date" style="float:left;">
-									<div class="input-group">
-										<input class="form-control" readonly="readonly" type="text" name="bgtime" placeholder="开始时间">
-										<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
+				<div class="ibox-content">
+						<div class="searchBox">
+							<form action="" class="form-horizontal">
+								<div class="form-group">
+									<label for="">查询：</label>
+									<div class="searchInput">
+										<input type="text" placeholder="输入流水号、用户名称" class="form-control">
+										<a href="javascript:void(0)"><img src="img/look.png" alt=""></a>
 									</div>
-								</div>
-								<span class="line"></span>
-								<div class="date input-append form_date Ym_date2" style="float:left;margin-right: 20px;">
-									<div class="input-group">
-										<input class="form-control endtime" readonly="readonly" type="text" name="endtime" placeholder="截止时间">
-										<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
+									<label for="">添加时间：</label>
+									<div class="date input-append form_date Ym_date" style="float:left;">
+										<div class="input-group">
+											<input class="form-control" readonly="readonly" type="text" name="bgtime" placeholder="开始时间">
+											<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
+										</div>
 									</div>
+									<span class="line"></span>
+									<div class="date input-append form_date Ym_date2" style="float:left;margin-right: 20px;">
+										<div class="input-group">
+											<input class="form-control endtime" readonly="readonly" type="text" name="endtime" placeholder="截止时间">
+											<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
+										</div>
+									</div>
+									<button type="button" class="btn btn-primary">查询</button>
+									<button type="button" class="btn btn-primary exportbtn exportExcel">导出Excel</button>
 								</div>
-								<button type="button" class="btn btn-primary">查询</button>
-								<button type="button" class="btn btn-primary exportbtn exportExcel">导出Excel</button>
-							</div>
-							</from>
-					</div>
-					<div class="tableBox">
-						<table id="dataTable" class="table table-bordered table-hover">
-							<thead>
-								<tr>
-									<th>流水号</th>
-									<th>用户名称</th>
-									<th>联系电话</th>
-									<th>问题类型</th>
-									<th>工单日期</th>
-									<th>派发人员</th>
-									<th>操作员</th>
-									<th>工单状态</th>
-									<th>操作</th>
-								</tr>
-							</thead>
-							<tbody>
-								<!-- <tr>
+							</form>
+						</div>
+						<div class="tableBox tableSec">
+							<table id="dataTable" class="table table-bordered table-hover">
+								<thead>
+									<tr>
+										<th>流水号</th>
+										<th>用户名称</th>
+										<th>联系电话</th>
+										<th>问题类型</th>
+										<th>工单日期</th>
+										<th>派发人员</th>
+										<th>操作员</th>
+										<th>工单状态</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<!-- <tr>
 									<td>ECW1517218533157345</td>
 									<td>李先生</td>
 									<td>13975490733</td>
@@ -173,21 +175,21 @@
 										<a class="handle deleteitemd" href="javascript:void(0)"><img src="img/del_red.png" alt=""></a>
 									</td>
 								</tr> -->
-							</tbody>
-						</table>
-					</div>
-					<div class="footIns">
-						<div class="selectNum">
-							当前显示
-							<select name="" id="" class="selNum">
-								<option value="5">5</option>
-								<option value="10">10</option>
-								<option value="25">25</option>
-							</select>
-							项结果
+								</tbody>
+							</table>
 						</div>
-						<ul id="page"></ul>
-					</div>
+						<div class="footIns">
+							<div class="selectNum">
+								当前显示
+								<select name="" id="" class="selNum">
+									<option value="5">5</option>
+									<option value="10">10</option>
+									<option value="25">25</option>
+								</select>
+								项结果
+							</div>
+							<ul id="page"></ul>
+						</div>
 				</div>
 			</div>
 		</div>
@@ -325,6 +327,8 @@
 
 		<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 		<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+		<!-- Sweet alert -->
+		<script src="js/plugins/sweetalert/sweetalert.min.js"></script>
 		<!-- 时间控件样式 -->
 		<script src="js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
 		<script src="js/plugins/datetimepicker/bootstrap-datetimepicker-update.min.js"></script>
@@ -380,13 +384,13 @@
 				initPage(defaultNum);
 			})
 
-			$(".delayOpin").change(function(){
-				if($(this).find("option:checked").val() == "01"){
+			$(".delayOpin").change(function() {
+				if ($(this).find("option:checked").val() == "01") {
 					$(".delay").removeClass("disabled");
-					$(".delayTime").prop("disabled",false);
-				}else if($(this).find("option:checked").val() == "02"){
+					$(".delayTime").prop("disabled", false);
+				} else if ($(this).find("option:checked").val() == "02") {
 					$(".delay").addClass("disabled");
-					$(".delayTime").prop("disabled",true);
+					$(".delayTime").prop("disabled", true);
 				}
 			})
 			//表单元素获取焦点时取消警示效果
@@ -409,60 +413,60 @@
 				$(".excelButton").click();
 			})
 			//列表中的查看详情按钮
-			$("body").on("click",".hdleBtn",function() {
+			$("body").on("click", ".hdleBtn", function() {
 				//获取当前事件信息
 				var id = $(this).attr("data-id");
 				GetWorkOrderInfo(id);
-				$(".finishBtn").attr("data-id",id);
-				
+				$(".finishBtn").attr("data-id", id);
+
 				$(".modal-body").find("input").prop("disabled", false);
 				$(".modal-body").find("select").prop("disabled", false);
 				$(".modal-body").find("textarea").prop("disabled", false);
-				if($(this).attr("data-state") === "1"){	//查看
+				if ($(this).attr("data-state") === "1") { //查看
 					$(".handleInner").html("查看");
 					$(".modal-body").find("input").prop("disabled", true);
 					$(".modal-body").find("select").prop("disabled", true);
 					$(".modal-body").find("textarea").prop("disabled", true);
-					$(".finishBtn").attr("data-state","1");
-				}else if($(this).attr("data-state") === "2"){	//编辑
+					$(".finishBtn").attr("data-state", "1");
+				} else if ($(this).attr("data-state") === "2") { //编辑
 					$(".handleInner").html("编辑");
-					$(".finishBtn").attr("data-state","2");
+					$(".finishBtn").attr("data-state", "2");
 				}
 			})
-			
+
 			//添加水表号
-			$(".sbnoBox").on("click",".plusbtn",function(){
-				
+			$(".sbnoBox").on("click", ".plusbtn", function() {
+
 				$(this).removeClass("plusbtn").addClass("deletebtn");
-				
-				var html = '<div class="sbno">'+
-									'<input type="email" placeholder="请输入故障水表号" class="form-control sbnotxt">'+
-									'<a class="plusbtn" href="javascript:void(0)"></a>'+
-								'</div>';
-				
+
+				var html = '<div class="sbno">' +
+					'<input type="email" placeholder="请输入故障水表号" class="form-control sbnotxt">' +
+					'<a class="plusbtn" href="javascript:void(0)"></a>' +
+					'</div>';
+
 				$(".sbnoBox").append(html);
 			})
 			//删除水表号
-			$(".sbnoBox").on("click",".deletebtn",function(){
+			$(".sbnoBox").on("click", ".deletebtn", function() {
 				// $(this).parents(".sbno").prev().find(".deletebtn").removeClass("deletebtn").addClass("plusbtn");
 				$(this).parents(".sbno").remove();
 			})
 			//提交表单验证(查看详情/编辑)
 			$(".finishBtn").click(function() {
 				var id = $(this).attr("data-id");
-				if ($(this).attr("data-state") !== "1") {		//如果当前是编辑状态,执行表单验证
+				if ($(this).attr("data-state") !== "1") { //如果当前是编辑状态,执行表单验证
 					if ($(".userName").val() == "") {
 						$(".userName").parents(".form-group").addClass("errorIns");
 						return false;
 					}
-// 					if ($(".userTel").val() == "") {
-// 						$(".userTel").parents(".form-group").addClass("errorIns");
-// 						return false;
-// 					}
-// 					if ($(".qusType").find("option:checked").val() == "00") {
-// 						$(".qusType").parents(".form-group").addClass("errorIns");
-// 						return false;
-// 					}
+					// 					if ($(".userTel").val() == "") {
+					// 						$(".userTel").parents(".form-group").addClass("errorIns");
+					// 						return false;
+					// 					}
+					// 					if ($(".qusType").find("option:checked").val() == "00") {
+					// 						$(".qusType").parents(".form-group").addClass("errorIns");
+					// 						return false;
+					// 					}
 					if ($(".opateUser").find("option:checked").val() == "00") {
 						$(".opateUser").parents(".form-group").addClass("errorIns");
 						return false;
@@ -472,33 +476,34 @@
 						return false;
 					}
 					//判断水表号
-// 					if ($(".sbnotxt:eq(0)").val() == "") {
-// 						$(".sbnotxt:eq(0)").parents(".form-group").addClass("errorIns");
-// 						return false;
-// 					}
-// 
-// 					if ($(".qusDes").val() == "") {
-// 						$(".qusDes").parents(".form-group").addClass("errorIns");
-// 						return false;
-// 					}
-					
-					
+					// 					if ($(".sbnotxt:eq(0)").val() == "") {
+					// 						$(".sbnotxt:eq(0)").parents(".form-group").addClass("errorIns");
+					// 						return false;
+					// 					}
+					// 
+					// 					if ($(".qusDes").val() == "") {
+					// 						$(".qusDes").parents(".form-group").addClass("errorIns");
+					// 						return false;
+					// 					}
+
+
 					//拼接水表号字符串
-// 					var strno = "";
-// 					var strs = $(".sbnotxt");
-// 					for(var i = 0; i < strs.length; i++){
-// 						strno += $(strs[i]).val()+",";
-// 					}
-// 					var newStr = strno.substring(0,strno.length - 1);
-					console.log(id+"==="+$(".userName").val()+"==="+$(".opateUser").find("option:checked").val()+"==="+$(".workOderState").find("option:checked").val());
+					// 					var strno = "";
+					// 					var strs = $(".sbnotxt");
+					// 					for(var i = 0; i < strs.length; i++){
+					// 						strno += $(strs[i]).val()+",";
+					// 					}
+					// 					var newStr = strno.substring(0,strno.length - 1);
+					console.log(id + "===" + $(".userName").val() + "===" + $(".opateUser").find("option:checked").val() + "===" + $(
+						".workOderState").find("option:checked").val());
 					//执行添加请求
 					var token = localStorage.getItem("access-token");
 					//声明参数对象
 					var data = {
-						order_id : id,
+						order_id: id,
 						user_name: $(".userName").val(),
 						servicing_id: $(".opateUser").find("option:checked").val(),
-						status : $(".workOderState").find("option:checked").val()
+						status: $(".workOderState").find("option:checked").val()
 					};
 					//请求回调函数
 					var success = function(response) {
@@ -516,39 +521,51 @@
 				}
 				$(".close").click(); //关闭弹框
 			})
-			
+
 			//删除事件
-			$("body").on("click",".deleteitem",function() {
-				var token = localStorage.getItem("access-token");
-				//声明参数对象
-				var data = {
-					order_id : $(this).attr("data-id")
-				};
-				//请求回调函数
-				var success = function(response) {
-					console.log("获取到的删除返回数据：" + JSON.stringify(response));
-					if (response.result) {
-						toastr.success("删除成功！");
-						initPage(defaultNum);
-					}
-				}
-				//请求方法
-				ajaxFun.post(ApiUrl + global_url.orderDelete, data, token, success);
+			$("body").on("click", ".deleteitem", function() {
+				var id = $(this).attr("data-id");
+				swal({
+				    title: "删除",
+				    text: "确定删除当前数据？",
+				    type: "warning",
+				    showCancelButton: true,
+				    confirmButtonColor: "#DD6B55",
+				    confirmButtonText: "退出",
+					cancelButtonText: "取消",
+				    closeOnConfirm: true
+				}, function () {
+				    var token = localStorage.getItem("access-token");
+				    //声明参数对象
+				    var data = {
+				    	order_id: id
+				    };
+				    //请求回调函数
+				    var success = function(response) {
+				    	console.log("获取到的删除返回数据：" + JSON.stringify(response));
+				    	if (response.result) {
+				    		toastr.success("删除成功！");
+				    		initPage(defaultNum);
+				    	}
+				    }
+				    //请求方法
+				    ajaxFun.post(ApiUrl + global_url.orderDelete, data, token, success);
+				});
 			})
 			//获取当前工单信息
-			function GetWorkOrderInfo(id){
+			function GetWorkOrderInfo(id) {
 				var token = localStorage.getItem("access-token");
 				//声明参数对象
 				var data = {
-					order_id : id
+					order_id: id
 				};
 				//请求回调函数
 				var success = function(response) {
 					console.log("获取到的工单返回数据：" + JSON.stringify(response));
 					if (response.result) {
 						$(".userName").val(response.data.user_name);
-						$(".opateUser").find('option[value="'+ response.data.operation +'"]').prop("selected",true);
-						$(".workOderState").find('option[value="'+ response.data.status +'"]').prop("selected",true);
+						$(".opateUser").find('option[value="' + response.data.operation + '"]').prop("selected", true);
+						$(".workOderState").find('option[value="' + response.data.status + '"]').prop("selected", true);
 					}
 				}
 				//请求方法
@@ -576,11 +593,11 @@
 			}
 			//提交表单验证(延期)
 			$(".finishBtn2").click(function() {
-				
+
 				if ($(".delayOpin").find("option:checked").val() == "00") {
 					$(".delayOpin").parents(".form-group").addClass("errorIns");
 					return false;
-				}else if($(".delayOpin").find("option:checked").val() == "01"){
+				} else if ($(".delayOpin").find("option:checked").val() == "01") {
 					if ($(".delayTime").find("option:checked").val() == "00") {
 						$(".delayTime").parents(".form-group").addClass("errorIns");
 						return false;
@@ -591,7 +608,7 @@
 					$(".close").click(); //关闭弹框
 				}, 1000)
 			})
-			
+
 			//初始化页码
 			function initPage(defaultNum) {
 				$(".selNum").find('option[value="' + defaultNum + '"]').prop("selected", true);
@@ -629,7 +646,7 @@
 									table.ajax.url(ApiUrl + global_url.orderList + "?page=" + page).load();
 								}
 							});
-			
+
 						}
 					}
 				});
@@ -643,6 +660,7 @@
 					bAutoWidth: false,
 					lengthMenu: [5, 10, 25, 50, ],
 					bFilter: false,
+					ordering : false,
 					sPaginationType: "full_numbers",
 					bLengthChange: true,
 					destroy: true,
@@ -702,11 +720,11 @@
 					}, {
 						render: function(data, type, row) {
 							var state;
-							if(row.type == "EqStop"){
+							if (row.type == "EqStop") {
 								state = "停水";
-							}else if(row.type == "EqRecovery"){
+							} else if (row.type == "EqRecovery") {
 								state = "恢复停水";
-							}else if(row.type == "EqChange"){
+							} else if (row.type == "EqChange") {
 								state = "拆换表";
 							}
 							return state;
@@ -716,27 +734,30 @@
 							return row.created_at.date;
 						}
 					}, {
-						data : 'admin_id'
+						data: 'admin_id'
 					}, {
 						data: 'operation'
 					}, {
 						render: function(data, type, row) {
 							var strHtml;
-							if(row.status == "0"){
+							if (row.status == "0") {
 								strHtml = '<span class="redtit">待处理</span>';
-							}else if(row.status == "1"){
+							} else if (row.status == "1") {
 								strHtml = '<span class="greentit">已解决</span>';
 							}
 							return strHtml;
 						}
 					}, {
 						render: function(data, type, row) {
-							var strHtml = '<div data-id="'+ row.id +'">'+
-								'<a data-state="1" data-id="'+ row.id +'" class="handle hdleBtn" data-toggle="modal" data-target="#myModal"><img src="img/listsearch.png" alt=""></a>'+
-								'<a data-state="2" data-id="'+ row.id +'" class="handle hdleBtn editdetail" data-toggle="modal" data-target="#myModal"><img src="img/edit_gray.png" alt=""></a>'+
-								'<a data-id="'+ row.id +'" class="handle yanShi" data-toggle="modal" data-target="#myModal2"><img src="img/yanshi.png" alt=""></a>'+
-								'<a data-id="'+ row.id +'" class="handle deleteitem"><img src="img/del_red.png" alt=""></a>'+
-							'</div>';
+							var strHtml = '<div data-id="' + row.id + '">' +
+								'<a data-state="1" data-id="' + row.id +
+								'" class="handle hdleBtn" data-toggle="modal" data-target="#myModal"><img src="img/listsearch.png" alt=""></a>' +
+								'<a data-state="2" data-id="' + row.id +
+								'" class="handle hdleBtn editdetail" data-toggle="modal" data-target="#myModal"><img src="img/edit_gray.png" alt=""></a>' +
+								'<a data-id="' + row.id +
+								'" class="handle yanShi" data-toggle="modal" data-target="#myModal2"><img src="img/yanshi.png" alt=""></a>' +
+								'<a data-id="' + row.id + '" class="handle deleteitem"><img src="img/del_red.png" alt=""></a>' +
+								'</div>';
 							return strHtml;
 						}
 					}],
@@ -764,7 +785,7 @@
 							customize: function(win) {
 								$(win.document.body).addClass('white-bg');
 								$(win.document.body).css('font-size', '10px');
-			
+
 								$(win.document.body).find('table')
 									.addClass('compact')
 									.css('font-size', 'inherit');
