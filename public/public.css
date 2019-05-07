@@ -211,11 +211,16 @@ table.dataTable {
 .dztype li.active {
 	color: #47D4C1;
 	border-bottom: 1px solid transparent;
+	box-shadow: 0px 0px 10px 3px #eff1f5;
 }
 
 .dzCon {
 	background: #fff;
 	border: 1px solid #ECECEC;
+	box-shadow: 0px 0px 10px 3px #eff1f5;
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
+	border-top-right-radius: 6px;
 }
 
 .dzCon ul {
@@ -233,10 +238,13 @@ table.dataTable {
 	font-size: 20px;
 	color: #333;
 }
-
-.dzCon ul li .yuE {
+.dzCon ul li .yuE{
+	font-size: 16px;
+}
+.dzCon ul li .yuE span{
 	font-size: 32px;
 	color: #0d467b;
+	margin-right: 10px;
 }
 
 .dzCon ul li .totalsr {
@@ -327,6 +335,7 @@ table.dataTable {
 	background: #2ACDB8;
 	color: #fff;
 	font-size: 18px;
+	margin-left: 20px;
 	border: none;
 	border-radius: 5px;
 	outline: none;
@@ -409,6 +418,7 @@ table.dataTable {
 	float: left;
 	text-align: center;
 	margin-bottom: 0;
+	font-size: 16px;
 }
 
 .searchInput {
@@ -678,7 +688,7 @@ fieldset[disabled] .form-control {
 	background: #fff;
 	border-radius: 6px;
 	border: 1xp solid #e5e5e5;
-	box-shadow: 0px 2px 9.6px 0.4px #e5e5e5;
+	box-shadow: 0px 0px 10px 3px #eff1f5;
 	padding: 15px 15px 0 15px;
 }
 
@@ -803,6 +813,7 @@ fieldset[disabled] .form-control {
 .rBox ul li img {
 	position: relative;
 	top: -2px;
+	margin-right: 10px;
 }
 
 .topIns .insList>li.middle p {
@@ -929,14 +940,14 @@ span.line.rt {
 	overflow: hidden;
 	margin-left: -0.5%;
 	margin-right: -0.5%;
-	margin-top: 6px;
+	margin-top: 10px;
 }
 
 .meterList>li {
 	width: 24%;
 	height: 200px;
 	float: left;
-	margin: 6px 0.5%;
+	margin: 10px 0.5%;
 	background: #fff;
 	padding: 10px 0;
 	border-radius: 6px;
@@ -978,13 +989,15 @@ span.line.rt {
 	font-size: 14px;
 	color: #666;
 }
-
+.meterList li .rtBox ul li img{
+	margin-right: 10px;
+}
 .meterList li .rtBox ul li span {
 	color: #333;
 }
 
 .meterList li .rtBox ul li.noImg {
-	padding-left: 18px;
+	padding-left: 28px;
 }
 
 .rtBox .handle {
@@ -1107,6 +1120,7 @@ span.offline {
 .table{
 	border-radius: 6px;
 	margin-bottom: 0;
+	box-shadow: 0px 0px 10px 3px #eff1f5;
 }
 .wrapper-content {
     padding: 20px 20px 40px;
@@ -1119,4 +1133,20 @@ span.offline {
 }
 .ibox-content{
 	background-color: transparent;
+}
+.input-group .form-control:first-child{
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+	    line-height: 34px;
+    height: 34px;
+}
+.input-group-addon:last-child{
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+.form-control{
+	border-radius: 4px;
+}
+.btn-sm{
+	padding:6px 10px;
 }

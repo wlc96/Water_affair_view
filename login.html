@@ -313,7 +313,7 @@
 					if (val == '') {
 						toastr.warning("请输入验证码！");
 					} else if (val == num) {
-						toastr.success("验证成功！！");
+						// toastr.success("验证成功！！");
 						var remeBer = "";
 						if ($(".remeber").prop("checked")) {
 							remeBer = 1;
@@ -338,6 +338,8 @@
 								localStorage.setItem("access-token",response.data.access_token);
 								// window.location.href = baseUrl + "index2.html";
 								window.location.href = baseUrl + "index.html";
+							}else{
+								toastr.warning(response.message);
 							}
 						}
 						ajaxFun.post(ApiUrl + global_url.login,data,"",success);
