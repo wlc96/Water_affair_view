@@ -400,6 +400,7 @@ table.dataTable {
 .searchBox {
 	background: #F5F6F9;
 	padding: 0px 0px 20px;
+	margin-left: -15px;
 }
 
 .searchBox .form-group label {
@@ -740,6 +741,7 @@ fieldset[disabled] .form-control {
 	background: #fff;
 	margin-top: 20px;
 	border-radius: 6px;
+	border:1px solid #e5e5e5;
 }
 
 .topIns .insList {
@@ -747,12 +749,12 @@ fieldset[disabled] .form-control {
 }
 
 .topIns .insList>li {
-	width: 30%;
+	width: 31%;
 	float: left;
 }
 
 .topIns .insList>li.left {
-	width: 40%;
+	width: 38%;
 }
 
 .topIns .insList>li.left .lBox {
@@ -811,8 +813,11 @@ fieldset[disabled] .form-control {
 .topIns .insList>li.middle .total {
 	font-size: 18px;
 	color: #333;
+	margin-bottom: 20px;
 }
-
+.topIns .insList>li.middle  .sbType{
+	line-height: 32px;
+}
 p.sbType>span {
 	margin: 0 10px;
 }
@@ -833,15 +838,16 @@ p.sbType>span>img {
 }
 
 .topIns .insList>li.middle span.line {
-	height: 100px;
+	height: 122px;
 	width: 1px;
-	border: 1px solid #999;
+	/* border: 1px solid #999; */
+	background: url(../img/lrline.png) no-repeat 0 0;
 }
 
 span.line.lr {
 	position: absolute;
 	left: 0;
-	top: 35px;
+	top: 24px;
 }
 
 span.line.rt {
@@ -853,7 +859,7 @@ span.line.rt {
 .topIns .insList>li.middle ul li {
 	width: 50%;
 	float: left;
-	margin: 10px 0;
+	margin: 5px 0;
 }
 
 .topIns .insList>li.middle ul li span {
@@ -862,18 +868,22 @@ span.line.rt {
 	height: 16px;
 	border-radius: 50%;
 	position: relative;
-	top: 3px;
+	top: 0px;
+	margin-right: 10px;
 }
 
-li.middle ul li span.green {
+.topIns .insList>li.middle ul li span.green {
+	top: 3px;
 	background: #2acdb8;
 }
 
-li.middle ul li span.red {
+.topIns .insList>li.middle ul li span.red {
+	top: 3px;
 	background: #f55f6e;
 }
 
-li.middle ul li span.gray {
+.topIns .insList>li.middle ul li span.gray {
+	top: 3px;
 	background: #8796a3;
 }
 
@@ -891,6 +901,7 @@ li.middle ul li span.gray {
 	font-size: 18px;
 	color: #333;
 	text-align: center;
+	margin-bottom: 20px;
 }
 
 .topIns .insList>li.right p span {
@@ -898,14 +909,14 @@ li.middle ul li span.gray {
 }
 
 .topIns .insList>li.right ul {
-	display: inline-block;
-	margin-left: 30px;
+	
 }
 
 .topIns .insList>li.right ul li {
 	font-size: 16px;
 	color: #666;
 	line-height: 32px;
+	text-align: center;
 }
 
 .topIns .insList>li.right ul li span {
@@ -923,16 +934,18 @@ li.middle ul li span.gray {
 
 .meterList>li {
 	width: 24%;
+	height: 200px;
 	float: left;
 	margin: 6px 0.5%;
 	background: #fff;
 	padding: 10px 0;
 	border-radius: 6px;
 	position: relative;
+	border:1px solid #e5e5e5;
 }
 
 .meterList li .ltBox {
-	width: 30%;
+	width: 35%;
 	float: left;
 	text-align: center;
 }
@@ -941,6 +954,7 @@ li.middle ul li span.gray {
 	font-size: 12px;
 	color#999;
 	margin-top: 10px;
+	margin-bottom: 12px;
 }
 
 .ltBox .state {
@@ -949,14 +963,17 @@ li.middle ul li span.gray {
 }
 
 .meterList li .ltBox img {
-	width: 80%;
+	width: 72%;
+	margin-top:8px;
 }
 
 .meterList li .rtBox {
-	width: 68%;
+	width: 63%;
 	float: right;
 }
-
+.meterList li .rtBox>h3{
+	margin-top:8px;
+}
 .meterList li .rtBox ul li {
 	font-size: 14px;
 	color: #666;
@@ -979,8 +996,8 @@ li.middle ul li span.gray {
 	border-radius: 20px;
 	border: none;
 	position: absolute;
-	bottom: 10px;
-	right: 10px;
+	bottom: 18px;
+	right: 20px;
 	outline: none;
 }
 
@@ -1080,6 +1097,7 @@ span.offline {
 
 .tableSec {
 	background: #fff;
+	border-radius: 6px;
 }
 
 .footIns {
@@ -1088,6 +1106,7 @@ span.offline {
 
 .table{
 	border-radius: 6px;
+	margin-bottom: 0;
 }
 .wrapper-content {
     padding: 20px 20px 40px;
@@ -1097,4 +1116,7 @@ span.offline {
 }
 .input-group-addon{
 	border:1px solid #e5e5e5;
+}
+.ibox-content{
+	background-color: transparent;
 }
