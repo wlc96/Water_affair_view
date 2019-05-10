@@ -34,7 +34,6 @@ var ajaxFun = {
 							window.location.href = baseUrl + "login.html";
 						}
 					}
-					
 				},
 				error: function(err){
 					console.log("返回的错误信息：" + JSON.stringify(err))

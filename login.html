@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title></title>
-		
+
 		<!-- Bootstrap core CSS -->
 		<link href="public/bootstrap.min.css" title="" rel="stylesheet" />
 		<link href="font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -163,6 +163,7 @@
 				line-height: 30px;
 				color:#666;
 				text-align: center;
+				    font-family: 微软雅黑;
 				margin-bottom: 0;
 			}
 			.uName{
@@ -279,7 +280,7 @@
 			<div class="footCon">
 				<p>Copyright©2018-2020 Beijing Yunmeng Wisdom Technology Co., Ltd. All Rights Reserved.</p>
 				<p>北京云梦智慧科技有限公司版权所有 | 备案号：京ICP备19010936号-2</p>
-				<p>当前版本：<span>V2.0-0114</span></p>
+				<p>当前版本：<span>V2.0.0-190505</span></p>
 			</div>
 		</div>
 		<script src="public/jquery-1.11.3.js"></script>
@@ -331,18 +332,18 @@
 							password: $("#pwd").val()
 							// remember : remeBer
 						};
-						var success = function(response){
+						var success = function(response) {
 							// alert("获取到的登录返回数据：" + JSON.stringify(response));
-							if(response.result){
+							if (response.result) {
 								//保存登录返回的token
-								localStorage.setItem("access-token",response.data.access_token);
+								localStorage.setItem("access-token", response.data.access_token);
 								// window.location.href = baseUrl + "index2.html";
 								window.location.href = baseUrl + "index.html";
-							}else{
+							} else {
 								toastr.warning(response.message);
 							}
 						}
-						ajaxFun.post(ApiUrl + global_url.login,data,"",success);
+						ajaxFun.post(ApiUrl + global_url.login, data, "", success);
 					} else {
 						toastr.error("验证码错误！请重新输入！")
 						$(".yzmInput").val('');
@@ -350,14 +351,14 @@
 					}
 				})
 			})
-			$("#userName").keyup(function(){
-				if($(this).val() !== ""){
+			$("#userName").keyup(function() {
+				if ($(this).val() !== "") {
 					$(this).siblings(".clear").show();
-				}else{
+				} else {
 					$(this).siblings(".clear").hide();
 				}
 			})
-			$(".clear").click(function(){
+			$(".clear").click(function() {
 				$(this).hide();
 				$(this).siblings("#userName").val("");
 			})

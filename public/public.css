@@ -35,7 +35,7 @@ table.dataTable {
 }
 
 .ibox-content {
-	margin-top: 20px;
+	margin-top: 12px;
 	border-top: none;
 	padding: 0px 0px 0px 0px;
 }
@@ -103,7 +103,7 @@ table.dataTable {
 .pagination>li>a,
 .pagination>li>span {
 	padding: 5px 10px;
-	border:1px solid #e5e5e5
+	border: 1px solid #e5e5e5
 }
 
 /*水表档案管理*/
@@ -134,6 +134,7 @@ table.dataTable {
 
 .tabList li.active {
 	color: #54D6C6;
+	box-shadow: 0px 0px 3px 2px #efefef;
 }
 
 .shuiBiao>div {
@@ -211,13 +212,13 @@ table.dataTable {
 .dztype li.active {
 	color: #47D4C1;
 	border-bottom: 1px solid transparent;
-	box-shadow: 0px 0px 10px 3px #eff1f5;
+	box-shadow: 0px 0px 3px 2px #efefef;
 }
 
 .dzCon {
 	background: #fff;
 	border: 1px solid #ECECEC;
-	box-shadow: 0px 0px 10px 3px #eff1f5;
+	box-shadow: 0px 0px 3px 2px #efefef;
 	border-bottom-left-radius: 6px;
 	border-bottom-right-radius: 6px;
 	border-top-right-radius: 6px;
@@ -238,10 +239,12 @@ table.dataTable {
 	font-size: 20px;
 	color: #333;
 }
-.dzCon ul li .yuE{
+
+.dzCon ul li .yuE {
 	font-size: 16px;
 }
-.dzCon ul li .yuE span{
+
+.dzCon ul li .yuE span {
 	font-size: 32px;
 	color: #0d467b;
 	margin-right: 10px;
@@ -341,7 +344,10 @@ table.dataTable {
 	outline: none;
 	border: 1px solid #2ACDB8;
 }
-
+.btnBox button img{
+	margin-right: 8px;
+	margin-top: -2px;
+}
 .btnBox button.export {
 	background: #fff;
 	color: #9B9B9B;
@@ -408,7 +414,7 @@ table.dataTable {
 
 .searchBox {
 	background: #F5F6F9;
-	padding: 0px 0px 20px;
+	padding: 0px 0px 12px;
 	margin-left: -15px;
 }
 
@@ -422,18 +428,16 @@ table.dataTable {
 }
 
 .searchInput {
-	width: 200px;
+	width: 300px;
 	float: left;
 	position: relative;
 }
 
-.searchInput a {
+.searchInput img{
 	display: inline-block;
 	position: absolute;
-	top: 0;
-	right: 0;
-	padding: 0 5px;
-	height: 100%;
+	top: 7px;
+	right: 10px;;
 }
 
 .searchInput a img {
@@ -463,7 +467,7 @@ table.dataTable {
 	width: 24px;
 	margin: 0 5px;
 	height: 17px;
-	border-bottom: 1px solid #333;
+	border-bottom: 1px solid #d1d1d1;
 }
 
 .form-control[readonly] {
@@ -475,8 +479,9 @@ table.dataTable {
 }
 
 .handle img {
-	width: 14px;
-	height: 14px;
+	width: 16px;
+	height: 16px;
+	margin-top:-4px;
 }
 
 span.redtit {
@@ -514,17 +519,24 @@ span.greentit {
 }
 
 /********************弹层（模态框）样式******************/
+@media (min-width: 768px) {
+	.modal-dialog {
+		width: 720px;
+		margin: 30px auto;
+	}
+}
 
 .modal-body .form-group label {
 	margin-bottom: 0;
 	line-height: 42px;
 	padding: 0;
 	padding-right: 20px;
-	width: 100px;
+	width: 168px;
 	float: left;
 	text-align: right;
 	color: #6C6C6C;
 	font-weight: normal;
+	font-size: 16px;
 }
 
 .modal-body .form-group {
@@ -534,21 +546,24 @@ span.greentit {
 .modal-body .form-group input,
 .modal-body .form-group select,
 .modal-body .form-group textarea {
-	width: 418px;
+	width: 380px;
 	float: right;
 	color: #999;
 	border-radius: 3px;
 	resize: none;
+	margin-right: 110px;
 }
 
-.modal-body .form-group input,
-.modal-body .form-group select {
+.modal-body .form-group input{
 	height: 42px;
 	line-height: 42px;
 }
-
+.modal-body .form-group select{
+	height: 42px;
+	line-height: 30px;
+}
 .modal-body {
-	padding: 0px 30px 20px 30px;
+	padding: 0px 30px 30px 30px;
 }
 
 .inmodal .modal-body {
@@ -570,7 +585,8 @@ span.greentit {
 }
 
 .inmodal .modal-title {
-	font-size: 16px;
+	font-size: 20px;
+	color: #333;
 }
 
 .modal-footer {
@@ -584,8 +600,9 @@ span.greentit {
 .finishBtn3 {
 	width: 400px;
 	font-size: 20px;
-	margin-bottom: 20px;
-	line-height: 44px;
+	margin-bottom: 50px;
+	height: 44px;
+	border-radius: 4px;
 }
 
 .modal-body .form-group .star {
@@ -654,10 +671,10 @@ fieldset[disabled] .form-control {
 /*设备指数页面*/
 .barBox {
 	display: inline-block;
-	width: 48%;
-	height: 400px;
+	width: 49%;
+	height: 450px;
 	float: left;
-	margin: 10px 1%;
+	margin: 6px 0.5%;
 }
 
 .barBox .echartBox {
@@ -667,11 +684,13 @@ fieldset[disabled] .form-control {
 
 .echartBox {
 	display: inline-block;
-	width: 48%;
-	height: 400px;
+	width: 49%;
+	height: 450px;
 	background: #fff !important;
 	float: left;
-	margin: 10px 1%;
+	border-radius: 6px;
+	margin: 6px 0.5%;
+	box-shadow: 0px 0px 3px 2px #efefef;
 }
 
 /*角色管理*/
@@ -688,7 +707,7 @@ fieldset[disabled] .form-control {
 	background: #fff;
 	border-radius: 6px;
 	border: 1xp solid #e5e5e5;
-	box-shadow: 0px 0px 10px 3px #eff1f5;
+	box-shadow: 0px 0px 3px 2px #efefef;
 	padding: 15px 15px 0 15px;
 }
 
@@ -706,8 +725,13 @@ fieldset[disabled] .form-control {
 
 .checkQuanXian,
 .tcp_box {
-	width: 418px;
+	width: 380px;
 	float: right;
+	margin-right: 110px;
+}
+
+.modal-body .form-group .tcp_box textarea {
+	margin-right: 0;
 }
 
 .tcp_box {
@@ -734,6 +758,14 @@ fieldset[disabled] .form-control {
 
 .modal-body .form-group .icheckbox_square-green input {
 	width: auto;
+	margin-right: 0;
+}
+
+.modal-body .checkQuanXian label {
+	width: 120px;
+	padding-right: 20px;
+	font-size: 13px;
+	text-align: left;
 }
 
 .modal-body .form-group .icheckbox_square-green {
@@ -749,9 +781,9 @@ fieldset[disabled] .form-control {
 .topIns {
 	padding: 20px;
 	background: #fff;
-	margin-top: 20px;
+	margin-top: 12px;
 	border-radius: 6px;
-	border:1px solid #e5e5e5;
+	border: 1px solid #e5e5e5;
 }
 
 .topIns .insList {
@@ -826,9 +858,11 @@ fieldset[disabled] .form-control {
 	color: #333;
 	margin-bottom: 20px;
 }
-.topIns .insList>li.middle  .sbType{
+
+.topIns .insList>li.middle .sbType {
 	line-height: 32px;
 }
+
 p.sbType>span {
 	margin: 0 10px;
 }
@@ -919,9 +953,7 @@ span.line.rt {
 	color: #2acdb8;
 }
 
-.topIns .insList>li.right ul {
-	
-}
+.topIns .insList>li.right ul {}
 
 .topIns .insList>li.right ul li {
 	font-size: 16px;
@@ -940,19 +972,19 @@ span.line.rt {
 	overflow: hidden;
 	margin-left: -0.5%;
 	margin-right: -0.5%;
-	margin-top: 10px;
+	margin-top: 6px;
 }
 
 .meterList>li {
 	width: 24%;
 	height: 200px;
 	float: left;
-	margin: 10px 0.5%;
+	margin: 6px 0.5%;
 	background: #fff;
 	padding: 10px 0;
 	border-radius: 6px;
 	position: relative;
-	border:1px solid #e5e5e5;
+	border: 1px solid #e5e5e5;
 }
 
 .meterList li .ltBox {
@@ -975,23 +1007,27 @@ span.line.rt {
 
 .meterList li .ltBox img {
 	width: 72%;
-	margin-top:8px;
+	margin-top: 8px;
 }
 
 .meterList li .rtBox {
 	width: 63%;
 	float: right;
 }
-.meterList li .rtBox>h3{
-	margin-top:8px;
+
+.meterList li .rtBox>h3 {
+	margin-top: 8px;
 }
+
 .meterList li .rtBox ul li {
 	font-size: 14px;
 	color: #666;
 }
-.meterList li .rtBox ul li img{
+
+.meterList li .rtBox ul li img {
 	margin-right: 10px;
 }
+
 .meterList li .rtBox ul li span {
 	color: #333;
 }
@@ -1088,7 +1124,7 @@ span.offline {
 	height: 30px;
 	outline: none;
 	border-radius: 5px;
-	border-color:#e5e5e5;
+	border-color: #e5e5e5;
 }
 
 .dataTables_wrapper {
@@ -1114,39 +1150,73 @@ span.offline {
 }
 
 .footIns {
-	margin-top: 20px;
+	margin-top: 12px;
 }
 
-.table{
+.table {
 	border-radius: 6px;
 	margin-bottom: 0;
-	box-shadow: 0px 0px 10px 3px #eff1f5;
+	box-shadow: 0px 0px 3px 2px #efefef;
 }
+
 .wrapper-content {
-    padding: 20px 20px 40px;
+	padding: 12px 12px 40px;
 }
-.form-control, .single-line{
-	border:1px solid #e5e5e5;
+
+.form-control,
+.single-line {
+	border: 1px solid #e5e5e5;
 }
-.input-group-addon{
-	border:1px solid #e5e5e5;
+
+.input-group-addon {
+	border: 1px solid #e5e5e5;
 }
-.ibox-content{
+
+.ibox-content {
 	background-color: transparent;
 }
-.input-group .form-control:first-child{
+
+.input-group .form-control:first-child {
 	border-top-left-radius: 4px;
 	border-bottom-left-radius: 4px;
-	    line-height: 34px;
-    height: 34px;
+	line-height: 34px;
+	height: 34px;
 }
-.input-group-addon:last-child{
+
+.input-group-addon:last-child {
 	border-top-right-radius: 4px;
 	border-bottom-right-radius: 4px;
 }
-.form-control{
+
+.form-control {
 	border-radius: 4px;
 }
-.btn-sm{
-	padding:6px 10px;
+
+.btn-sm {
+	padding: 6px 10px;
+}
+
+.modal-content {
+	border-radius: 6px;
+}
+
+select {
+	line-height: 30px;
+	/*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
+	border: solid 1px #e5e5e5;
+	/*很关键：将默认的select选择框样式清除*/
+	appearance: none !important;
+	-moz-appearance: none !important;
+	-webkit-appearance: none !important;
+	/*在选择框的最右侧中间显示小箭头图片*/
+	background: url(../img/sel_down.png) no-repeat scroll 345px center transparent !important;
+	/*为下拉小箭头留出一点位置，避免被文字覆盖*/
+	padding-right: 14px !important;
+}
+/*清除ie的默认选择框样式清除，隐藏下拉箭头*/
+select::-ms-expand {
+	display: none !important;
+}
+table.table-bordered.dataTable th, table.table-bordered.dataTable td{
+	padding:12px 8px;
 }

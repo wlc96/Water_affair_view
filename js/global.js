@@ -48,3 +48,71 @@ toastr.options = {
 	"showMethod": "fadeIn",
 	"hideMethod": "fadeOut"
 }
+
+$(".qpBtn").click(function() {
+	$(".barBox").removeClass("show");
+	var no = $(this).attr("data-no");
+	if ($(this).attr("data-state") == "0") {
+		$(this).find("img.small").addClass("show").siblings().removeClass("show");
+		$(this).parent().addClass("show");
+		$(this).parent().css("width", "100%");
+		$(this).parent().css("height", totalHeight);
+		$(this).parent().find(".echartBox").css("height", totalHeight);
+		$(".barBox").css({
+			"marginTop": "0px",
+			"marginBottom": "0px",
+			"marginLeft": "6px",
+			"marginRight": "6px"
+		});
+		$(".qpBtn").css({
+			"right": "40px",
+			"bottom": "40px"
+		})
+		if (no == "1") {
+			myChart1.setOption(option1, true);
+			myChart1.resize();
+		} else if (no == "2") {
+			myChart2.setOption(option2, true);
+			myChart2.resize();
+		} else if (no == "3") {
+			myChart3.setOption(option3, true);
+			myChart3.resize();
+		} else if (no == "4") {
+			myChart4.setOption(option4, true);
+			myChart4.resize();
+		}
+
+		$(this).attr("data-state", "1");
+	} else if ($(this).attr("data-state") == "1") {
+		$(".barBox").addClass("show");
+		$(this).find("img.big").addClass("show").siblings().removeClass("show");
+		CalculationWidth();
+		$(".qpBtn").css({
+			"right": "20px",
+			"bottom": "20px"
+		})
+		if (no == "1") {
+			myChart1.setOption(option1, true);
+			myChart1.resize();
+		} else if (no == "2") {
+			myChart2.setOption(option2, true);
+			myChart2.resize();
+		} else if (no == "3") {
+			myChart3.setOption(option3, true);
+			myChart3.resize();
+		} else if (no == "4") {
+			myChart4.setOption(option4, true);
+			myChart4.resize();
+		}
+
+		$(".barBox").css("margin", "6px");
+		$(this).attr("data-state", "0");
+	}
+})
+
+function CalculationWidth() {
+	var totlaWidth = $(".wrapper-content").width();
+	$(".echartBox").css("height", "450px");
+	$(".barBox").css("width", (totlaWidth - 24) / 2);
+	$(".barBox").css("height", "450px");
+}

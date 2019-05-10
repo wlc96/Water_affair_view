@@ -25,11 +25,12 @@
 		<title>巡检计划</title>
 		<style>
 			.input-group{
-				width: 190px;
+				width: 174px;
 				float: right;
 			}
 			.modal-body .form-group .input-append .form-control{
-				width: 155px;
+				width: 136px;
+				margin-right: 0;
 			}
 			span.line{
 				width: 19px;
@@ -53,8 +54,8 @@
 								<div class="form-group">
 									<label for="">查询</label>
 									<div class="searchInput" style="margin-right: 20px;width:280px;">
-										<input type="text" placeholder="输入计划名称、区域名称、巡检人员" class="form-control">
-										<a href="javascript:void(0)"><img src="img/look.png" alt=""></a>
+										<input type="text" placeholder="输入计划名称、区域名称、巡检人员" class="form-control telNum">
+										<img src="img/look.png" alt="">
 									</div>
 									<!-- <label for="">添加时间：</label>
 								<div class="date input-append form_date Ym_date" style="float:left;">
@@ -70,7 +71,7 @@
 										<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
 									</div>
 								</div> -->
-									<button type="button" class="btn btn-primary">查询</button>
+									<button type="button" class="btn btn-primary searchBtn">查询</button>
 
 									<button type="button" class="btn btn-white exportbtn exportExcel"><img src="img/export.png" alt="">导出Excel</button>
 									<button type="button" class="btn btn-primary exportbtn hdleBtn addplan" data-state="0" data-toggle="modal"
@@ -167,7 +168,7 @@
 						<div class="form-group" style="margin-bottom:0;">
 							<label>巡检日期</label>
 							<div class="date input-append Ym_date2">
-								<div class="input-group">
+								<div class="input-group" style="margin-right: 110px;">
 									<input class="form-control endtime" readonly="readonly" type="text" name="endtime" placeholder="截止时间">
 									<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
 								</div>
@@ -255,6 +256,10 @@
 				GetExaminerList();
 				//初始化页码
 				initPage(defaultNum);
+			})
+			$(".searchBtn").click(function(){
+				var number = $(".telNum").val();
+				initPage(defaultNum,number);
 			})
 			//表单元素获取焦点时取消警示效果
 			$("input").focus(function() {
@@ -456,14 +461,16 @@
 			})
 
 			//初始化页码
-			function initPage(defaultNum) {
+			function initPage(defaultNum,name) {
+				name = arguments[1] ? arguments[1] : "";
 				$(".selNum").find('option[value="' + defaultNum + '"]').prop("selected", true);
 				$.ajax({
 					type: "POST",
 					url: ApiUrl + global_url.patrolPlanList,
 					cache: false, //禁用缓存
 					data: {
-						pre_page: defaultNum
+						pre_page: defaultNum,
+						name : name
 					}, //传入组装的参数
 					contentType: "application/x-www-form-urlencoded;",
 					dataType: "json",
@@ -474,7 +481,7 @@
 						console.log(JSON.stringify(result));
 						if (result.result) {
 							//初始化表格数据
-							initTableData(defaultNum);
+							initTableData(defaultNum,name);
 							//渲染页码
 							var currentPage = 1;
 							var totalPages = result.data.last_page;
@@ -498,7 +505,8 @@
 				});
 			}
 			//初始化表格
-			function initTableData(defaultNum) {
+			function initTableData(defaultNum,name) {
+				name = arguments[1] ? arguments[1] : "";
 				table = $('#dataTable').DataTable({
 					paging: false,
 					pageLength: 10,
@@ -546,16 +554,18 @@
 						},
 						data: function(obj) {
 							obj.pre_page = defaultNum;
+							obj.name = name;
 						},
 						dataSrc: function(json) {
 							console.log("获取到的巡检计划列表的数据：" + JSON.stringify(json));
+							$(".telNum").val("");
 							return json.data.data;
 						}
 					},
 					fnServerParams: function(aoData) { //这个里面的 aoData就是会发送到后端的数据
 						//在这里 你可以对 发送到后端之前做任何事情. 
 						// aoData._rand = Math.random();
-						console.log(aoData);
+						// console.log(aoData);
 					},
 					columns: [{
 						data: 'name'

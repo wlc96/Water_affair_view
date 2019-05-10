@@ -23,7 +23,27 @@
 		<title>运维指数</title>
 		<style>
 			.wrapper-content{
-			    padding:20px 10px 0;
+			    overflow: hidden;
+			    padding:0px 6px 0px;
+			}
+			.barBox{
+				position: relative;
+				margin:6px;
+				display: none;
+			}
+			.barBox.show{
+				display: block;
+			}
+			.qpBtn{
+				position: absolute;
+				right:20px;
+				bottom:20px;
+			}
+			.qpimg{
+				display: none;
+			}
+			.qpimg.show{
+				display: inline;
 			}
 		</style>
 	</head>
@@ -33,13 +53,37 @@
 			<!-- 图表容器 -->
 			<div id="biaobj" class=" wrapper wrapper-content animated fadeInRight" style="padding-top:0;">
 				<!-- 充值订单 -->
-				<div class="echartBox" id="main01"></div>
+				<div class="barBox show">
+					<div class="echartBox" id="main01"></div>
+					<a class="qpBtn" data-state="0" data-no="1" href="javascript:void(0)">
+						<img class="qpimg big show" src="img/qp01.png" alt="">
+						<img class="qpimg small" src="img/qp02.png" alt="">
+					</a>
+				</div>
 				<!-- 充值金额 -->
-				<div class="echartBox" id="main02"></div>
+				<div class="barBox show">
+					<div class="echartBox" id="main02"></div>
+					<a class="qpBtn" data-state="0" data-no="2" href="javascript:void(0)">
+						<img class="qpimg big show" src="img/qp01.png" alt="">
+						<img class="qpimg small" src="img/qp02.png" alt="">
+					</a>
+				</div>
 				<!-- 支付方式统计 -->
-				<div class="echartBox" id="main03"></div>
+				<div class="barBox show">
+					<div class="echartBox" id="main03"></div>
+					<a class="qpBtn" data-state="0" data-no="3" href="javascript:void(0)">
+						<img class="qpimg big show" src="img/qp01.png" alt="">
+						<img class="qpimg small" src="img/qp02.png" alt="">
+					</a>
+				</div>
 				<!-- 阶梯水价 -->
-				<div class="echartBox" id="main04"></div>
+				<div class="barBox show">
+					<div class="echartBox" id="main04"></div>
+					<a class="qpBtn" data-state="0" data-no="4" href="javascript:void(0)">
+						<img class="qpimg big show" src="img/qp01.png" alt="">
+						<img class="qpimg small" src="img/qp02.png" alt="">
+					</a>
+				</div>
 			</div>
 		</div>
 		<script src="public/jquery-1.11.3.js"></script>
@@ -52,11 +96,22 @@
 		<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 		<!-- 引入echarts -->
 		<script src="public/echarts.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/global.js" type="text/javascript" charset="utf-8"></script>
 		<!-- 引入请求数据方法 -->
 		<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/http.js"></script>
 		<script>
+			var totalHeight = $("body").height();
+			var myChart1;
+			var option1;
+			var myChart2;
+			var option2;
+			var myChart3;
+			var option3;
+			var myChart4;
+			var option4;
 			$(function() {
+				CalculationWidth();
 				//充值订单
 				ChongZhiDingDan();
 				//充值金额
@@ -68,8 +123,8 @@
 			})
 			//充值订单
 			function ChongZhiDingDan() {
-				var myChart = echarts.init(document.getElementById('main01'));
-				var option = {
+				myChart1 = echarts.init(document.getElementById('main01'));
+				option1 = {
 					title: {
 						text: '充值订单',
 						left: 'center',
@@ -83,14 +138,16 @@
 					},
 					grid: {
 						left: '3%',
-						right: '3%',
+						right: '120px',
 						bottom: '3%',
 						top: '20%',
 						containLabel: true
 					},
 					legend: {
+						orient: 'vertical',
+						top:'50px',
+						right: '10px',
 						data: ['A类表', 'B类表'],
-						top: 50
 					},
 					toolbox: {
 						show: false,
@@ -145,12 +202,13 @@
 					]
 				};
 
-				myChart.setOption(option);
+				myChart1.setOption(option1);
+				myChart1.resize();
 			}
 			//充值金额
 			function ChongZhiJinE() {
-				var myChart = echarts.init(document.getElementById('main02'));
-				var option = {
+				myChart2 = echarts.init(document.getElementById('main02'));
+				option2 = {
 					title: {
 						text: '充值金额',
 						left: 'center',
@@ -164,14 +222,16 @@
 					},
 					grid: {
 						left: '3%',
-						right: '3%',
+						right: '120px',
 						bottom: '3%',
 						top: '20%',
 						containLabel: true
 					},
 					legend: {
 						data: ['A类表', 'B类表'],
-						top:50
+						orient: 'vertical',
+						top:'50px',
+						right: '10px',
 					},
 					toolbox: {
 						show: false,
@@ -226,12 +286,13 @@
 					]
 				};
 
-				myChart.setOption(option);
+				myChart2.setOption(option2);
+				myChart2.resize();
 			}
 			//支付方式统计
 			function ZhiFuFangShi() {
-				var myChart = echarts.init(document.getElementById('main03'));
-				var option = {
+				myChart3 = echarts.init(document.getElementById('main03'));
+				option3 = {
 					title: {
 						text: '支付方式统计',
 						left: 'center',
@@ -314,12 +375,13 @@
 						}
 					}]
 				};
-				myChart.setOption(option);
+				myChart3.setOption(option3);
+				myChart3.resize();
 			}
 			//阶梯水价
 			function JieTiShuiJia() {
-				var myChart = echarts.init(document.getElementById('main04'));
-				var option = {
+				myChart4 = echarts.init(document.getElementById('main04'));
+				option4 = {
 					title: {
 						text: '阶梯水价',
 						left: 'center',
@@ -333,14 +395,16 @@
 					},
 					grid: {
 						left: '3%',
-						right: '3%',
+						right: '120px',
 						bottom: '3%',
 						top: '20%',
 						containLabel: true
 					},
 					legend: {
 						data: ['一阶', '二阶', '三阶'],
-						top: 50
+						orient: 'vertical',
+						top:'50px',
+						right: '10px',
 					},
 					toolbox: {
 						show: false,
@@ -406,7 +470,8 @@
 					]
 				};
 
-				myChart.setOption(option);
+				myChart4.setOption(option4);
+				myChart4.resize();
 			}
 		</script>
 	</body>

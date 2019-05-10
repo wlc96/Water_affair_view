@@ -191,10 +191,11 @@
 						<form action="" class="form-horizontal">
 							<div class="form-group">
 								<label for="">查询</label>
-								<div class="searchInput">
+								<div class="searchInput" style="margin-right: 20px;">
 									<input type="text" placeholder="输入分布区名称" class="form-control fenBu">
-									<a class="searchCon" href="javascript:void(0)"><img src="img/look.png" alt=""></a>
+									<img src="img/look.png" alt="">
 								</div>
+								<button type="button" class="btn btn-primary searchCon">查询</button>
 							</div>
 						</form>
 					</div>
@@ -288,13 +289,14 @@
 				parent.$("#ifr").attr("src", "deviceDetail.html?id=" + currentId);
 			})
 			$(".searchCon").click(function() {
-				var inner = $(this).siblings(".fenBu").val();
+				var inner = $(this).siblings(".searchInput").find("input").val();
 				initPage(defaultNum, inner);
 			})
 			//初始化页码
 			function initPage(defaultNum, name) {
 				name = arguments[1] ? arguments[1] : " ";
 				$(".selNum").find('option[value="' + defaultNum + '"]').prop("selected", true);
+				
 				$.ajax({
 					type: "POST",
 					url: ApiUrl + global_url.stationList,
@@ -309,13 +311,14 @@
 						xhr.setRequestHeader('access-token', localStorage.getItem("access-token"));
 					},
 					success: function(result) {
-						//console.log(JSON.stringify(result));
+						// console.log("11111111111111111"+JSON.stringify(result));
 						if (result.result) {
 							//初始化表格数据
 							initTableData(defaultNum, name);
 							//渲染页码
 							var currentPage = 1;
-							var totalPages = result.data.last_page;
+							var totalPages = result.data.list.last_page;
+							
 							$("#page").bootstrapPaginator({
 								bootstrapMajorVersion: 3, //对应的bootstrap版本
 								currentPage: currentPage, //当前页数
@@ -330,7 +333,6 @@
 									table.ajax.url(ApiUrl + global_url.stationList + "?page=" + page).load();
 								}
 							});
-
 						}
 					}
 				});

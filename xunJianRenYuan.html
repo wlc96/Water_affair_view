@@ -53,10 +53,10 @@
 								<div class="form-group">
 									<label for="">查询</label>
 									<div class="searchInput" style="margin-right: 20px;width:280px;">
-										<input type="text" placeholder="输入人员编号、巡检人员名称" class="form-control">
-										<a href="javascript:void(0)"><img src="img/look.png" alt=""></a>
+										<input type="text" placeholder="输入人员编号、巡检人员名称" class="form-control telNum">
+										<img src="img/look.png" alt="">
 									</div>
-									<button type="button" class="btn btn-primary">查询</button>
+									<button type="button" class="btn btn-primary searchBtn">查询</button>
 
 									<button type="button" class="btn btn-white exportbtn exportExcel"><img src="img/export.png" alt="">导出</button>
 									<button data-state="0" type="button" class="btn btn-primary hdleBtn exportbtn addUser" data-toggle="modal"
@@ -260,6 +260,10 @@
 				//初始化页码
 				initPage(defaultNum);
 			})
+			$(".searchBtn").click(function(){
+				var number = $(".telNum").val();
+				initPage(defaultNum,number);
+			})
 			//表单元素获取焦点时取消警示效果
 			$("input").focus(function() {
 				$(this).parents(".form-group").removeClass("errorIns");
@@ -451,14 +455,16 @@
 				ajaxFun.post(ApiUrl + global_url.stationList, data, token, success);
 			}
 			//初始化页码
-			function initPage(defaultNum) {
+			function initPage(defaultNum,number) {
+				number = arguments[1] ? arguments[1] : "";
 				$(".selNum").find('option[value="' + defaultNum + '"]').prop("selected", true);
 				$.ajax({
 					type: "POST",
 					url: ApiUrl + global_url.examinerList,
 					cache: false, //禁用缓存
 					data: {
-						pre_page: defaultNum
+						pre_page: defaultNum,
+						number : number
 					}, //传入组装的参数
 					contentType: "application/x-www-form-urlencoded;",
 					dataType: "json",
@@ -469,7 +475,7 @@
 						//console.log(JSON.stringify(result));
 						if (result.result) {
 							//初始化表格数据
-							initTableData(defaultNum);
+							initTableData(defaultNum,number);
 							//渲染页码
 							var currentPage = 1;
 							var totalPages = result.data.last_page;
@@ -493,7 +499,8 @@
 				});
 			}
 			//初始化表格
-			function initTableData(defaultNum) {
+			function initTableData(defaultNum,number) {
+				number = arguments[1] ? arguments[1] : "";
 				table = $('#dataTable').DataTable({
 					paging: false,
 					pageLength: 10,
@@ -541,9 +548,11 @@
 						},
 						data: function(obj) {
 							obj.pre_page = defaultNum;
+							obj.number = number;
 						},
 						dataSrc: function(json) {
 							console.log("获取到的巡检人员列表的数据：" + JSON.stringify(json));
+							$(".telNum").val("");
 							return json.data.data;
 						}
 					},

@@ -25,29 +25,29 @@
 		<title>设备详情</title>
 		<style>
 			.input-group{
-			 	width: 190px;
+			 	width: 174px;
 			 	float: right;
 			}
 			.modal-body .form-group .input-append .form-control{
-			 	width: 157px;
+			 	width: 138px;
+				margin-right: 0;
 			}
 			span.line{
 			 	width: 19px;
 			 	float: right;
 			}
 			.addFile{
-				width: 120px;
-				height: 120px;
+				width: 118px;
+				height: 118px;
 				border:1px solid #e5e5e5;
 				float: left;
-				margin-left: 20px;
 				cursor: pointer;
 				text-align: center;
+				border-radius: 4px;
 			}
 			.addFile img{
-				width: 100px;
-				height: 100px;
-				margin-top:10px;
+				width: 60px;
+				height: 60px;
 			}
 			.modal-body .form-group.disabledState label{
 				color:#d2d2d2;
@@ -59,8 +59,9 @@
 				color:#999;
 			}
 			.jiJiaBox{
-				width: 418px;
+				width: 380px;
 				float: right;
+				margin-right: 110px;
 				color: #999;
 				border-radius: 3px;
 				resize: none;
@@ -69,7 +70,8 @@
 			}
 			.modal-body .form-group .jiJiaBox .form-control{
 				border:none;
-				width: 416px;
+				width: 378px;
+				margin-right: 0;
 			}
 			.jiJiaBox span{
 				position: absolute;
@@ -97,8 +99,8 @@
 			}
 			.modal-body .form-group .addFile img{
 				position: absolute;
-				top:0px;
-				left:10px;
+				top:28px;
+				left:28px;
 			}
 			.addFile {
             position: relative;
@@ -413,7 +415,7 @@
 						<div class="form-group yyTime">
 							<label>营业时间</label>
 							<div class="date input-append Ym_date2">
-								<div class="input-group clockpicker" data-autoclose="true">
+								<div class="input-group clockpicker" data-autoclose="true" style="margin-right:110px;">
 									<input type="text" class="form-control endtime" value="" placeholder="截止时间">
 									<span class="input-group-addon">
 										<span class="fa fa-clock-o"></span>
@@ -494,7 +496,7 @@
 							<div style="clear:both;"></div>
 							<span class="star">*</span>
 						</div>
-						<div class="form-group jieDian">
+						<div class="form-group jieDian" style="margin-bottom: 0;">
 							<label>最大价格</label>
 							<div class="jiJiaBox">
 								<input type="text" placeholder="请输入价格" class="form-control mostPrice">
@@ -523,8 +525,8 @@
 						<ul class="caoZuoList">
 							<li class="active" data-state="1">开启阀门</li>
 							<li data-state="2">关闭阀门</li>
-							<li data-state="3">重启水表</li>
-							<li data-state="4">远程抄表</li>
+							<li data-state="3" style="margin-bottom: 0;">重启水表</li>
+							<li data-state="4" style="margin-bottom: 0;">远程抄表</li>
 						</ul>
 						<div class="loadingBox">
 							<img class="loadImg" src="img/shalou.png" alt="">

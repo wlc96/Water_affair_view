@@ -162,15 +162,18 @@
 					language: 'zh-CN',
 					pickerPosition: "bottom-left"
 				}).on('changeDate', function(ev) {
-					bgTime = ev.date.valueOf();
-					var time = $('#addtime').val();
-					GetChaoBiaoData(time);
+// 					bgTime = ev.date.valueOf();
+// 					var time = $('#addtime').val();
+// 					GetChaoBiaoData(time);
 				});
 				
 				//获取只能抄表数据
 				GetChaoBiaoData();
 			})
-			
+			$(".checkData").click(function(){
+				var time = $(this).siblings(".monthBox").find("#addtime").val();
+				GetChaoBiaoData(time);
+			})
 			function GetChaoBiaoData(dateTime){
 				var time;
 				if(!arguments[0]) {

@@ -26,12 +26,10 @@
 		<style>
 
 			.modal-body {
-				padding: 0px 30px 20px 30px;
 				/* height: 442px; */
 				overflow-y: auto;
 			}
 			.modal-body.YanQiDialog{
-				padding: 0px 30px 20px 30px;
 				height: auto;
 				overflow-y: auto;
 			}
@@ -95,13 +93,13 @@
 								<div class="form-group">
 									<label for="">查询</label>
 									<div class="searchInput">
-										<input type="text" placeholder="输入流水号、用户名称" class="form-control">
-										<a href="javascript:void(0)"><img src="img/look.png" alt=""></a>
+										<input type="text" placeholder="输入流水号、用户名称" class="form-control telNum">
+										<img src="img/look.png" alt="">
 									</div>
 									<label for="" style="margin-left: 20px;">添加时间</label>
 									<div class="date input-append form_date Ym_date" style="float:left;">
 										<div class="input-group">
-											<input class="form-control" readonly="readonly" type="text" name="bgtime" placeholder="开始时间">
+											<input class="form-control bgTime" readonly="readonly" type="text" name="bgtime" placeholder="开始时间">
 											<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
 										</div>
 									</div>
@@ -112,7 +110,7 @@
 											<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
 										</div>
 									</div>
-									<button type="button" class="btn btn-primary">查询</button>
+									<button type="button" class="btn btn-primary searchBtn">查询</button>
 									<button type="button" class="btn btn-primary exportbtn exportExcel">导出Excel</button>
 								</div>
 							</form>
@@ -234,7 +232,7 @@
 							<div style="clear:both;"></div>
 							<span class="star">*</span>
 						</div>
-						<div class="form-group">
+						<div class="form-group" style="margin-bottom:0;">
 							<label>工单状态</label>
 							<select name="account" class="form-control workOderState">
 								<option value="00">请选择工单状态</option>
@@ -383,7 +381,12 @@
 				//初始化页码
 				initPage(defaultNum);
 			})
-
+			$(".searchBtn").click(function(){
+				var number = $(".telNum").val();
+				var start = $(".bgTime").val();
+				var end = $(".endtime").val();
+				initPage(defaultNum,number,start,end);
+			})
 			$(".delayOpin").change(function() {
 				if ($(this).find("option:checked").val() == "01") {
 					$(".delay").removeClass("disabled");
@@ -610,14 +613,20 @@
 			})
 
 			//初始化页码
-			function initPage(defaultNum) {
+			function initPage(defaultNum,number,start,end) {
+				number = arguments[1] ? arguments[1] : "";
+				start = arguments[2] ? arguments[2] : "";
+				end = arguments[3] ? arguments[3] : "";
 				$(".selNum").find('option[value="' + defaultNum + '"]').prop("selected", true);
 				$.ajax({
 					type: "POST",
 					url: ApiUrl + global_url.orderList,
 					cache: false, //禁用缓存
 					data: {
-						pre_page: defaultNum
+						pre_page: defaultNum,
+						number : number,
+						start : start,
+						end : end
 					}, //传入组装的参数
 					contentType: "application/x-www-form-urlencoded;",
 					dataType: "json",
@@ -628,7 +637,7 @@
 						//console.log(JSON.stringify(result));
 						if (result.result) {
 							//初始化表格数据
-							initTableData(defaultNum);
+							initTableData(defaultNum,number,start,end);
 							//渲染页码
 							var currentPage = 1;
 							var totalPages = result.data.last_page;
@@ -652,7 +661,10 @@
 				});
 			}
 			//初始化表格
-			function initTableData(defaultNum) {
+			function initTableData(defaultNum,number,start,end) {
+				number = arguments[1] ? arguments[1] : "";
+				start = arguments[2] ? arguments[2] : "";
+				end = arguments[3] ? arguments[3] : "";
 				table = $('#dataTable').DataTable({
 					paging: false,
 					pageLength: 10,
@@ -700,9 +712,15 @@
 						},
 						data: function(obj) {
 							obj.pre_page = defaultNum;
+							obj.number = number;
+							obj.start = start;
+							obj.end = end;
 						},
 						dataSrc: function(json) {
 							console.log("获取到的工单列表的数据：" + JSON.stringify(json));
+							$(".telNum").val("");
+							$(".bgTime").val("");
+							$(".endtime").val("");
 							return json.data.data;
 						}
 					},

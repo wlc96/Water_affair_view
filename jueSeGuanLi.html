@@ -25,7 +25,7 @@
 		<![endif]-->
 		<title>角色管理</title>
 		<style>
-			 .input-group{
+			.input-group{
 				 width: 190px;
 				 float: right;
 			 }
@@ -72,34 +72,35 @@
 					</ul>
 				</div>
 				<!--表格部分-->
-				<div class="ibox-content">
-						<div class="searchBox">
-							<form action="" class="form-horizontal">
-								<div class="form-group">
-									<label for="">查询</label>
-									<div class="searchInput" style="margin-right: 20px;width:280px;">
-										<input type="text" placeholder="输入角色名称、权限名称" class="form-control">
-										<a href="javascript:void(0)"><img src="img/look.png" alt=""></a>
-									</div>
-									<!-- <button type="button" class="btn btn-white exportbtn exportExcel"><img src="img/export.png" alt="">导出</button> -->
-									<button type="button" data-state="0" class="btn btn-primary hdleBtn exportbtn addUser" data-toggle="modal"
-									 data-target="#myModal"><img src="img/add.png" alt="">添加</button>
+				<div class="ibox-content" style="margin-top:0;">
+					<div class="searchBox">
+						<form action="" class="form-horizontal">
+							<div class="form-group">
+								<label for="">查询</label>
+								<div class="searchInput" style="margin-right: 20px;width:280px;">
+									<input type="text" placeholder="输入角色名称、权限名称" class="form-control telNum">
+									<img src="img/look.png" alt="">
 								</div>
-							</form>
-						</div>
-						<div class="tableBox tableSec">
-							<table id="dataTable" class="table table-bordered table-hover">
-								<thead>
-									<tr>
-										<th>角色名称</th>
-										<th>权限范围</th>
-										<th>具体描述</th>
-										<th>创建日期</th>
-										<th>操作</th>
-									</tr>
-								</thead>
-								<tbody>
-									<!-- <tr>
+								<button type="button" class="btn btn-primary searchBtn">查询</button>
+								<!-- <button type="button" class="btn btn-white exportbtn exportExcel"><img src="img/export.png" alt="">导出</button> -->
+								<button type="button" data-state="0" class="btn btn-primary hdleBtn exportbtn addUser" data-toggle="modal"
+								 data-target="#myModal"><img src="img/add.png" alt="">添加</button>
+							</div>
+						</form>
+					</div>
+					<div class="tableBox tableSec">
+						<table id="dataTable" class="table table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>角色名称</th>
+									<th>权限范围</th>
+									<th>具体描述</th>
+									<th>创建日期</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- <tr>
 									<td>78653465468675</td>
 									<td>王先生</td>
 									<td>wxs786534</td>
@@ -144,21 +145,21 @@
 										<a class="handle deleteitemd" href="javascript:void(0)"><img src="img/del_red.png" alt=""></a>
 									</td>
 								</tr> -->
-								</tbody>
-							</table>
+							</tbody>
+						</table>
+					</div>
+					<div class="footIns">
+						<div class="selectNum">
+							当前显示
+							<select name="" id="" class="selNum">
+								<option value="5">5</option>
+								<option value="10">10</option>
+								<option value="25">25</option>
+							</select>
+							项结果
 						</div>
-						<div class="footIns">
-							<div class="selectNum">
-								当前显示
-								<select name="" id="" class="selNum">
-									<option value="5">5</option>
-									<option value="10">10</option>
-									<option value="25">25</option>
-								</select>
-								项结果
-							</div>
-							<ul id="page"></ul>
-						</div>
+						<ul id="page"></ul>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -171,7 +172,6 @@
 						<h4 class="modal-title"><span class="handleInner">-</span>角色</h4>
 					</div>
 					<div class="modal-body">
-
 						<div class="form-group">
 							<label>角色名称</label>
 							<input type="text" placeholder="请输入角色名称" class="form-control roleName">
@@ -190,7 +190,7 @@
 							</div>
 							<div style="clear:both;"></div>
 						</div>
-						<div class="form-group">
+						<div class="form-group" style="margin-bottom: 0;">
 							<label>具体描述</label>
 							<!-- <textarea rows="" placeholder="请输入权限具体描述" maxlength="200" class="form-control quanXianIns" cols=""></textarea> -->
 							<div class="tcp_box">
@@ -280,6 +280,10 @@
 				//获取顶部角色列表
 				GetTopList();
 			})
+			$(".searchBtn").click(function(){
+				var number = $(".telNum").val();
+				initPage(defaultNum,number);
+			})
 			//表单元素获取焦点时取消警示效果
 			$("input").focus(function() {
 				$(this).parents(".form-group").removeClass("errorIns");
@@ -320,34 +324,34 @@
 			//删除角色
 			$("body").on("click", ".deleteitem", function() {
 				var id = $(this).attr("data-id");
-				if($(this).attr("data-type") !== "1" ){
+				if ($(this).attr("data-type") !== "1") {
 					swal({
-					    title: "删除",
-					    text: "确定删除当前数据？",
-					    type: "warning",
-					    showCancelButton: true,
-					    confirmButtonColor: "#DD6B55",
-					    confirmButtonText: "退出",
+						title: "删除",
+						text: "确定删除当前数据？",
+						type: "warning",
+						showCancelButton: true,
+						confirmButtonColor: "#DD6B55",
+						confirmButtonText: "退出",
 						cancelButtonText: "取消",
-					    closeOnConfirm: true
-					}, function () {
-					    var token = localStorage.getItem("access-token");
-					    //声明参数对象
-					    var data = {
-					    	role_id: id
-					    };
-					    //请求回调函数
-					    var success = function(response) {
-					    	console.log("获取到的删除角色返回数据：" + JSON.stringify(response));
-					    	if (response.result) {
-					    		toastr.success("删除成功！");
-					    		initPage(defaultNum);
-					    	}
-					    }
-					    //请求方法
-					    ajaxFun.post(ApiUrl + global_url.roleDelete, data, token, success);
+						closeOnConfirm: true
+					}, function() {
+						var token = localStorage.getItem("access-token");
+						//声明参数对象
+						var data = {
+							role_id: id
+						};
+						//请求回调函数
+						var success = function(response) {
+							console.log("获取到的删除角色返回数据：" + JSON.stringify(response));
+							if (response.result) {
+								toastr.success("删除成功！");
+								initPage(defaultNum);
+							}
+						}
+						//请求方法
+						ajaxFun.post(ApiUrl + global_url.roleDelete, data, token, success);
 					});
-				}else{
+				} else {
 					toastr.warning("此角色禁止删除！");
 				}
 			})
@@ -442,14 +446,16 @@
 				ajaxFun.post(ApiUrl + global_url.directoryList, data, token, success);
 			}
 			//初始化页码
-			function initPage(defaultNum) {
+			function initPage(defaultNum,search) {
+				search = arguments[1] ? arguments[1] : "";
 				$(".selNum").find('option[value="' + defaultNum + '"]').prop("selected", true);
 				$.ajax({
 					type: "POST",
 					url: ApiUrl + global_url.roleList,
 					cache: false, //禁用缓存
 					data: {
-						pre_page: defaultNum
+						pre_page: defaultNum,
+						search : search
 					}, //传入组装的参数
 					contentType: "application/x-www-form-urlencoded;",
 					dataType: "json",
@@ -460,7 +466,7 @@
 						//console.log(JSON.stringify(result));
 						if (result.result) {
 							//初始化表格数据
-							initTableData(defaultNum);
+							initTableData(defaultNum,search);
 							//渲染页码
 							var currentPage = 1;
 							var totalPages = result.data.last_page;
@@ -506,13 +512,14 @@
 				ajaxFun.post(ApiUrl + global_url.roleInfo, data, token, success);
 			}
 			//初始化表格
-			function initTableData(defaultNum) {
+			function initTableData(defaultNum,search) {
+				search = arguments[1] ? arguments[1] : "";
 				table = $('#dataTable').DataTable({
 					paging: false,
 					pageLength: 10,
 					responsive: true,
 					destroy: true,
-					ordering : false,
+					ordering: false,
 					bAutoWidth: false,
 					lengthMenu: [5, 10, 25, 50, ],
 					bFilter: false,
@@ -554,9 +561,11 @@
 						},
 						data: function(obj) {
 							obj.pre_page = defaultNum;
+							obj.search = search;
 						},
 						dataSrc: function(json) {
 							console.log("获取到的角色列表的数据：" + JSON.stringify(json));
+							$(".telNum").val("");
 							return json.data.data;
 						}
 					},
@@ -580,7 +589,8 @@
 							var strHtml = '<div data-id="' + row.id + '">' +
 								'<a data-id="' + row.id +
 								'" data-state="2" class="handle hdleBtn editdetail" data-toggle="modal" data-target="#myModal"><img src="img/edit_gray.png" alt=""></a>' +
-								'<a data-id="' + row.id + '" data-type="'+ row.type +'" class="handle deleteitem" href="javascript:void(0)"><img src="img/del_red.png" alt=""></a>' +
+								'<a data-id="' + row.id + '" data-type="' + row.type +
+								'" class="handle deleteitem" href="javascript:void(0)"><img src="img/del_red.png" alt=""></a>' +
 								'</div>';
 							return strHtml;
 						}
@@ -631,7 +641,7 @@
 				initPage(defaultNum);
 			})
 			//获取顶部角色描述列表
-			function GetTopList(){
+			function GetTopList() {
 				var token = localStorage.getItem("access-token");
 				//声明参数对象
 				var data = {
@@ -644,10 +654,10 @@
 						$(".roleList").empty();
 						var strHtml = '';
 						var mData = response.data.data;
-						for(var i = 0; i < mData.length; i++){
+						for (var i = 0; i < mData.length; i++) {
 							strHtml += '<li>';
-							strHtml += '<span>'+ mData[i].name +'</span>';
-							strHtml += '<p>'+ mData[i].explain +'</p>';
+							strHtml += '<span>' + mData[i].name + '</span>';
+							strHtml += '<p>' + mData[i].explain + '</p>';
 							strHtml += '</li>';
 						}
 						$(".roleList").append(strHtml);
