@@ -90,7 +90,15 @@
 				border-radius: 50%;
 				position: relative;
 				top:1px;
-				margin-right: 5px;
+				margin-right: 8px;
+			}
+			span.stateName{
+				display: inline-block;
+				width: 40px;
+			}
+			span.stateCon{
+				display: inline-block;
+				width: 40px;
 			}
 			span.green{
 				background: #2ACDB8;
@@ -418,15 +426,15 @@
 							html = '<ul class="sbState">' +
 								'<li>' +
 								'<span class="colorCircle green"></span>' +
-								'打开：' + row.open_num +
+								'<span class="stateName">打开：</span><span class="stateCon">' + row.open_num + '</span>'+
 								'</li>' +
 								'<li>' +
 								'<span class="colorCircle gray"></span>' +
-								'关闭：' + row.close_num +
+								'<span class="stateName">关闭：</span><span class="stateCon">' + row.close_num + '</span>'+
 								'</li>' +
 								'<li>' +
 								'<span class="colorCircle red"></span>' +
-								'故障：' + row.fault_num +
+								'<span class="stateName">故障：</span><span class="stateCon">' + row.fault_num + '</span>'+
 								'</li>' +
 								'</ul>';
 							return html;

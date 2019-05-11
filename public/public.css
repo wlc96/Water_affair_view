@@ -47,6 +47,8 @@ table.dataTable {
 
 .table thead {
 	background: #F2F9FF;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
 }
 
 .table-hover>tbody>tr:hover {
@@ -248,6 +250,7 @@ table.dataTable {
 	font-size: 32px;
 	color: #0d467b;
 	margin-right: 10px;
+	font-weight: bold;
 }
 
 .dzCon ul li .totalsr {
@@ -333,11 +336,11 @@ table.dataTable {
 }
 
 .btnBox button {
-	width: 100px;
-	height: 42px;
-	background: #2ACDB8;
+	/* width: 100px;
+	height: 42px; */
+	/* background: #2ACDB8; */
 	color: #fff;
-	font-size: 18px;
+	/* font-size: 18px; */
 	margin-left: 20px;
 	border: none;
 	border-radius: 5px;
@@ -415,7 +418,7 @@ table.dataTable {
 .searchBox {
 	background: #F5F6F9;
 	padding: 0px 0px 12px;
-	margin-left: -15px;
+	margin-left: -5px;
 }
 
 .searchBox .form-group label {
@@ -976,10 +979,10 @@ span.line.rt {
 }
 
 .meterList>li {
-	width: 24%;
+	width: 24.2%;
 	height: 200px;
 	float: left;
-	margin: 6px 0.5%;
+	margin: 6px 0.4%;
 	background: #fff;
 	padding: 10px 0;
 	border-radius: 6px;
@@ -1158,7 +1161,12 @@ span.offline {
 	margin-bottom: 0;
 	box-shadow: 0px 0px 3px 2px #efefef;
 }
-
+.table thead tr th:first-child{
+	border-top-left-radius: 6px;
+}
+.table thead tr th:last-child{
+	border-top-right-radius: 6px;
+}
 .wrapper-content {
 	padding: 12px 12px 40px;
 }
@@ -1219,4 +1227,9 @@ select::-ms-expand {
 }
 table.table-bordered.dataTable th, table.table-bordered.dataTable td{
 	padding:12px 8px;
+}
+.btn-primary {
+    background-color: #2ACDB8;
+    border-color: #2ACDB8;
+    color: #FFFFFF;
 }

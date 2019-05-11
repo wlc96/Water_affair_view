@@ -33,7 +33,7 @@
 				margin-right: 0;
 			}
 			span.line{
-			 	width: 19px;
+			 	width: 18px;
 			 	float: right;
 			}
 			.addFile{
@@ -182,8 +182,7 @@
 							<span class="line rt"></span>
 						</li>
 						<li class="right">
-							<a href="javascript:void(0)" class="editBtn ceshi" data-toggle="modal" data-target="#myModal1"><img src="img/edit.png"
-								 alt=""></a>
+							<a class="editBtn ceshi" data-toggle="modal" data-target="#myModal1"><img src="img/edit.png" alt=""></a>
 							<p>当前水价计费类型：<span>阶梯计价</span></p>
 							<ul class="jiJiaType">
 								<li class="jieti">第一阶梯：<span class="first_order">-</span>元/吨</li>
@@ -465,16 +464,15 @@
 						<div class="form-group">
 							<label>计价类型</label>
 							<select name="account" class="form-control jiJiaType">
-								<option value="00">请选择计价类型</option>
 								<option value="01">阶梯计价</option>
 								<option value="02">统一计价</option>
 							</select>
 							<div style="clear:both;"></div>
 							<span class="star">*</span>
 						</div>
-						<div class="form-group tongYi">
+						<div class="form-group tongYi disabledState">
 							<label>统一计价</label>
-							<input type="text" placeholder="请输入价格" class="form-control tongYiJiJia">
+							<input type="text" placeholder="请输入价格" disabled class="form-control tongYiJiJia">
 							<div style="clear:both;"></div>
 							<span class="star">*</span>
 						</div>
@@ -591,6 +589,8 @@
 			$(".close2").click(function() {
 				$(".form-group").removeClass("disabledState");
 				$(".form-group").find("input").prop("disabled", false);
+				$(".tongYi").addClass("disabledState");
+				$(".tongYi").find("input").prop("disabled", true);
 			})
 			//新增人员
 			$(".addUser").click(function() {

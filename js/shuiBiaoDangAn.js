@@ -826,13 +826,13 @@ function initTableData5(defaultNum5) {
 				data: "move_time"
 			},
 			{
+				data: "end_num"
+			},
+			{
 				data: "old_num"
 			},
 			{
 				data: "new_num"
-			},
-			{
-				data: "end_num"
 			},
 		],
 		buttons: [{

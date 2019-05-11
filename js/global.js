@@ -56,14 +56,19 @@ $(".qpBtn").click(function() {
 		$(this).find("img.small").addClass("show").siblings().removeClass("show");
 		$(this).parent().addClass("show");
 		$(this).parent().css("width", "100%");
-		$(this).parent().css("height", totalHeight);
-		$(this).parent().find(".echartBox").css("height", totalHeight);
+		$(this).parent().css("height", (totalHeight - 24));
+		$(this).parent().find(".echartBox").css("height", (totalHeight - 24));
 		$(".barBox").css({
-			"marginTop": "0px",
-			"marginBottom": "0px",
-			"marginLeft": "6px",
-			"marginRight": "6px"
+			"marginTop": "12px",
+			"marginBottom": "12px",
+			"marginLeft": "0px",
+			"marginRight": "0px"
 		});
+		$(".wrapper-content").css({
+			"paddingTop" : "0px",
+			"paddingLeft": "12px",
+			"paddingRight": "12px",
+		})
 		$(".qpBtn").css({
 			"right": "40px",
 			"bottom": "40px"
@@ -90,6 +95,11 @@ $(".qpBtn").click(function() {
 		$(".qpBtn").css({
 			"right": "20px",
 			"bottom": "20px"
+		})
+		$(".wrapper-content").css({
+			"paddingTop" : "6px",
+			"paddingLeft": "6px",
+			"paddingRight": "6px",
 		})
 		if (no == "1") {
 			myChart1.setOption(option1, true);
