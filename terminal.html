@@ -175,16 +175,28 @@
 			}
 
 			function logMapinfo() {
+// 				var zoom = map.getZoom(); //获取当前地图级别
+// 				if(zoom <= 6){
+// 					map.clearMap(); // 清除地图覆盖物
+// 					//获取一级城市标注数据
+// 					GetcityTree();
+// 				}else if(zoom > 6&&zoom < 10){
+// 					map.clearMap(); // 清除地图覆盖物
+// 					//获取二级城市标注数据
+// 					GetSecondCity();
+// 				}else{
+// 					map.clearMap(); // 清除地图覆盖物
+// 					//获取三级城市标注数据
+// 					GetThirdCity();
+// 				}
+
+
 				var zoom = map.getZoom(); //获取当前地图级别
 				if(zoom <= 6){
 					map.clearMap(); // 清除地图覆盖物
-					//获取一级城市标注数据
-					GetcityTree();
-				}else if(zoom > 6&&zoom < 10){
-					map.clearMap(); // 清除地图覆盖物
 					//获取二级城市标注数据
 					GetSecondCity();
-				}else{
+				}else if(zoom > 6&&zoom < 10){
 					map.clearMap(); // 清除地图覆盖物
 					//获取三级城市标注数据
 					GetThirdCity();
