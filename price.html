@@ -68,38 +68,65 @@
 				</div> -->
 				<div class="btnBox">
 					<!-- <button class="plus" type="button"><img src="img/add.png" alt="">添加</button> -->
-					<button class="export btn btn-white" type="button"><img src="img/export.png" alt="">导出</button>
+					<!-- <button class="export btn btn-white" type="button"><img src="img/export.png" alt="">导出</button> -->
 				</div>
 				<!--表格部分-->
 				<div class="ibox-content">
-						<div class="tableSec">
-							<table id="dataTable" class="table table-bordered table-hover">
-								<thead>
-									<tr>
-										<th>流水号</th>
-										<th>站点名称</th>
-										<th>费用类型</th>
-										<th>原价格</th>
-										<th>新价格</th>
-										<th>订单日期</th>
-										<th>操作员</th>
-									</tr>
-								</thead>
-								<tbody></tbody>
-							</table>
-						</div>
-						<div class="footIns">
-							<div class="selectNum">
-								当前显示
-								<select name="" id="" class="selNum">
-									<option value="5">5</option>
-									<option value="10">10</option>
-									<option value="25">25</option>
-								</select>
-								项结果
+					<div class="searchBox">
+						<form action="" class="form-horizontal">
+							<div class="form-group">
+								<label for="">查询</label>
+								<div class="searchInput">
+									<input type="text" placeholder="输入流水号、站点名称" class="form-control telNum">
+									<img src="img/look.png" alt="">
+								</div>
+								<label for="" style="margin-left: 20px;">添加时间</label>
+								<div class="date input-append form_date Ym_date" style="float:left;">
+									<div class="input-group">
+										<input class="form-control bgTime" readonly="readonly" type="text" name="bgtime" placeholder="开始时间">
+										<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
+									</div>
+								</div>
+								<span class="line"></span>
+								<div class="date input-append form_date Ym_date2" style="float:left;margin-right: 20px;">
+									<div class="input-group">
+										<input class="form-control endtime" readonly="readonly" type="text" name="endtime" placeholder="截止时间">
+										<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
+									</div>
+								</div>
+								<button type="button" class="btn btn-primary searchBtn">查询</button>
+								<button type="button" class="btn btn-primary exportbtn exportExcel">导出Excel</button>
 							</div>
-							<ul id="page"></ul>
+						</form>
+					</div>
+					<div class="tableSec">
+						<table id="dataTable" class="table table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>流水号</th>
+									<th>站点名称</th>
+									<th>费用类型</th>
+									<th>原价格</th>
+									<th>新价格</th>
+									<th>订单日期</th>
+									<th>操作员</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+					<div class="footIns">
+						<div class="selectNum">
+							当前显示
+							<select name="" id="" class="selNum">
+								<option value="5">5</option>
+								<option value="10" selected="selected">10</option>
+								<option value="25">25</option>
+							</select>
+							项结果
 						</div>
+						<ul id="page"></ul>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -119,73 +146,33 @@
 		<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 		<script src="js/plugins/dataTables/datatables.min.js"></script>
 		<script>
-			var defaultNum = 5;
+			var defaultNum = 10;
 			var table;
 			$(function() {
 				//初始化页码
 				initPage(defaultNum);
 			})
-			$('#dataTable').DataTable({
-				pageLength: 5,
-				responsive: true,
-				bAutoWidth: false,
-				lengthMenu: [5,10, 25, 50,],
-				bFilter: false,
-				ordering : false,
-				bLengthChange: true,
-				sDom: '<"top"<"clear">>rt<"bottom"lfip<"clear">>',
-				language: {
-					"sProcessing": "处理中...",
-					"sLengthMenu": "显示 _MENU_ 项结果",
-					"sZeroRecords": "没有匹配结果",
-					// "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-					"sInfo": "共 _TOTAL_ 项",
-					"sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-					"sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-					"sInfoPostFix": "",
-					"sSearch": "搜索:",
-					"sUrl": "",
-					"sEmptyTable": "表中数据为空",
-					"sLoadingRecords": "载入中...",
-					"sInfoThousands": ",",
-					"oPaginate": {
-						"sFirst": "首页",
-						"sPrevious": "上页",
-						"sNext": "下页",
-						"sLast": "末页"
-					},
-					"oAria": {
-						"sSortAscending": ": 以升序排列此列",
-						"sSortDescending": ": 以降序排列此列"
-					}
-				},
-// 				ajax: {
-// 					url: 'https://www.easy-mock.com/mock/5ca1a840c035de157baf7fd8/api/ChengBenGuanLi',
-// 					dataSrc: 'data.tableData'
-// 				},
-// 				columns: [{
-// 					data: 'liuShui'
-// 				}, {
-// 					data: 'feiYong'
-// 				}, {
-// 					data: 'jine'
-// 				}, {
-// 					data: 'qusType'
-// 				}, {
-// 					data: 'orderDate'
-// 				}, {
-// 					data : 'opUser'
-// 				}]
-			});
+			$(".searchBtn").click(function() {
+				var number = $(".telNum").val();
+				var start = $(".bgTime").val();
+				var end = $(".endtime").val();
+				initPage(defaultNum, number, start, end);
+			})
 			//初始化页码
-			function initPage(defaultNum) {
-				$(".selNum").find('option[value="'+ defaultNum +'"]').prop("selected",true);
+			function initPage(defaultNum, number, start, end) {
+				number = arguments[1] ? arguments[1] : "";
+				start = arguments[2] ? arguments[2] : "";
+				end = arguments[3] ? arguments[3] : "";
+				$(".selNum").find('option[value="' + defaultNum + '"]').prop("selected", true);
 				$.ajax({
 					type: "POST",
 					url: ApiUrl + global_url.priceList,
 					cache: false, //禁用缓存
 					data: {
-						pre_page : defaultNum
+						pre_page: defaultNum,
+						number: number,
+						start: start,
+						end: end
 					}, //传入组装的参数
 					contentType: "application/x-www-form-urlencoded;",
 					dataType: "json",
@@ -195,7 +182,7 @@
 					success: function(result) {
 						if (result.result) {
 							//初始化表格数据
-							initTableData(defaultNum);
+							initTableData(defaultNum, number, start, end);
 							//渲染页码
 							var currentPage = 1;
 							var totalPages = result.data.last_page;
@@ -213,13 +200,16 @@
 									table.ajax.url(ApiUrl + global_url.priceList + "?page=" + page).load();
 								}
 							});
-							
+
 						}
 					}
 				});
 			}
 			//初始化表格
-			function initTableData(defaultNum) {
+			function initTableData(defaultNum, number, start, end) {
+				number = arguments[1] ? arguments[1] : "";
+				start = arguments[2] ? arguments[2] : "";
+				end = arguments[3] ? arguments[3] : "";
 				table = $('#dataTable').DataTable({
 					paging: false,
 					pageLength: 10,
@@ -229,9 +219,9 @@
 					bFilter: false,
 					sPaginationType: "full_numbers",
 					bLengthChange: true,
-					ordering : false,
-					destroy : true,
-					info : false,
+					ordering: false,
+					destroy: true,
+					info: false,
 					sDom: '<"top"<"clear">>rt<"bottom"lfip<"clear">>',
 					language: {
 						"sProcessing": "处理中...",
@@ -267,9 +257,15 @@
 						},
 						data: function(obj) {
 							obj.pre_page = defaultNum;
+							obj.number = number;
+							obj.start = start;
+							obj.end = end;
 						},
 						dataSrc: function(json) {
 							console.log("获取到的价格列表的数据：" + JSON.stringify(json));
+							$(".telNum").val("");
+							$(".bgTime").val("");
+							$(".endtime").val("");
 							return json.data.data;
 						}
 					},
@@ -292,8 +288,8 @@
 						render: function(data, type, row) {
 							return row.created_at.date;
 						}
-					},{
-						data : 'operator'
+					}, {
+						data: 'operator'
 					}],
 					buttons: [{
 							extend: 'copy',
@@ -312,7 +308,7 @@
 							text: "导出pdf",
 							title: 'ExampleFile'
 						},
-					
+
 						{
 							extend: 'print',
 							className: 'printButton',
@@ -320,7 +316,7 @@
 							customize: function(win) {
 								$(win.document.body).addClass('white-bg');
 								$(win.document.body).css('font-size', '10px');
-					
+
 								$(win.document.body).find('table')
 									.addClass('compact')
 									.css('font-size', 'inherit');
@@ -334,9 +330,9 @@
 					}
 				});
 			}
-			
+
 			//选择每页显示条数
-			$(".selNum").change(function(){
+			$(".selNum").change(function() {
 				var num = $(this).find("option:checked").val();
 				defaultNum = num;
 				//初始化页码

@@ -93,9 +93,9 @@
 	</head>
 	<body>
 		<div id="container" class="map" tabindex="0"></div>
-		<div class="info">
+		<!-- <div class="info">
 			点击地图上的点标记，打开所添加的自定义信息窗体
-		</div>
+		</div> -->
 		<script src="public/jquery-1.11.3.js"></script>
 		<script language="javascript" src="https://webapi.amap.com/maps?v=1.4.14&key=f02b63e54c3d584304919f996f23decd&plugin=Map3D,AMap.DistrictLayer,AMap.Scale,AMap.ToolBar"></script>
 		<script src="public/bootstrap.min.js" type="text/javascript"></script>
@@ -129,7 +129,7 @@
 				liteStyle: true
 			}));
 			map.clearMap(); // 清除地图覆盖物
-			var mybounds = new AMap.Bounds([121.787075, 47.833692], [93.614224, 32.746016]);
+			var mybounds = new AMap.Bounds([122.787075, 40.833692], [94.614224, 24.746016]);
 			map.setBounds(mybounds);
 			// 			var lnglats = [{
 			// 				icon : '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-1.png',

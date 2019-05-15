@@ -79,7 +79,7 @@
 								<div class="form-group">
 									<label for="">查询</label>
 									<div class="searchInput">
-										<input type="text" placeholder="请输入联系电话" class="form-control telNum">
+										<input type="text" placeholder="请输订单号、用户编号" class="form-control telNum">
 										<img src="img/look.png" alt="">
 									</div>
 									<label for="" style="margin-left: 20px;">添加时间</label>
@@ -122,7 +122,7 @@
 								当前显示
 								<select name="" id="" class="selNum">
 									<option value="5">5</option>
-									<option value="10">10</option>
+									<option value="10" selected="selected">10</option>
 									<option value="25">25</option>
 								</select>
 								项结果
@@ -154,7 +154,7 @@
 		<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/http.js"></script>
 		<script>
-			var defaultNum = 5;
+			var defaultNum = 10;
 			var table;
 			$(function() {
 				GetFinanceIns();

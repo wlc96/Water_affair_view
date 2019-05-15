@@ -32,16 +32,16 @@
 				color:#6C6C6C;
 				font-weight: normal;
 			}
-			.form-group input,.form-group select,.form-group textarea{
+			/* .inmodal .form-group input,.inmodal .form-group select,.inmodal .form-group textarea{
 				width: 418px;
 				float: right;
 				color:#999;
 				border-radius: 3px;
 				resize: none;
+			} */
+			.addBtn{
+				float: right;
 			}
-			 .wrapper-content{
-			     padding:20px 20px 0;
-			 }
 		</style>
 	</head>
 
@@ -89,40 +89,69 @@
 						</li>
 					</ul>
 				</div> -->
-				<div class="btnBox">
-					<button class="plus btn btn-primary" type="button" data-toggle="modal" data-target="#myModal"><img src="img/add.png" alt="">添加</button>
+				<!-- <div class="btnBox">
+					
 					<button class="export btn btn-white" type="button"><img src="img/export.png" alt="">导出</button>
-				</div>
+				</div> -->
 				<!--表格部分-->
 				<div class="ibox-content">
-						<div class="tableSec">
-							<table id="dataTable" class="table table-bordered table-hover">
-								<thead>
-									<tr>
-										<th>流水号</th>
-										<th>用户名称</th>
-										<th>联系电话</th>
-										<th>发票类型</th>
-										<th>订单日期</th>
-										<th>操作员</th>
-										<th>状态</th>
-									</tr>
-								</thead>
-								<tbody></tbody>
-							</table>
-						</div>
-						<div class="footIns">
-							<div class="selectNum">
-								当前显示
-								<select name="" id="" class="selNum">
-									<option value="5">5</option>
-									<option value="10">10</option>
-									<option value="25">25</option>
-								</select>
-								项结果
+					<div class="searchBox">
+						<form action="" class="form-horizontal">
+							<div class="form-group">
+								<label for="">查询</label>
+								<div class="searchInput">
+									<input type="text" placeholder="输入流水号、用户名称" class="form-control telNum">
+									<img src="img/look.png" alt="">
+								</div>
+								<label for="" style="margin-left: 20px;">添加时间</label>
+								<div class="date input-append form_date Ym_date" style="float:left;">
+									<div class="input-group">
+										<input class="form-control bgTime" readonly="readonly" type="text" name="bgtime" placeholder="开始时间">
+										<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
+									</div>
+								</div>
+								<span class="line"></span>
+								<div class="date input-append form_date Ym_date2" style="float:left;margin-right: 20px;">
+									<div class="input-group">
+										<input class="form-control endtime" readonly="readonly" type="text" name="endtime" placeholder="截止时间">
+										<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
+									</div>
+								</div>
+								<button type="button" class="btn btn-primary searchBtn">查询</button>
+								<button type="button" class="btn btn-primary exportbtn exportExcel">导出Excel</button>
+								<button class="plus btn btn-primary addBtn" type="button" data-toggle="modal" data-target="#myModal"><img src="img/add.png" alt="">添加</button>
 							</div>
-							<ul id="page"></ul>
+						</form>
+					</div>
+					<div class="tableSec">
+						<table id="dataTable" class="table table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>流水号</th>
+									<th>用户名称</th>
+									<th>联系电话</th>
+									<th>发票类型</th>
+									<th>开票金额</th>
+									<th>订单日期</th>
+									<th>操作员</th>
+									<th>状态</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+					<div class="footIns">
+						<div class="selectNum">
+							当前显示
+							<select name="" id="" class="selNum">
+								<option value="5">5</option>
+								<option value="10" selected="selected">10</option>
+								<option value="25">25</option>
+							</select>
+							项结果
 						</div>
+						<ul id="page"></ul>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -206,60 +235,66 @@
 		<!-- 引入请求数据方法 -->
 		<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/http.js"></script>
-		
+
 		<script>
-			var defaultNum = 5;
+			var defaultNum = 10;
 			var table;
 			$(function() {
 				//初始化页码
 				initPage(defaultNum);
 			})
-			$("#dataTable").on("click",".lookMore",function(){
-				
+			$("#dataTable").on("click", ".lookMore", function() {
+
 			})
-			
-			
+			$(".searchBtn").click(function(){
+				var number = $(".telNum").val();
+				var start = $(".bgTime").val();
+				var end = $(".endtime").val();
+				initPage(defaultNum,number,start,end);
+			})
+
 			//提交表单验证
-			$(".finishBtn").click(function(){
-				if($(".userName").val() == ""){
+			$(".finishBtn").click(function() {
+				if ($(".userName").val() == "") {
 					$(".userName").parents(".form-group").addClass("errorIns");
 					return false;
 				}
-				if($(".userTel").val() == ""){
+				if ($(".userTel").val() == "") {
 					$(".userTel").parents(".form-group").addClass("errorIns");
 					return false;
 				}
-				if(!IsMobilePhone($(".userTel").val())){
+				if (!IsMobilePhone($(".userTel").val())) {
 					alert("请输入合法的手机号！");
 					return false;
 				}
-				if($(".taiTou").val() == ""){
+				if ($(".taiTou").val() == "") {
 					$(".taiTou").parents(".form-group").addClass("errorIns");
 					return false;
 				}
-				if($(".kaiPiao").val() == ""){
+				if ($(".kaiPiao").val() == "") {
 					$(".kaiPiao").parents(".form-group").addClass("errorIns");
 					return false;
 				}
-				if($(".fpType").find("option:checked").val() == "00"){
+				if ($(".fpType").find("option:checked").val() == "00") {
 					$(".fpType").parents(".form-group").addClass("errorIns");
 					return false;
 				}
-				if($(".tcp_content").val() == ""){
+				if ($(".tcp_content").val() == "") {
 					$(".tcp_content").parents(".form-group").addClass("errorIns");
 					return false;
 				}
-				console.log($(".userName").val()+"==="+$(".userTel").val()+"==="+$(".taiTou").val()+"==="+$(".kaiPiao").val()+"==="+$(".fpType").find("option:checked").val()+"==="+$(".tcp_content").val());
+				console.log($(".userName").val() + "===" + $(".userTel").val() + "===" + $(".taiTou").val() + "===" + $(
+					".kaiPiao").val() + "===" + $(".fpType").find("option:checked").val() + "===" + $(".tcp_content").val());
 				//执行添加请求
 				var token = localStorage.getItem("access-token");
 				//声明参数对象
 				var data = {
-					user_name : $(".userName").val(),
-					phone  : $(".userTel").val(),
-					head_name : $(".taiTou").val(),
-					cost : $(".kaiPiao").val(),
-					type : $(".fpType").find("option:checked").val(),
-					address : $(".tcp_content").val()
+					user_name: $(".userName").val(),
+					phone: $(".userTel").val(),
+					head_name: $(".taiTou").val(),
+					cost: $(".kaiPiao").val(),
+					type: $(".fpType").find("option:checked").val(),
+					address: $(".tcp_content").val()
 				};
 				//请求回调函数
 				var success = function(response) {
@@ -275,33 +310,39 @@
 				//请求方法
 				ajaxFun.post(ApiUrl + global_url.invoiceAdd, data, token, success);
 			})
-			
-			$("input").focus(function(){
+
+			$("input").focus(function() {
 				$(this).parents(".form-group").removeClass("errorIns");
 			})
-			$("select").focus(function(){
+			$("select").focus(function() {
 				$(this).parents(".form-group").removeClass("errorIns");
 			})
-			$("textarea").focus(function(){
+			$("textarea").focus(function() {
 				$(this).parents(".form-group").removeClass("errorIns");
 			})
-			$(".close").click(function(){
+			$(".close").click(function() {
 				$(".form-group").removeClass("errorIns");
 				$("input").val("");
-				$("select").find("option:eq(0)").prop("selected",true);
+				$("select").find("option:eq(0)").prop("selected", true);
 				$("textarea").val("");
 			})
-			
-			
+
+
 			//初始化页码
-			function initPage(defaultNum) {
-				$(".selNum").find('option[value="'+ defaultNum +'"]').prop("selected",true);
+			function initPage(defaultNum,number,start,end) {
+				number = arguments[1] ? arguments[1] : "";
+				start = arguments[2] ? arguments[2] : "";
+				end = arguments[3] ? arguments[3] : "";
+				$(".selNum").find('option[value="' + defaultNum + '"]').prop("selected", true);
 				$.ajax({
 					type: "POST",
 					url: ApiUrl + global_url.invoiceList,
 					cache: false, //禁用缓存
 					data: {
-						pre_page : defaultNum
+						pre_page: defaultNum,
+						number : number,
+						start : start,
+						end : end
 					}, //传入组装的参数
 					contentType: "application/x-www-form-urlencoded;",
 					dataType: "json",
@@ -311,7 +352,7 @@
 					success: function(result) {
 						if (result.result) {
 							//初始化表格数据
-							initTableData(defaultNum);
+							initTableData(defaultNum,number,start,end);
 							//渲染页码
 							var currentPage = 1;
 							var totalPages = result.data.last_page;
@@ -329,13 +370,16 @@
 									table.ajax.url(ApiUrl + global_url.invoiceList + "?page=" + page).load();
 								}
 							});
-							
+
 						}
 					}
 				});
 			}
 			//初始化表格
-			function initTableData(defaultNum) {
+			function initTableData(defaultNum,number,start,end) {
+				number = arguments[1] ? arguments[1] : "";
+				start = arguments[2] ? arguments[2] : "";
+				end = arguments[3] ? arguments[3] : "";
 				table = $('#dataTable').DataTable({
 					paging: false,
 					pageLength: 10,
@@ -345,9 +389,9 @@
 					bFilter: false,
 					sPaginationType: "full_numbers",
 					bLengthChange: true,
-					ordering : false,
-					destroy : true,
-					info : false,
+					ordering: false,
+					destroy: true,
+					info: false,
 					sDom: '<"top"<"clear">>rt<"bottom"lfip<"clear">>',
 					language: {
 						"sProcessing": "处理中...",
@@ -383,9 +427,15 @@
 						},
 						data: function(obj) {
 							obj.pre_page = defaultNum;
+							obj.number = number;
+							obj.start = start;
+							obj.end = end;
 						},
 						dataSrc: function(json) {
 							console.log("获取到的成本列表的数据：" + JSON.stringify(json));
+							$(".telNum").val("");
+							$(".bgTime").val("");
+							$(".endtime").val("");
 							return json.data.data;
 						}
 					},
@@ -401,15 +451,31 @@
 					}, {
 						data: 'link_phone'
 					}, {
-						data: 'type'
-					}, {
-						data: 'cost'
+						render: function(data, type, row) {
+							if(row.type == 1){
+								return "食宿";
+							}else if(row.type == 2){
+								return "路费发票";
+							}else if(row.type == 3){
+								return "其他发票";
+							}
+						}
+					},{
+						data : 'cost'
 					}, {
 						render: function(data, type, row) {
 							return row.created_at.date;
 						}
 					}, {
 						data: 'operator'
+					},{
+						render: function(data, type, row) {
+							if(row.status == 0){
+								return "<span class='redtit'>待处理</span>";
+							}else if(row.status == 1){
+								return "<span class='greentit'>已解决</span>";
+							}
+						}
 					}],
 					buttons: [{
 							extend: 'copy',
@@ -428,7 +494,7 @@
 							text: "导出pdf",
 							title: 'ExampleFile'
 						},
-					
+
 						{
 							extend: 'print',
 							className: 'printButton',
@@ -436,7 +502,7 @@
 							customize: function(win) {
 								$(win.document.body).addClass('white-bg');
 								$(win.document.body).css('font-size', '10px');
-					
+
 								$(win.document.body).find('table')
 									.addClass('compact')
 									.css('font-size', 'inherit');
@@ -450,9 +516,9 @@
 					}
 				});
 			}
-			
+
 			//选择每页显示条数
-			$(".selNum").change(function(){
+			$(".selNum").change(function() {
 				var num = $(this).find("option:checked").val();
 				defaultNum = num;
 				//初始化页码

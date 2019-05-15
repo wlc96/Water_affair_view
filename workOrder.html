@@ -88,9 +88,9 @@
 		         /* placeholder颜色  */
 		         color: #F797A1;
 		     }
-		     .wrapper-content{
-			     padding:20px 20px 0;
-		     }
+			 .addbtn{
+			 	float: right;
+			 }
 		</style>
 	</head>
 
@@ -138,13 +138,40 @@
 						</li>
 					</ul>
 				</div> -->
-				<div class="btnBox">
+				<!-- <div class="btnBox">
 					<button class="plus btn btn-primary" type="button" data-toggle="modal" data-target="#myModal"><img src="img/add.png" alt="">添加</button>
 					<button class="export btn btn-white" type="button"><img src="img/export.png" alt="">导出</button>
-				</div>
+				</div> -->
 				<!--表格部分-->
 				<div class="ibox-content">
-					<!-- <div class="row"> -->
+					<div class="searchBox">
+						<form action="" class="form-horizontal">
+							<div class="form-group">
+								<label for="">查询</label>
+								<div class="searchInput">
+									<input type="text" placeholder="输入流水号、用户名称" class="form-control telNum">
+									<img src="img/look.png" alt="">
+								</div>
+								<label for="" style="margin-left: 20px;">添加时间</label>
+								<div class="date input-append form_date Ym_date" style="float:left;">
+									<div class="input-group">
+										<input class="form-control bgTime" readonly="readonly" type="text" name="bgtime" placeholder="开始时间">
+										<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
+									</div>
+								</div>
+								<span class="line"></span>
+								<div class="date input-append form_date Ym_date2" style="float:left;margin-right: 20px;">
+									<div class="input-group">
+										<input class="form-control endtime" readonly="readonly" type="text" name="endtime" placeholder="截止时间">
+										<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
+									</div>
+								</div>
+								<button type="button" class="btn btn-primary searchBtn">查询</button>
+								<button type="button" class="btn btn-primary exportbtn exportExcel">导出Excel</button>
+								<button class="plus btn btn-primary addbtn" type="button" data-toggle="modal" data-target="#myModal"><img src="img/add.png" alt="">添加</button>
+							</div>
+						</form>
+					</div>
 						<div class="tableSec">
 							<table id="dataTable" class="table table-bordered table-hover">
 								<thead>
@@ -166,7 +193,7 @@
 								当前显示
 								<select name="" id="" class="selNum">
 									<option value="5">5</option>
-									<option value="10">10</option>
+									<option value="10" selected="selected">10</option>
 									<option value="25">25</option>
 								</select>
 								项结果
@@ -266,7 +293,7 @@
 		<script src="js/api.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/http.js"></script>
 		<script>
-			var defaultNum = 5;
+			var defaultNum = 10;
 			var table;
 			$(function() {
 				//获取到操作员列表
@@ -277,7 +304,12 @@
 				initPage(defaultNum);
 			})
 
-			
+			$(".searchBtn").click(function() {
+				var number = $(".telNum").val();
+				var start = $(".bgTime").val();
+				var end = $(".endtime").val();
+				initPage(defaultNum, number, start, end);
+			})
 
 			$('.dztype li').click(function() {
 				$(this).addClass("active").siblings().removeClass("active");
@@ -436,14 +468,20 @@
 				ajaxFun.post(ApiUrl + global_url.stationList, data, token, success);
 			}
 			//初始化页码
-			function initPage(defaultNum) {
+			function initPage(defaultNum, number, start, end) {
+				number = arguments[1] ? arguments[1] : "";
+				start = arguments[2] ? arguments[2] : "";
+				end = arguments[3] ? arguments[3] : "";
 				$(".selNum").find('option[value="'+ defaultNum +'"]').prop("selected",true);
 				$.ajax({
 					type: "POST",
 					url: ApiUrl + global_url.wolist,
 					cache: false, //禁用缓存
 					data: {
-						pre_page : defaultNum
+						pre_page : defaultNum,
+						number: number,
+						start: start,
+						end: end
 					}, //传入组装的参数
 					contentType: "application/x-www-form-urlencoded;",
 					dataType: "json",
@@ -453,7 +491,7 @@
 					success: function(result) {
 						if (result.result) {
 							//初始化表格数据
-							initTableData(defaultNum);
+							initTableData(defaultNum, number, start, end);
 							//渲染页码
 							var currentPage = 1;
 							var totalPages = result.data.last_page;
@@ -477,7 +515,10 @@
 				});
 			}
 			//初始化表格
-			function initTableData(defaultNum) {
+			function initTableData(defaultNum, number, start, end) {
+				number = arguments[1] ? arguments[1] : "";
+				start = arguments[2] ? arguments[2] : "";
+				end = arguments[3] ? arguments[3] : "";
 				table = $('#dataTable').DataTable({
 					paging: false,
 					pageLength: 10,
@@ -525,9 +566,15 @@
 						},
 						data: function(obj) {
 							obj.pre_page = defaultNum;
+							obj.number = number;
+							obj.start = start;
+							obj.end = end;
 						},
 						dataSrc: function(json) {
 							console.log("获取到的工单列表的数据：" + JSON.stringify(json));
+							$(".telNum").val("");
+							$(".bgTime").val("");
+							$(".endtime").val("");
 							return json.data.data;
 						}
 					},

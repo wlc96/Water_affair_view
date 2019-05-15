@@ -1,5 +1,5 @@
 /****************换表管理*******************/
-var defaultNum1 = 5;
+var defaultNum1 = 10;
 var table1;
 //初始化页码
 function initPage1(defaultNum1) {
@@ -173,7 +173,7 @@ $(".selNum1").change(function() {
 	initPage1(defaultNum1);
 })
 /****************欠费停水列表*******************/
-var defaultNum2 = 5;
+var defaultNum2 = 10;
 var table2;
 //初始化页码
 function initPage2(defaultNum2) {
@@ -209,7 +209,7 @@ function initPage2(defaultNum2) {
 					onPageClicked: function(event, originalEvent, type, page) {
 						console.log(ApiUrl + global_url.stop + "?page=" + page);
 						//点击分页重载表格
-						table1.ajax.url(ApiUrl + global_url.stop + "?page=" + page).load();
+						table2.ajax.url(ApiUrl + global_url.stop + "?page=" + page).load();
 					}
 				});
 
@@ -347,7 +347,7 @@ $(".selNum2").change(function() {
 	initPage2(defaultNum2);
 })
 /****************恢复供水列表*******************/
-var defaultNum3 = 5;
+var defaultNum3 = 10;
 var table3;
 //初始化页码
 function initPage3(defaultNum3) {
@@ -383,7 +383,7 @@ function initPage3(defaultNum3) {
 					onPageClicked: function(event, originalEvent, type, page) {
 						console.log(ApiUrl + global_url.eqrecovery + "?page=" + page);
 						//点击分页重载表格
-						table1.ajax.url(ApiUrl + global_url.eqrecovery + "?page=" + page).load();
+						table3.ajax.url(ApiUrl + global_url.eqrecovery + "?page=" + page).load();
 					}
 				});
 
@@ -521,7 +521,7 @@ $(".selNum3").change(function() {
 	initPage3(defaultNum3);
 })
 /****************销户拆表*******************/
-var defaultNum4 = 5;
+var defaultNum4 = 10;
 var table4;
 //初始化页码
 function initPage4(defaultNum4) {
@@ -558,7 +558,7 @@ function initPage4(defaultNum4) {
 					onPageClicked: function(event, originalEvent, type, page) {
 						console.log(ApiUrl + global_url.change + "?page=" + page);
 						//点击分页重载表格
-						table1.ajax.url(ApiUrl + global_url.change + "?page=" + page).load();
+						table4.ajax.url(ApiUrl + global_url.change + "?page=" + page).load();
 					}
 				});
 
@@ -701,7 +701,7 @@ $(".selNum4").change(function() {
 	initPage4(defaultNum4);
 })
 /****************复装*******************/
-var defaultNum5 = 5;
+var defaultNum5 = 10;
 var table5;
 //初始化页码
 function initPage5(defaultNum5) {
@@ -738,7 +738,7 @@ function initPage5(defaultNum5) {
 					onPageClicked: function(event, originalEvent, type, page) {
 						console.log(ApiUrl + global_url.change + "?page=" + page);
 						//点击分页重载表格
-						table1.ajax.url(ApiUrl + global_url.change + "?page=" + page).load();
+						table5.ajax.url(ApiUrl + global_url.change + "?page=" + page).load();
 					}
 				});
 
@@ -881,7 +881,7 @@ $(".selNum5").change(function() {
 	initPage5(defaultNum5);
 })
 /****************暂拆*******************/
-var defaultNum6 = 5;
+var defaultNum6 = 10;
 var table6;
 //初始化页码
 function initPage6(defaultNum6) {
@@ -918,7 +918,7 @@ function initPage6(defaultNum6) {
 					onPageClicked: function(event, originalEvent, type, page) {
 						console.log(ApiUrl + global_url.change + "?page=" + page);
 						//点击分页重载表格
-						table1.ajax.url(ApiUrl + global_url.change + "?page=" + page).load();
+						table6.ajax.url(ApiUrl + global_url.change + "?page=" + page).load();
 					}
 				});
 
