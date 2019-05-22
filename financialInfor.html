@@ -15,6 +15,7 @@
 		<link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="public/public.css">
 		<link href="css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+		<!-- <link rel="stylesheet" href="css/buttons.bootstrap.min.css"> -->
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
 		    <script src="public/html5shiv.min.js"></script>
@@ -61,12 +62,12 @@
 							<li>
 								<span class="txt">总收入(元)</span>
 								<p class="yuE"><span class="sum_money">0</span>元</p>
-								<span class="totalsr">共1270笔</span>
+								<p style="font-size: 18px;">共<span class="totalsr total_num" style="margin:0 5px;">-</span>笔</p>
 							</li>
 							<li>
 								<span class="txt">本月收入(元)</span>
 								<p class="yuE"><span class="mon_money">0</span>元</p>
-								<span class="totalsr">共32笔</span>
+								<p style="font-size: 18px;">共<span class="totalsr month_num" style="margin:0 5px;">-</span>笔</p>
 							</li>
 						</ul>
 					</div>
@@ -74,61 +75,61 @@
 
 				<!--表格部分-->
 				<div class="ibox-content">
-						<div class="searchBox">
-							<form action="" class="form-horizontal">
-								<div class="form-group">
-									<label for="">查询</label>
-									<div class="searchInput">
-										<input type="text" placeholder="请输订单号、用户编号" class="form-control telNum">
-										<img src="img/look.png" alt="">
-									</div>
-									<label for="" style="margin-left: 20px;">添加时间</label>
-									<div class="date input-append form_date Ym_date" style="float:left;">
-										<div class="input-group">
-											<input class="form-control bgTime" readonly="readonly" type="text" name="bgtime" placeholder="开始时间">
-											<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
-										</div>
-									</div>
-									<span class="line"></span>
-									<div class="date input-append form_date Ym_date2" style="float:left;margin-right: 20px;">
-										<div class="input-group">
-											<input class="form-control endtime" readonly="readonly" type="text" name="endtime" placeholder="截止时间">
-											<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
-										</div>
-									</div>
-									<button type="button" class="btn btn-primary searchBtn">查询</button>
-									<button type="button" class="btn btn-primary exportbtn exportExcel">导出Excel</button>
+					<div class="searchBox">
+						<form action="" class="form-horizontal">
+							<div class="form-group">
+								<label for="">查询</label>
+								<div class="searchInput">
+									<input type="text" placeholder="请输订单号、用户编号" class="form-control telNum">
+									<img src="img/look.png" alt="">
 								</div>
-							</form>
-						</div>
-						<div class="tableBox tableSec">
-							<table id="dataTable" class="table table-bordered table-hover">
-								<thead>
-									<tr>
-										<th>订单号</th>
-										<th>分布区名称</th>
-										<th>用户编号</th>
-										<th>充值水量</th>
-										<th>充值金额</th>
-										<th>支付方式</th>
-										<th>订单日期</th>
-									</tr>
-								</thead>
-								<tbody></tbody>
-							</table>
-						</div>
-						<div class="footIns">
-							<div class="selectNum">
-								当前显示
-								<select name="" id="" class="selNum">
-									<option value="5">5</option>
-									<option value="10" selected="selected">10</option>
-									<option value="25">25</option>
-								</select>
-								项结果
+								<label for="" style="margin-left: 20px;">添加时间</label>
+								<div class="date input-append form_date Ym_date" style="float:left;">
+									<div class="input-group">
+										<input class="form-control bgTime" readonly="readonly" type="text" name="bgtime" placeholder="开始时间">
+										<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
+									</div>
+								</div>
+								<span class="line"></span>
+								<div class="date input-append form_date Ym_date2" style="float:left;margin-right: 20px;">
+									<div class="input-group">
+										<input class="form-control endtime" readonly="readonly" type="text" name="endtime" placeholder="截止时间">
+										<span class="add-on input-group-addon"><i class="fa fa-calendar" style="color:black;"></i></span>
+									</div>
+								</div>
+								<button type="button" class="btn btn-primary searchBtn">查询</button>
+								<button type="button" class="btn btn-primary exportbtn exportExcel">导出Excel</button>
 							</div>
-							<ul id="page"></ul>
+						</form>
+					</div>
+					<div class="tableBox tableSec">
+						<table id="dataTable" class="table table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>订单号</th>
+									<th>分布区名称</th>
+									<th>用户编号</th>
+									<th>充值水量</th>
+									<th>充值金额</th>
+									<th>支付方式</th>
+									<th>订单日期</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+					<div class="footIns">
+						<div class="selectNum">
+							当前显示
+							<select name="" id="" class="selNum">
+								<option value="5">5</option>
+								<option value="10" selected="selected">10</option>
+								<option value="25">25</option>
+							</select>
+							项结果
 						</div>
+						<ul id="page"></ul>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -141,6 +142,10 @@
 		<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 		<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 		<script src="js/plugins/dataTables/datatables.min.js"></script>
+		
+		<!-- <script src="js/dataTables.buttons.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jszip.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/buttons.html5.min.js" type="text/javascript" charset="utf-8"></script> -->
 
 		<!-- 时间控件样式 -->
 		<script src="js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
@@ -199,15 +204,18 @@
 				$("#dataTable").on("click", ".lookMore", function() {
 					alert(1);
 				})
-				$(".exportExcel").click(function() {
-					$(".excelButton").click();
-				})
+
 			})
-			$(".searchBtn").click(function(){
+			//点击导出按钮完成导出excel数据
+			$(".exportExcel").click(function() {
+
+				$(".excelButton").click();
+			})
+			$(".searchBtn").click(function() {
 				var number = $(".telNum").val();
 				var start = $(".bgTime").val();
 				var end = $(".endtime").val();
-				initPage(defaultNum,number,start,end);
+				initPage(defaultNum, number, start, end);
 			})
 
 			//公司财务信息
@@ -229,7 +237,7 @@
 			}
 
 			//初始化页码
-			function initPage(defaultNum,number,start,end) {
+			function initPage(defaultNum, number, start, end) {
 				number = arguments[1] ? arguments[1] : "";
 				start = arguments[2] ? arguments[2] : "";
 				end = arguments[3] ? arguments[3] : "";
@@ -240,9 +248,9 @@
 					cache: false, //禁用缓存
 					data: {
 						pre_page: defaultNum,
-						number : number,
-						start : start,
-						end : end
+						number: number,
+						start: start,
+						end: end
 					}, //传入组装的参数
 					contentType: "application/x-www-form-urlencoded;",
 					dataType: "json",
@@ -253,7 +261,7 @@
 						//console.log(JSON.stringify(result));
 						if (result.result) {
 							//初始化表格数据
-							initTableData(defaultNum,number,start,end);
+							initTableData(defaultNum, number, start, end);
 							//渲染页码
 							var currentPage = 1;
 							var totalPages = result.data.last_page;
@@ -277,7 +285,7 @@
 				});
 			}
 			//初始化表格
-			function initTableData(defaultNum,number,start,end) {
+			function initTableData(defaultNum, number, start, end) {
 				number = arguments[1] ? arguments[1] : "";
 				start = arguments[2] ? arguments[2] : "";
 				end = arguments[3] ? arguments[3] : "";
@@ -287,13 +295,13 @@
 					responsive: true,
 					destroy: true,
 					bAutoWidth: false,
-					ordering : false,
+					ordering: false,
 					lengthMenu: [5, 10, 25, 50, ],
 					bFilter: false,
 					sPaginationType: "full_numbers",
 					bLengthChange: true,
 					info: false,
-					sDom: '<"top"<"clear">>rt<"bottom"lfip<"clear">>',
+					sDom: '<"top"Buttons<"clear">>rt<"bottom"lfip<"clear">>',
 					language: {
 						"sProcessing": "处理中...",
 						"sLengthMenu": "显示 _MENU_ 项结果",
@@ -368,10 +376,16 @@
 							text: "复制"
 						},
 						{
-							extend: 'excel',
+							extend: 'excelHtml5',
 							className: 'excelButton',
 							text: "导出excel",
-							title: 'ExampleFile'
+							title: 'ExampleFile',
+							exportOptions: {
+								modifier: {
+									page: 'all'
+								}
+							}
+
 						},
 						{
 							extend: 'pdf',

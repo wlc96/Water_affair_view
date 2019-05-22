@@ -1233,3 +1233,10 @@ table.table-bordered.dataTable th, table.table-bordered.dataTable td{
     border-color: #2ACDB8;
     color: #FFFFFF;
 }
+.dataTables_wrapper .top{
+	display: none;
+}
+
+.datetimepicker table tr td span.active, .datetimepicker table tr td span.active:hover, .datetimepicker table tr td span.active.disabled, .datetimepicker table tr td span.active.disabled:hover{
+	background: #2ACDB8 !important;
+}

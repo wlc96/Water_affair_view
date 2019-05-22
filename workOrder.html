@@ -97,7 +97,7 @@
 	<body>
 		<div id="wrapper">
 			<!--标编辑-->
-			<div id="biaobj" class=" wrapper wrapper-content animated fadeInRight">
+			<div id="biaobj" class=" wrapper wrapper-content animated fadeInRight" style="padding-top:0;">
 				<!-- <div class="orderType">
 					<ul class="orderList">
 						<li>
@@ -450,7 +450,9 @@
 			function GetZhanDianList(){
 				var token = localStorage.getItem("access-token");
 				//声明参数对象
-				var data = {};
+				var data = {
+					pre_page : 9999
+				};
 				//请求回调函数
 				var success = function(response) {
 					console.log("获取到的站点列表数据：" + JSON.stringify(response));
@@ -594,6 +596,8 @@
 							var type = '';
 							if (row.type == 1) {
 								type = "水表异常"
+							}else if(row.type == 2){
+								type = "账户异常"
 							}
 							return type;
 						}
@@ -604,8 +608,47 @@
 					}, {
 						data: 'operator'
 					}, {
-						data: 'status'
+						render: function(data, type, row) {
+							var type = '';
+							if (row.status == 0) {
+								type = "未完成"
+							}else if(row.type == 1){
+								type = "已完成"
+							}
+							return type;
+						}
 					}],
+					buttons: [{
+							extend: 'copy',
+							className: 'copyButton',
+							text: "复制"
+						},
+						{
+							extend: 'excel',
+							className: 'excelButton',
+							text: "导出excel",
+							title: 'ExampleFile'
+						},
+						{
+							extend: 'pdf',
+							className: 'pdfButton',
+							text: "导出pdf",
+							title: 'ExampleFile'
+						},
+						{
+							extend: 'print',
+							className: 'printButton',
+							text: "打印",
+							customize: function(win) {
+								$(win.document.body).addClass('white-bg');
+								$(win.document.body).css('font-size', '10px');
+					
+								$(win.document.body).find('table')
+									.addClass('compact')
+									.css('font-size', 'inherit');
+							}
+						}
+					],
 					fnCreatedRow: function(nRow, aData, iDataIndex) { //将id绑定在tr
 						// 					if( typeof(aData.id) != "undefined" ) {
 						// 						$( nRow ).attr( "tr_id", aData.id );
@@ -620,6 +663,11 @@
 				defaultNum = num;
 				//初始化页码
 				initPage(defaultNum);
+			})
+			
+			//点击导出按钮完成导出excel数据
+			$(".exportExcel").click(function(){
+					$(".excelButton").click();
 			})
 		</script>
 	</body>
