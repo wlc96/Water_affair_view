@@ -14,6 +14,7 @@
 		<!-- <link rel="stylesheet" href="css/my_TiBaoJiLu.css" /> -->
 		<link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="public/public.css">
+		<link href="css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" media="screen">
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
 		    <script src="public/html5shiv.min.js"></script>
@@ -101,7 +102,7 @@
 								</div>
 								<button type="button" class="btn btn-primary searchBtn">查询</button>
 								<button type="button" class="btn btn-primary exportbtn exportExcel">导出Excel</button>
-								<button class="plus btn btn-primary addbtn" type="button" data-toggle="modal" data-target="#myModal"><img src="img/add.png" alt="">添加</button>
+								<button class="plus btn btn-primary diaBtn addbtn" type="button" data-toggle="modal" data-target="#myModal"><img src="img/add.png" alt="">添加</button>
 							</div>
 						</form>
 					</div>
@@ -177,7 +178,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="modal inmodal fade" id="myModal" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
+		<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -221,6 +222,13 @@
 		<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
 		<script src="js/plugins/dataTables/datatables.min.js"></script>
+		<!-- 时间控件样式 -->
+		<script src="js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+		<script src="js/plugins/datetimepicker/bootstrap-datetimepicker-update.min.js"></script>
+		<script src="js/plugins/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
+		<script src="js/plugins/dataTables/datatables.min.js"></script>
+		<!-- Sweet alert -->
+		<script src="js/plugins/sweetalert/sweetalert.min.js"></script>
 		<!-- 页码 -->
 		<script src="js/bootstrap-paginator.js" type="text/javascript"></script>
 		<!-- 全局js -->
@@ -232,6 +240,39 @@
 			var defaultNum = 10;
 			var table;
 			$(function() {
+				var bgTime;
+				/*只选择年月（开始时间）*/
+				$('.Ym_date').datetimepicker({
+					format: 'yyyy-mm',
+					autoclose: true,
+					todayBtn: true,
+					startView: 'year',
+					minView: 'year',
+					maxView: 'decade',
+					forceParse: false, // 当选择器关闭的时候，是否强制解析输入框中的值。
+					language: 'zh-CN',
+					pickerPosition: "bottom-left",
+				}).on('changeDate', function(ev) {
+					bgTime = ev.date.valueOf();
+				});
+				/*只选择年月（截止时间）*/
+				$('.Ym_date2').datetimepicker({
+					format: 'yyyy-mm',
+					autoclose: true,
+					todayBtn: true,
+					startView: 'year',
+					minView: 'year',
+					maxView: 'decade',
+					language: 'zh-CN',
+					forceParse: false, // 当选择器关闭的时候，是否强制解析输入框中的值。
+					pickerPosition: "bottom-left"
+				}).on('changeDate', function(ev) {
+					if (ev.date.valueOf() <= bgTime) {
+						alert("截止时间不能小于起始时间~");
+						$(".endtime").val("");
+						return false;
+					}
+				});
 				//初始化页码
 				initPage(defaultNum);
 			})

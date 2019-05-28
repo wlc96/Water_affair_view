@@ -192,7 +192,7 @@
 			</div>
 		</div>
 		<!-- 编辑工单弹层 -->
-		<div class="modal inmodal fade" id="myModal" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
+		<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -273,7 +273,7 @@
 			</div>
 		</div>
 		<!-- 延时弹框 -->
-		<div class="modal inmodal fade" id="myModal2" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
+		<div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -769,11 +769,11 @@
 						render: function(data, type, row) {
 							var strHtml = '<div data-id="' + row.id + '">' +
 								'<a data-state="1" data-id="' + row.id +
-								'" class="handle hdleBtn" data-toggle="modal" data-target="#myModal"><img src="img/listsearch.png" alt=""></a>' +
+								'" class="handle diaBtn hdleBtn" data-toggle="modal" data-target="#myModal"><img src="img/listsearch.png" alt=""></a>' +
 								'<a data-state="2" data-id="' + row.id +
-								'" class="handle hdleBtn editdetail" data-toggle="modal" data-target="#myModal"><img src="img/edit_gray.png" alt=""></a>' +
+								'" class="handle diaBtn hdleBtn editdetail" data-toggle="modal" data-target="#myModal"><img src="img/edit_gray.png" alt=""></a>' +
 								'<a data-id="' + row.id +
-								'" class="handle yanShi" data-toggle="modal" data-target="#myModal2"><img src="img/yanshi.png" alt=""></a>' +
+								'" class="handle diaBtn yanShi" data-toggle="modal" data-target="#myModal2"><img src="img/yanshi.png" alt=""></a>' +
 								'<a data-id="' + row.id + '" class="handle deleteitem"><img src="img/del_red.png" alt=""></a>' +
 								'</div>';
 							return strHtml;

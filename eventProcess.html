@@ -133,7 +133,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="modal inmodal fade" id="myModal" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
+		<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -542,8 +542,8 @@
 					}, {
 						render: function(data, type, row) {
 							var strHtml = '<div data-id="' + row.id + '">' +
-								'<a data-state="1" class="handle hdleBtn lookdetail" data-toggle="modal" data-target="#myModal"><img src="img/listsearch.png" alt=""></a>' +
-								'<a data-state="2" class="handle hdleBtn editdetail" data-toggle="modal" data-target="#myModal"><img src="img/edit_gray.png" alt=""></a>' +
+								'<a data-state="1" class="handle hdleBtn diaBtn lookdetail" data-toggle="modal" data-target="#myModal"><img src="img/listsearch.png" alt=""></a>' +
+								'<a data-state="2" class="handle hdleBtn diaBtn editdetail" data-toggle="modal" data-target="#myModal"><img src="img/edit_gray.png" alt=""></a>' +
 								'<a data-id="' + row.id +
 								'" class="handle deleteitem" href="javascript:void(0)"><img src="img/del_red.png" alt=""></a>' +
 								'</div>';

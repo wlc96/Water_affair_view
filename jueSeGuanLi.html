@@ -83,7 +83,7 @@
 								</div>
 								<button type="button" class="btn btn-primary searchBtn">查询</button>
 								<!-- <button type="button" class="btn btn-white exportbtn exportExcel"><img src="img/export.png" alt="">导出</button> -->
-								<button type="button" data-state="0" class="btn btn-primary hdleBtn exportbtn addUser" data-toggle="modal"
+								<button type="button" data-state="0" class="btn btn-primary diaBtn hdleBtn exportbtn addUser" data-toggle="modal"
 								 data-target="#myModal"><img src="img/add.png" alt="">添加</button>
 							</div>
 						</form>
@@ -163,7 +163,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="modal inmodal fade" id="myModal" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
+		<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -588,7 +588,7 @@
 						render: function(data, type, row) {
 							var strHtml = '<div data-id="' + row.id + '">' +
 								'<a data-id="' + row.id +
-								'" data-state="2" class="handle hdleBtn editdetail" data-toggle="modal" data-target="#myModal"><img src="img/edit_gray.png" alt=""></a>' +
+								'" data-state="2" class="handle diaBtn hdleBtn editdetail" data-toggle="modal" data-target="#myModal"><img src="img/edit_gray.png" alt=""></a>' +
 								'<a data-id="' + row.id + '" data-type="' + row.type +
 								'" class="handle deleteitem" href="javascript:void(0)"><img src="img/del_red.png" alt=""></a>' +
 								'</div>';

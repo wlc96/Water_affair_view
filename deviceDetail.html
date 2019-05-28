@@ -139,7 +139,7 @@
 								<img src="img/kfImg.png" alt="">
 							</div>
 							<div class="rBox">
-								<a class="editBtn" data-toggle="modal" data-target="#myModal"><img src="img/edit.png" alt=""></a>
+								<a class="editBtn diaBtn" data-toggle="modal" data-target="#myModal"><img src="img/edit.png" alt=""></a>
 								<h3 class="name">-</h3>
 								<p>分布区地址：<span class="address">-</span></p>
 								<ul>
@@ -182,7 +182,7 @@
 							<span class="line rt"></span>
 						</li>
 						<li class="right">
-							<a class="editBtn ceshi" data-toggle="modal" data-target="#myModal1"><img src="img/edit.png" alt=""></a>
+							<a class="editBtn diaBtn ceshi" data-toggle="modal" data-target="#myModal1"><img src="img/edit.png" alt=""></a>
 							<p>当前水价计费类型：<span>阶梯计价</span></p>
 							<ul class="jiJiaType">
 								<li class="jieti">第一阶梯：<span class="first_order">-</span>元/吨</li>
@@ -375,7 +375,7 @@
 			</div>
 		</div>
 		<!-- 站点信息 -->
-		<div class="modal inmodal fade" id="myModal" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
+		<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -452,7 +452,7 @@
 			</div>
 		</div>
 		<!-- 阶梯计价 -->
-		<div class="modal inmodal fade" id="myModal1" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
+		<div class="modal inmodal" id="myModal1" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -511,7 +511,7 @@
 			</div>
 		</div>
 		<!-- 操作 -->
-		<div class="modal inmodal fade" id="myModal2" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
+		<div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -888,7 +888,7 @@
 								strHtml += '		</li>';
 							}
 							strHtml += '	</ul>';
-							strHtml += '	<button type="button" data-id="' + mData.number + '" class="handle czBtn" data-toggle="modal" data-target="#myModal2">操作</button>';
+							strHtml += '	<button type="button" data-id="' + mData.number + '" class="handle diaBtn czBtn" data-toggle="modal" data-target="#myModal2">操作</button>';
 							strHtml += '</div>';
 							strHtml += '</li>';
 						}

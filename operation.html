@@ -123,7 +123,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="modal inmodal fade" id="myModal" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
+		<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -462,11 +462,11 @@
 							if (row.status == "0") {
 								strHtml = '<span class="redtit">待处理</span>' +
 									'<a data-id="' + row.id +
-									'" data-state="2" class="handle hdleBtn editdetail" data-toggle="modal" data-target="#myModal"><img src="img/edit_red.png" alt=""></a>';
+									'" data-state="2" class="handle diaBtn hdleBtn editdetail" data-toggle="modal" data-target="#myModal"><img src="img/edit_red.png" alt=""></a>';
 							} else if (row.status == "1") {
 								strHtml = '<span class="greentit">已解决</span>' +
 									'<a data-id="' + row.id +
-									'" data-state="1" class="handle hdleBtn lookdetail" data-toggle="modal" data-target="#myModal"><img src="img/listsearch.png" alt=""></a>';
+									'" data-state="1" class="handle diaBtn hdleBtn lookdetail" data-toggle="modal" data-target="#myModal"><img src="img/listsearch.png" alt=""></a>';
 							}
 							return strHtml;
 						}

@@ -65,7 +65,7 @@ $(".qpBtn").click(function() {
 			"marginRight": "0px"
 		});
 		$(".wrapper-content").css({
-			"paddingTop" : "0px",
+			"paddingTop": "0px",
 			"paddingLeft": "12px",
 			"paddingRight": "12px",
 		})
@@ -97,7 +97,7 @@ $(".qpBtn").click(function() {
 			"bottom": "20px"
 		})
 		$(".wrapper-content").css({
-			"paddingTop" : "6px",
+			"paddingTop": "6px",
 			"paddingLeft": "6px",
 			"paddingRight": "6px",
 		})
@@ -126,3 +126,17 @@ function CalculationWidth() {
 	$(".barBox").css("width", (totlaWidth - 24) / 2);
 	$(".barBox").css("height", "450px");
 }
+
+
+$("body").on("click",".diaBtn",function() {
+	parent.$("#mask").show();
+	$("#biaobj").addClass("fuzzy");
+	$("#biaobj .btn").addClass("fuzzy");
+	parent.$(".border-bottom").css("zIndex", "1000");
+})
+$(".close").click(function() {
+	parent.$("#mask").hide();
+	$("#biaobj").removeClass("fuzzy");
+	$("#biaobj .btn").removeClass("fuzzy");
+	parent.$(".border-bottom").css("zIndex", "1004");
+})
