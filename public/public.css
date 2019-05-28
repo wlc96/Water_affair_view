@@ -454,8 +454,8 @@ table.dataTable {
 
 .exportbtn img {
 	width: 15px;
-	margin-right: 5px;
-	/* margin-top: -5px; */
+	margin-right: 6px;
+	margin-top: -2px;
 }
 
 .form_date {
@@ -1245,6 +1245,6 @@ table.table-bordered.dataTable th, table.table-bordered.dataTable td{
 .btn.fuzzy{-webkit-transform:scale(1);text-shadow:0 0 10px black;opacity:0.8; color:rgba(0,0,0,0);}
 .diaBtn img{
 	position: relative;
-	top:-2px;
-	margin-right: 12px;
+	/* top:-2px;
+	margin-right: 12px; */
 }
