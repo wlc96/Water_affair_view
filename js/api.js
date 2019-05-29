@@ -4,7 +4,7 @@ var baseUrl = "https://water.ym-zh.cn/"
 
 //接口地址
 // var ApiUrl = "http://water.ym-zh.cn/api/"; //接口地址
-var ApiUrl = "http://w.ym-zh.cn/api/"; //接口地址
+var ApiUrl = "https://w.ym-zh.cn/api/"; //接口地址
 var ImgUrl = ""; //图片地址
 
 /*
