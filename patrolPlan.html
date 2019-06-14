@@ -572,7 +572,16 @@
 					}, {
 						data: 'station'
 					}, {
-						data: 'type'
+						data: 'type',
+						render: function(data, type, row){
+							var type;
+							if(row.type == 1){
+								type = "徒步";
+							}else if(row.type == 2){
+								type = "驾车";
+							}
+							return type;
+						}
 					}, {
 						data: 'xobject'
 					}, {

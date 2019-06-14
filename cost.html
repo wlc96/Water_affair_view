@@ -102,7 +102,7 @@
 								</div>
 								<button type="button" class="btn btn-primary searchBtn">查询</button>
 								<button type="button" class="btn btn-primary exportbtn exportExcel">导出Excel</button>
-								<button class="plus btn btn-primary diaBtn addbtn" type="button" data-toggle="modal" data-target="#myModal"><img src="img/add.png" alt="">添加</button>
+								<button class="plus btn btn-primary exportbtn diaBtn addbtn" type="button" data-toggle="modal" data-target="#myModal"><img src="img/add.png" alt="">添加</button>
 							</div>
 						</form>
 					</div>
@@ -446,12 +446,24 @@
 					columns: [{
 						data: 'number'
 					}, {
-						data: 'type'
-					}, {
-						data: 'cost'
+						render: function(data, type, row) {
+							var peyType;
+							if(row.type == 1){
+								peyType = "水表维修";
+							}else if(row.type == 2){
+								peyType = "换表";
+							}else if(row.type == 3){
+								peyType = "水表回收";
+							}
+							return peyType;
+						}
 					}, {
 						render: function(data, type, row) {
-							return row.created_at.date;
+							return parseFloat(row.cost).toFixed(2);
+						}
+					}, {
+						render: function(data, type, row) {
+							return row.created_at;
 						}
 					}, {
 						data: 'operator'

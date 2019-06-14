@@ -294,11 +294,22 @@ function initTableData2(defaultNum2) {
 			},
 			{
 				render:function(data, type, row){
-					return row.created_at.date;
+					return row.created_at;
 				}
 			},
 			{
-				data: "type"
+				data: "type",
+				render:function(data, type, row){
+					var stateCon;
+					if(row.type == 1){
+						stateCon = "欠费"
+					}else if(row.type == 2){
+						stateCon = "维修"
+					}else if(row.type == 3){
+						stateCon = "换表"
+					}
+					return stateCon;
+				}
 			}
 		],
 		buttons: [{
@@ -468,7 +479,7 @@ function initTableData3(defaultNum3) {
 			},
 			{
 				render:function(data, type, row){
-					return row.created_at.date;
+					return row.created_at;
 				}
 			},
 			{
@@ -649,10 +660,16 @@ function initTableData4(defaultNum4) {
 				data: "old_num"
 			},
 			{
-				data: "start_num"
+				// data: "start_num",
+				render : function(data, type, row){
+					return parseFloat(row.start_num).toFixed(2)
+				}
 			},
 			{
-				data: "end_num"
+				// data: "end_num",
+				render : function(data, type, row){
+					return parseFloat(row.end_num).toFixed(2)
+				}
 			},
 		],
 		buttons: [{
@@ -1009,10 +1026,16 @@ function initTableData6(defaultNum6) {
 				data: "old_num"
 			},
 			{
-				data: "start_num"
+				// data: "start_num",
+				render : function(data, type, row){
+					return parseFloat(row.start_num).toFixed(2)
+				}
 			},
 			{
-				data: "end_num"
+				// data: "end_num",
+				render : function(data, type, row){
+					return parseFloat(row.end_num).toFixed(2)
+				}
 			},
 		],
 		buttons: [{

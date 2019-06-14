@@ -213,9 +213,9 @@
 								<tr>
 									<th>序号</th>
 									<th>水表分布区名称</th>
-									<th>总水量（吨）</th>
+									<th>总水量</th>
 									<!-- <th>总表数</th> -->
-									<th>今日用水量</th>
+									<th>总水表数</th>
 									<th>当前水表状态</th>
 									<th>查看明细</th>
 								</tr>
@@ -417,7 +417,10 @@
 					}, {
 						data: 'name'
 					}, {
-						data: 'sum_num'
+						// data: 'sum_num',
+						render: function(data, type, row, meta) {
+							return parseFloat(row.sum_num).toFixed(2);
+						}
 					}, {
 						data: 'today_num'
 					}, {

@@ -360,14 +360,26 @@
 					}, {
 						data: 'user_num'
 					}, {
-						data: 'water_quantity'
-					}, {
-						data: 'num'
-					}, {
-						data: 'type'
+						render: function(data, type, row) {
+							return parseFloat(row.water_quantity).toFixed(2);
+						}
 					}, {
 						render: function(data, type, row) {
-							return row.created_at.date;
+							return parseFloat(row.num).toFixed(2);
+						}
+					}, {
+						render: function(data, type, row) {
+							var payType;
+							if(row.type == 1){
+								payType = "微信";
+							}else if(row.type == 2){
+								payType = "支付宝";
+							}
+							return payType;
+						}
+					}, {
+						render: function(data, type, row) {
+							return row.created_at;
 						}
 					}],
 					buttons: [{

@@ -185,10 +185,10 @@
 							<a class="editBtn diaBtn ceshi" data-toggle="modal" data-target="#myModal1"><img src="img/edit.png" alt=""></a>
 							<p>当前水价计费类型：<span>阶梯计价</span></p>
 							<ul class="jiJiaType">
-								<li class="jieti">第一阶梯：<span class="first_order">-</span>元/吨</li>
-								<li class="jieti">第二阶梯：<span class="second_order">-</span>元/吨</li>
-								<li class="jieti">最大价格：<span class="third_order">-</span>元/吨</li>
-								<li class="tongyi">统一价格：<span class="first_order">-</span>元/吨</li>
+								<li class="jieti">第一阶梯：<span class="first_order">-</span>元/m³</li>
+								<li class="jieti">第二阶梯：<span class="second_order">-</span>元/m³</li>
+								<li class="jieti">最大价格：<span class="third_order">-</span>元/m³</li>
+								<li class="tongyi">统一价格：<span class="first_order">-</span>元/m³</li>
 							</ul>
 						</li>
 					</ul>
@@ -480,7 +480,7 @@
 							<label>第一节点</label>
 							<div class="jiJiaBox">
 								<input type="text" placeholder="请输入价格" class="form-control firstPrice">
-								<span>元/吨</span>
+								<span>元/m³</span>
 							</div>
 							<div style="clear:both;"></div>
 							<span class="star">*</span>
@@ -489,7 +489,7 @@
 							<label>第二节点</label>
 							<div class="jiJiaBox">
 								<input type="text" placeholder="请输入价格" class="form-control twicePrice">
-								<span>元/吨</span>
+								<span>元/m³</span>
 							</div>
 							<div style="clear:both;"></div>
 							<span class="star">*</span>
@@ -498,7 +498,7 @@
 							<label>最大价格</label>
 							<div class="jiJiaBox">
 								<input type="text" placeholder="请输入价格" class="form-control mostPrice">
-								<span>元/吨</span>
+								<span>元/m³</span>
 							</div>
 							<div style="clear:both;"></div>
 							<span class="star">*</span>
@@ -825,11 +825,11 @@
 						$(".jiJiaType>li").removeClass("show");
 						if(response.data.first_order === response.data.second_order&& response.data.first_order === response.data.third_order){
 							$(".tongyi").addClass("show");
-							$(".tongyi .first_order").html(response.data.first_order);
+							$(".tongyi .first_order").html(parseFloat(response.data.first_order).toFixed(2));
 						}else{
 							$(".jieti").addClass("show");
 							for (var k in response.data) {
-								$("." + k).html(response.data[k]);
+								$("." + k).html(parseFloat(response.data[k]).toFixed(2));
 							}
 						}
 						
@@ -857,7 +857,7 @@
 							strHtml += '<li>';
 							strHtml += '<div class="ltBox">';
 							strHtml += '	<img src="img/meter.png" alt="">';
-							strHtml += '	<p class="kouJing">口径：' + mData.caliber + 'mm</p>';
+							strHtml += '	<p class="kouJing">口径：' + parseInt(mData.caliber).toFixed(2) + 'mm</p>';
 							strHtml += '	<p class="state">状态：<span class="' + (mData.status == 1 ? "normal" : "abnormal") + '">' + (mData.status == 1 ? "正常" : "异常") + '</span></p>';
 							strHtml += '</div>';
 							strHtml += '<div class="rtBox">';
@@ -865,26 +865,26 @@
 							strHtml += '	<ul>';
 							strHtml += '		<li>';
 							strHtml += '			<img src="img/water.png" alt="">';
-							strHtml += '			累计用水量：<span>' + mData.total_water + '吨</span>';
+							strHtml += '			累计用水量：<span>' + parseFloat(mData.total_water).toFixed(2) + 'm³</span>';
 							strHtml += '		</li>';
 							if(mData.surplus_water > 0){
 								strHtml += '		<li class="noImg">';
-								strHtml += '			当期用水量：<span>' + mData.this_month + '吨</span>';
+								strHtml += '			当期用水量：<span>' + parseFloat(mData.this_month).toFixed(2) + 'm³</span>';
 								strHtml += '		</li>';
 								strHtml += '		<li class="noImg">';
-								strHtml += '			剩&nbsp;余&nbsp;水&nbsp;量：<span>' + mData.surplus_water + '吨</span>';
+								strHtml += '			剩&nbsp;余&nbsp;水&nbsp;量：<span>' + parseFloat(mData.surplus_water).toFixed(2) + 'm³</span>';
 								strHtml += '		</li>';
 								strHtml += '		<li>';
 								strHtml += '			<img src="img/money.png" alt="">';
-								strHtml += '			当&nbsp;前&nbsp;余&nbsp;额：<span>' + mData.surplus_money + '元</span>';
+								strHtml += '			当&nbsp;前&nbsp;余&nbsp;额：<span>' + parseFloat(mData.surplus_money).toFixed(2) + '元</span>';
 								strHtml += '		</li>';
 							}else{
 								strHtml += '		<li class="noImg">';
-								strHtml += '			上月用水量：<span>' + mData.last_month + '吨</span>';
+								strHtml += '			上月用水量：<span>' + parseFloat(mData.last_month).toFixed(2) + 'm³</span>';
 								strHtml += '		</li>';
 								strHtml += '		<li>';
 								strHtml += '			<img src="img/money.png" alt="">';
-								strHtml += '			应&nbsp;缴&nbsp;金&nbsp;额：<span>' + Math.abs(mData.surplus_money) + '元</span>';
+								strHtml += '			应&nbsp;缴&nbsp;金&nbsp;额：<span>' + Math.abs(mData.surplus_money).toFixed(2) + '元</span>';
 								strHtml += '		</li>';
 							}
 							strHtml += '	</ul>';

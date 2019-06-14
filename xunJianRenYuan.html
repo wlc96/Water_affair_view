@@ -69,7 +69,7 @@
 								<thead>
 									<tr>
 										<th>人员编号</th>
-										<th>巡检人员名称</th>
+										<th>真实姓名</th>
 										<th>登录名</th>
 										<th>负责区域</th>
 										<th>联系电话</th>
@@ -568,12 +568,12 @@
 					}, {
 						data: "name"
 					}, {
-						data: 'phone'
-					}, {
 						data: 'station'
 					}, {
+						data: 'phone'
+					}, {
 						render: function(data, type, row) {
-							return row.created_at.date;
+							return row.created_at;
 						}
 					}, {
 						data: "admin"

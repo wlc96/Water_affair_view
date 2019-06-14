@@ -119,7 +119,7 @@
 								</div>
 								<button type="button" class="btn btn-primary searchBtn">查询</button>
 								<button type="button" class="btn btn-primary exportbtn exportExcel">导出Excel</button>
-								<button class="plus btn btn-primary diaBtn addBtn" type="button" data-toggle="modal" data-target="#myModal"><img src="img/add.png" alt="">添加</button>
+								<button class="plus btn btn-primary exportbtn diaBtn addBtn" type="button" data-toggle="modal" data-target="#myModal"><img src="img/add.png" alt="">添加</button>
 							</div>
 						</form>
 					</div>
@@ -309,7 +309,7 @@
 				}
 				if ($(".taiTou").val() == "") {
 					$(".taiTou").parents(".form-group").addClass("errorIns");
-					return false;
+					return false;	
 				}
 				if ($(".kaiPiao").val() == "") {
 					$(".kaiPiao").parents(".form-group").addClass("errorIns");
@@ -501,10 +501,12 @@
 							}
 						}
 					},{
-						data : 'cost'
+						render: function(data, type, row) {
+							return parseFloat(row.cost).toFixed(2);
+						}
 					}, {
 						render: function(data, type, row) {
-							return row.created_at.date;
+							return row.created_at;
 						}
 					}, {
 						data: 'operator'

@@ -447,10 +447,24 @@
 					}, {
 						data: 'eq_num'
 					}, {
-						data: 'type'
+						render: function(data, type, row) {
+							var typeCon;
+							if(row.type == 1){
+								typeCon = "刷卡无效";
+							}else if(row.type == 2){
+								typeCon = "计量不准";
+							}else if(row.type == 3){
+								typeCon = "显示关阀";
+							}else if(row.type == 4){
+								typeCon = "开阀无水流";
+							}else if(row.type == 5){
+								typeCon = "水表破损";
+							}
+							return typeCon;
+						}
 					}, {
 						render: function(data, type, row) {
-							return row.created_at.date;
+							return row.created_at;
 						}
 					}, {
 						data: 'operator'

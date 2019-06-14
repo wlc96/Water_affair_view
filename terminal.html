@@ -218,7 +218,7 @@
 							positions.push(bigMsker[i].citys.lng);
 							positions.push(bigMsker[i].citys.lat);
 							var obj = {};
-							obj.icon = "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-1.png";
+							obj.icon = baseUrl + "img/address.png";
 							obj.position = positions;
 							lnglats.push(obj);
 						}
@@ -227,9 +227,16 @@
 						var infoWindow = new AMap.InfoWindow({
 							offset: new AMap.Pixel(16, -45)
 						});
+						var icon = new AMap.Icon({
+							size: new AMap.Size(22, 22),    // 图标尺寸
+							image: baseUrl + "img/address.png",  // Icon的图像
+							imageSize: new AMap.Size(22, 22)   // 根据所设置的大小拉伸或压缩图片
+						});
 						for (var i = 0, marker; i < lnglats.length; i++) {
 							var marker = new AMap.Marker({
 								position: [lnglats[i].position[0], lnglats[i].position[1]],
+								icon: icon, // 添加 Icon 图标 URL
+								size: new AMap.Size(22, 22),    // 图标尺寸
 								map: map
 							});
 							marker.content = '我是第' + (i + 1) + '个Marker';
@@ -260,7 +267,7 @@
 								positions.push(mData[j].citys.lng);
 								positions.push(mData[j].citys.lat);
 								var obj = {};
-								obj.icon = "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-1.png";
+								obj.icon = baseUrl + "img/address.png";
 								obj.position = positions;
 								lnglats.push(obj);
 							}
@@ -270,9 +277,16 @@
 						var infoWindow = new AMap.InfoWindow({
 							offset: new AMap.Pixel(16, -45)
 						});
+						var icon = new AMap.Icon({
+							size: new AMap.Size(22, 22),    // 图标尺寸
+							image: baseUrl + "img/address.png",  // Icon的图像
+							imageSize: new AMap.Size(22, 22)   // 根据所设置的大小拉伸或压缩图片
+						});
 						for (var i = 0, marker; i < lnglats.length; i++) {
 							var marker = new AMap.Marker({
 								position: [lnglats[i].position[0], lnglats[i].position[1]],
+								icon: icon, // 添加 Icon 图标 URL
+								size: new AMap.Size(22, 22),    // 图标尺寸
 								map: map
 							});
 							marker.content = '我是第' + (i + 1) + '个Marker';
@@ -305,7 +319,7 @@
 										positions.push(third[k].citys.lng);
 										positions.push(third[k].citys.lat);
 										var obj = {};
-										obj.icon = "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-1.png";
+										obj.icon = baseUrl + "img/address.png";
 										obj.position = positions;
 										lnglats.push(obj);
 								}
@@ -316,11 +330,18 @@
 						var infoWindow = new AMap.InfoWindow({
 							offset: new AMap.Pixel(16, -45)
 						});
+						var icon = new AMap.Icon({
+							size: new AMap.Size(22, 22),    // 图标尺寸
+							image: baseUrl + "img/address.png",  // Icon的图像
+							imageSize: new AMap.Size(22, 22)   // 根据所设置的大小拉伸或压缩图片
+						});
 						for (var i = 0, marker; i < lnglats.length; i++) {
 							var marker = new AMap.Marker({
 								position: [lnglats[i].position[0], lnglats[i].position[1]],
+								icon: icon, // 添加 Icon 图标 URL
+								size: new AMap.Size(22, 22),    // 图标尺寸
 								map: map
-							});
+							}); 
 							marker.content = '我是第' + (i + 1) + '个Marker';
 							marker.on('click', markerClick);
 						}
