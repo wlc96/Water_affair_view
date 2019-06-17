@@ -109,7 +109,7 @@
 									<th>订单号</th>
 									<th>分布区名称</th>
 									<th>用户编号</th>
-									<th>充值水量</th>
+									<!-- <th>充值水量</th> -->
 									<th>充值金额</th>
 									<th>支付方式</th>
 									<th>订单日期</th>
@@ -359,11 +359,7 @@
 						data: 'station_name'
 					}, {
 						data: 'user_num'
-					}, {
-						render: function(data, type, row) {
-							return parseFloat(row.water_quantity).toFixed(2);
-						}
-					}, {
+					},{
 						render: function(data, type, row) {
 							return parseFloat(row.num).toFixed(2);
 						}

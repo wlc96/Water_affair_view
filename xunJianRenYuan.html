@@ -306,7 +306,7 @@
 					type: "warning",
 					showCancelButton: true,
 					confirmButtonColor: "#DD6B55",
-					confirmButtonText: "退出",
+					confirmButtonText: "确认",
 					cancelButtonText: "取消",
 					closeOnConfirm: true
 				}, function() {
@@ -424,10 +424,10 @@
 				var success = function(response) {
 					console.log("获取到的巡检人员返回数据：" + JSON.stringify(response));
 					if (response.result) {
-						$(".InspectorsName").val(response.data.relname);
+						
 						$(".fuZeQuYu").find('option[value="' + response.data.station + '"]').prop("selected", true);
 						$(".contactTel").val(response.data.phone);
-						$(".InspectorsName").val(response.data.name);
+						$(".InspectorsName").val(response.data.relname);
 					}
 				}
 				//请求方法
